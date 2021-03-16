@@ -22,7 +22,7 @@
 		<div class="cadastro">
 			<center><h2> Gerenciador de Canil </h2></center>
 			<form class="form" method="POST" action="./functions.php">
-				<center><h3> Saídas - Adoção de Animais</h3></center>
+				<center><h3> Edição de Animais</h3></center>
 					<table border="1">
 					    <tr>
 					        <td><b>Animal</b></td>
