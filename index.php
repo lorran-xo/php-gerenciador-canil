@@ -20,9 +20,12 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 
 	<section class="content">
 		<div class="cadastro">
-			<center><h2> Gerenciador de Canil </h2></center>
+			<center><h2> Gerenciador do Canil </h2></center>
 			<form class="form" method="POST" action="./functions.php">
-				<center><h3> Listagem - Animais disponíveis</h3></center>
+					<center>
+						<h3> Listagem - Animais do Canil</h3>
+						<h4> Visualize, edite ou remova animais da tabela</h4>
+					</center>
 					<table border="1">
 					    <tr>
 					    	<td><b>id</b></td>
@@ -42,13 +45,13 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 					        <td><?php echo $dado["sexo"];?></td>
 					        <td><?php echo $dado["idade"];?></td>
 					        <td><?php echo $dado["porte"];?></td>
-					        <td><a href="editar.php?id=<?php echo $dado["id"];?>">Editar</a> | 
-					        	<a href="saidas.php?id=<?php echo $dado["id"];?>">Retirar</a></td>
+					        <td><a href="editar.php?id=<?php echo $dado["id"];?>"><button>Editar</button></a>
+					        	<a href="saidas.php?id=<?php echo $dado["id"];?>"><button>Remover</button></a></td>
 					    </tr>
 					<?php } ?>
 					</table>
 			</form>
-			 <a href="./cadastro.php">Cadastros</a>
+			 <center><a href="./cadastro.php"><button class="field">Cadastrar</button></a></center>
 		</div>
 	</section>
 </body>
