@@ -1,4 +1,5 @@
-<?php include("banco/conexao.php");
+<?php 
+include("banco/conexao.php");
 
 $consulta = "SELECT * FROM animais";
 $con = $mysqli->query($consulta) or die($mysqli->error);
@@ -16,14 +17,6 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 </head>
 
 <body>
-	<script src="functions.js"></script>
-
-	<?php
-		//echo "Hello World!"
-		// aqui dentro pode usar codigos lógicos
-	?>
-	<!-- <button class="styled-button" onclick="geraAlerta('Cadastrar Animal no Sistema')">Cadastrar Animal</button>
-	<button class="styled-button" onclick="geraAlerta('Retirar Animal do Sistema')">Retirar Animal</button>-->
 
 	<section class="content">
 		<div class="cadastro">
@@ -54,12 +47,9 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 					    </tr>
 					<?php } ?>
 					</table>
-				<input class="field" name="acao" type="submit" value="Editar Dados">
 			</form>
-			 <a href="./cadastro.php"><input name="acao" type="submit" value="Cadastrar"></a>
-			 <a href="./saidas.php"><input name="acao" type="submit" value="Retirar"></a> 
+			 <a href="./cadastro.php">Cadastros</a>
 		</div>
-
 	</section>
 </body>
 

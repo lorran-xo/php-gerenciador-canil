@@ -48,7 +48,7 @@
 					</table>
 				<input class="field" name="acao" type="submit" value="Retirar">
 			</form>
-			 <a href="./cadastro.php"><input name="acao" type="submit" value="Cadastrar"></a>
+			 <a href="./cadastro.php"><input name="acao" type="submit" value="Cadastree"></a>
 			 <a href="./index.php"><input name="acao" type="submit" value="Disponíveis"></a> 
 
 		</div>
