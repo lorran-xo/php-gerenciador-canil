@@ -1,32 +1,56 @@
 <?php
 
 include("banco/conexao.php");
-//variavel mysqli criado dentro de conexao.php
-$txtErro = '';
+//Iniciando as mensagens de erro com valor vazio 
+$tipoErro = '';
+$racaErro = '';
+$porteErro = '';
+$sexoErro = '';
+$idadeErro = '';
+//Iniciando o value dos inputs com valor vazio 
+$_SESSION['tipo'] = '';
+$_SESSION['raca'] = '';
+$_SESSION['porte'] = '';
+$_SESSION['sexo'] = '';
+$_SESSION['idade'] = '';
 
 if(isset($_POST['cadastrar'])){
-	$tipo = $_POST['tipo'];
-	$raca = $_POST['raca'];
-	$porte = $_POST['porte'];
-	$sexo = $_POST['sexo'];
-	$idade = $_POST['idade'];
 
-	if(empty($tipo)){
-		$txtErro = 'Por favor, preencha o campo tipo!';
-	} else {
-		$txtErro = '';
-		
-		$sql_code = "INSERT into animais (tipo, raca, porte, sexo, idade) 
- 				 VALUES ('$tipo', '$raca', '$porte',
- 				 		 '$sexo', '$idade')";
+	if(!isset($_SESSION))
+	 	session_start();
+	 	
+	foreach ($_POST as $key => $value) 
+	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
+	 
+	//Validando SE DIGITOU NOS CAMPOS
 
-	 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
+	 	//Esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
+		 if(strlen($_SESSION['tipo']) == 0){ 
+		 	$tipoErro = 'É necessário preencher o campo Tipo!';
+		 } else if(strlen($_SESSION['raca']) == 0){
+		 	$racaErro = 'É necessário preencher o campo Raça!';
+		 } else if(strlen($_SESSION['porte']) == 0){
+		 	$porteErro = 'É necessário selecionar um Porte!';
+		 } else if(strlen($_SESSION['sexo']) == 0){
+		 	$sexoErro = 'É necessário selecionar um Sexo';
+		 } else if(strlen($_SESSION['idade']) == 0){
+		 	$idadeErro = 'É necessário preencher o campo Idade!';
+		 } else {
+			$tipoErro = '';
+			$racaErro = '';
+			$porteErro = '';
+			$sexoErro = '';
+			$idadeErro = '';
 
-	 	header("Location: http://localhost/php-gerenciador-canil/index.php");
-		exit();
-	}
+			$sql_code = "INSERT into animais (tipo, raca, porte, sexo, idade, data) 
+	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[raca]', '$_SESSION[porte]',
+	 				 		 '$_SESSION[sexo]', '$_SESSION[idade]', NOW() )";
 
- 	
+		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
+
+		 	header("Location: http://localhost/php-gerenciador-canil/index.php");
+			exit();
+		}
 	}
 ?>
 
@@ -47,35 +71,41 @@ if(isset($_POST['cadastrar'])){
 
 	<section class="content">
 		<div class="cadastro">
-			<center><h2> Gerenciador de Canil </h2></center>
+			<center><h2 class="pageTitle"> Sistema Gerenciador de Canil </h2></center>
 			<form class="form" method="POST" action="./cadastro.php">
 				<center>
 					<h3> Cadastro de Animais</h3>
 					<h4> Preencha os dados abaixo para cadastrar um novo animal no canil</h4>
 				</center>
-					<?php echo "$txtErro"; ?>
-				<input class="field" name="tipo" placeholder="Tipo">
-				<input class="field" name="raca" placeholder="Raça">
+				<label for="sexo">Tipo</label>
+				<input class="field" name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
+					<?php echo "<span class='errortext'>$tipoErro</span>"; ?>
+				<label for="sexo">Raça</label>
+				<input class="field" name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
+					<?php echo "<span class='errortext'> $racaErro </span>"; ?>
 
 				<label for="porte">Porte</label>
 				<select class="field" name="porte">
-					<option value="Pequeno">Pequeno</option>
-					<option value="Médio">Médio</option>
-					<option value="Grande">Grande</option>
+					<option value="" <?php if($_SESSION['porte'] == '') echo "selected";?>>Selecione</option>
+					<option value="Pequeno" <?php if($_SESSION['porte'] == "Pequeno") echo "selected";?>>Pequeno</option>
+					<option value="Médio" <?php if($_SESSION['porte'] == "Médio") echo "selected";?>>Médio</option>
+					<option value="Grande" <?php if($_SESSION['porte'] == "Grande") echo "selected";?>>Grande</option>
 				</select>
+					<?php echo "<span class='errortext'>$porteErro</span>"; ?>
 
 				<label for="sexo">Sexo</label>
 				<select class="field" name="sexo">
-					<option value="Macho">Macho</option>
-					<option value="Fêmea">Fêmea</option>
+					<option value="" <?php if($_SESSION['sexo'] == '') echo "selected";?>>Selecione</option>
+					<option value="Macho" <?php if($_SESSION['sexo'] == "Macho") echo "selected";?>>Macho</option>
+					<option value="Fêmea" <?php if($_SESSION['sexo'] == "Fêmea") echo "selected";?>>Fêmea</option>
 				</select>
-
-				<input class="field" name="idade" placeholder="Idade">
-
-				<input class="field" name="cadastrar" type="submit" value="Cadastrar">
+					<?php echo "<span class='errortext'>$sexoErro</span>"; ?>
+				<label for="sexo">Idade</label>
+				<input class="field" name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>" required>
+					<?php echo "<span class='errortext'>$idadeErro</span>"; ?>
+				<center><button class="field submitButton" name="cadastrar" type="submit"> Cadastrar </button></center>
 			</form>
-
-			 <center><a href="./index.php"><button class="field">Listagem</button></a></center>
+			 <center><a href="./index.php"><button class="field submitButton">Listagem</button></a></center>
 		</div>
 
 	</section>
