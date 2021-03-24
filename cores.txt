@@ -1,0 +1,4 @@
+body{
+	color #f9d094;
+	background #2e2a24;
+}

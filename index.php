@@ -24,7 +24,7 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 			<form class="form" method="POST" action="./functions.php">
 					<center>
 						<h3> <b> Listagem dos Animais do Canil </b></h3>
-						<h4> Visualize, edite ou remova animais da tabela</h4>
+						<h4> Visualize, edite ou remova animais do canil</h4>
 					</center>
 					<table border="1">
 					    <tr class="trTitle">

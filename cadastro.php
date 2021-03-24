@@ -45,7 +45,6 @@ if(isset($_POST['cadastrar'])){
 			$sql_code = "INSERT into animais (tipo, raca, porte, sexo, idade, data) 
 	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[raca]', '$_SESSION[porte]',
 	 				 		 '$_SESSION[sexo]', '$_SESSION[idade]', NOW() )";
-
 		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
 
 		 	header("Location: http://localhost/php-gerenciador-canil/index.php");
@@ -85,7 +84,7 @@ if(isset($_POST['cadastrar'])){
 					<?php echo "<span class='errortext'> $racaErro </span>"; ?>
 
 				<label for="porte">Porte</label>
-				<select class="field" name="porte">
+				<select class="field" name="porte" required>
 					<option value="" <?php if($_SESSION['porte'] == '') echo "selected";?>>Selecione</option>
 					<option value="Pequeno" <?php if($_SESSION['porte'] == "Pequeno") echo "selected";?>>Pequeno</option>
 					<option value="Médio" <?php if($_SESSION['porte'] == "Médio") echo "selected";?>>Médio</option>
@@ -94,7 +93,7 @@ if(isset($_POST['cadastrar'])){
 					<?php echo "<span class='errortext'>$porteErro</span>"; ?>
 
 				<label for="sexo">Sexo</label>
-				<select class="field" name="sexo">
+				<select class="field" name="sexo" required>
 					<option value="" <?php if($_SESSION['sexo'] == '') echo "selected";?>>Selecione</option>
 					<option value="Macho" <?php if($_SESSION['sexo'] == "Macho") echo "selected";?>>Macho</option>
 					<option value="Fêmea" <?php if($_SESSION['sexo'] == "Fêmea") echo "selected";?>>Fêmea</option>
