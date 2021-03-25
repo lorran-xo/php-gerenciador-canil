@@ -1,0 +1,63 @@
+<?php require_once "barras/barra_superior.php" ?>
+<?php 
+
+include("./../banco/conexao.php");
+
+$consulta = "SELECT * FROM animais";
+$con = $mysqli->query($consulta) or die($mysqli->error);
+?>
+
+<div class="container">
+        <h2>Início</h2>
+    <!--<div class="container">
+            <div class="row">
+                <div class="col-lg-12">            
+                    <a href="http://localhost/php-gerenciador-canil/pages/cadastrarAnimal.php"> <button type="button" class="btn btn-success" data-toggle="modal">Cadastrar animal</button></a>   
+                </div>    
+            </div>    
+    </div>  -->   
+        <br>  
+    <div class="container">
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">        
+                            <table class="table table-striped table-bordered table-condensed" style="width:100%">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Identificação</th>
+                                    <th>Tipo</th>
+                                    <th>Raça</th>                                
+                                    <th>Sexo</th>  
+                                    <th>Idade</th>
+                                    <th>Porte</th>
+                                    <th>Data do Resgate</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while($dado = $con->fetch_array()){ ?>
+                                <tr class="trData">
+                                    <td><?php echo $dado["id"];?></td>
+                                    <td><?php echo $dado["tipo"];?></td>
+                                    <td><?php echo $dado["raca"];?></td>
+                                    <td><?php echo $dado["sexo"];?></td>
+                                    <td><?php echo $dado["idade"];?></td>
+                                    <td><?php echo $dado["porte"];?></td>
+                                    <td><?php echo $dado["data"];?></td>
+                                    <td>
+                                        <a href="editar.php?id=<?php echo $dado["id"];?>"><button>Editar</button></a>
+                                        <a href="maisInfos.php"><button><span class="font-size-menor">Informações</span></button></a>
+                                        <a href="saidas.php?id=<?php echo $dado["id"];?>"><button>Excluir</button></a>
+                                    </td>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>        
+                        </table>                    
+                        </div>
+                    </div>
+            </div>  
+        </div>    
+</div>
+
+<?php require_once "barras/barra_inferior.php"?>
