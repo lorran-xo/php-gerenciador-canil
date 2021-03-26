@@ -56,9 +56,14 @@ if(isset($_POST['cadastrar'])){
 	}
 ?>
 
+<style> 
+.centraliza{
+  margin-left: 45%;
+}
+</style>
 
 <div class="container">
-    <h1>Página de Resgates</h1>
+        <h4 class="centraliza">Resgate</h4>
         <form class="form" method="POST" action="./cadastrarAnimal.php">
             <center>
                 <h4> Preencha os dados abaixo para cadastrar um novo animal no canil</h4>

@@ -7,16 +7,15 @@ $consulta = "SELECT * FROM animais";
 $con = $mysqli->query($consulta) or die($mysqli->error);
 ?>
 
+<style> 
+.centraliza{
+  margin-left: 45%;
+}
+</style>
+
 <div class="container">
-        <h4>Início</h4>
-    <!--<div class="container">
-            <div class="row">
-                <div class="col-lg-12">            
-                    <a href="http://localhost/php-gerenciador-canil/pages/cadastrarAnimal.php"> <button type="button" class="btn btn-success" data-toggle="modal">Cadastrar animal</button></a>   
-                </div>    
-            </div>    
-    </div>  -->   
-        <br>  
+        <h4 class="centraliza">Início</h4>
+    <br><br> 
     <div class="container">
             <div class="row">
                     <div class="col-lg-12">

@@ -1,9 +1,6 @@
 <?php require_once "barras/barra_superior.php"?>
 
 <style>
-*, *:before, *:after {
-  box-sizing: inherit;
-}
 
 .column {
   float: left;
@@ -19,6 +16,8 @@
 
 .about-section {
   padding: 50px;
+  width: 90%;
+  margin-top:5%;
   text-align: center;
   background-color: #474e5d;
   color: white;
@@ -79,7 +78,7 @@
 <div class="container about-section">
       <div>
         <h1>Apoie</h1>
-        <p>Em várias lugares do Brasil, existem diversas ONGs de proteção aos animais que sobrevivem apenas através de doações e trabalhos voluntários.</p>
+        <p>Em várias lugares do Brasil, existem diversas ONGs de proteção aos animais que se sustentam apenas através de doações e trabalhos voluntários.</p>
         <p>Em Juiz de Fora por exemplo, é possível ajudar algumas delas de forma muito prática e sem esforço nenhum. Você pode ajudar fazendo doações em dinheiro, materiais de construção, 
             alimentos, trabalhos voluntários no canil ou até mesmo adotando um dos animais!
         </p>
@@ -109,7 +108,7 @@
               <p class="title">Facebook: <a href="https://www.facebook.com/canilmunicipaljf/" target="_blank">Canil Municipal - Adote um Amigo</a></p> 
               <p class="title">Telefone: (32) 3690-3591</p>
               <p class="title">R. Bartolomeu dos Santos, 384-620, São Damião, Juiz de Fora - MG, 36088-514</p>
-              <p class="title"> <a href="https://www.pjf.mg.gov.br/fale_prefeitura/index.php" target="_blank"><button class="button">Contato</button></a></p>
+              <p class="title"> <a href="https://api.whatsapp.com/send/?phone=553236907241&text&app_absent=0" target="_blank"><button class="button">Contato</button></a></p>
             </div>
           </div>
         </div>

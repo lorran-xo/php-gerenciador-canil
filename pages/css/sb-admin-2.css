@@ -14,6 +14,11 @@
 .font-size-menor{
   font-size: 13px;
 }
+
+.centraliza{
+  margin-left: 45%;
+}
+
 :root {
   --blue: #4e73df;
   --indigo: #6610f2;

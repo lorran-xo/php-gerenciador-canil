@@ -6,9 +6,14 @@ include("./../banco/conexao.php");
 $consulta = "SELECT * FROM animais";
 $con = $mysqli->query($consulta) or die($mysqli->error);
 ?>
+<style> 
+.centraliza{
+  margin-left: 40%;
+}
+</style>
 
 <div class="container">
-    <h1>Histórico de adoções</h1>
+    <h1 class="centraliza">Adoções</h1>
     <!--<div class="container">
             <div class="row">
                 <div class="col-lg-12">            
