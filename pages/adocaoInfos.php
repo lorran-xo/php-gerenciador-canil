@@ -72,20 +72,18 @@ if(isset($_POST['cadastrar'])){
             
             <br/><br/><hr class="sidebar-divider my-0"><br/>
             <label for="sexo">Ao clicar em 'Adotado' fica declarado que toda a responsabilidade do {animal} está sendo passada por meio dessa doação à </label>
-            <input class="field" name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
+            <input placeholder="Nome completo" class="field" name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
             
             <label for="sexo">portador do CPF Nº</label>
-            <input class="field" name="raca" type="number" value="<?php echo $_SESSION['raca']; ?>" required>
+            <input placeholder="CPF" class="field" name="raca" type="number" value="<?php echo $_SESSION['raca']; ?>" required>
 			<label for="sexo">e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>.</label>
 			<br/><br/>
 			<hr class="sidebar-divider my-0"><br/>
 
             <div class="col-lg-12">            
                 <br/><a href="adocao.php"> <button type="button" class="btn btn-success" data-toggle="modal">Adotado!</button> </a>   
-            </div>  
-			<div class="col-lg-12">            
-                <br/><a href="adocao.php"> <button type="button" class="btn btn-success" data-toggle="modal">Cancelar</button> </a>   
-            </div>  
+				<a href="adocao.php"> <button type="button" class="btn btn-success" data-toggle="modal">Cancelar</button> </a>   
+			</div> 
         </form>
           
 
