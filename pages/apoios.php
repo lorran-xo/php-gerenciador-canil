@@ -92,8 +92,8 @@
             <div class="card">
             <img src="img/jf-logo.png" alt="PJF" style="width:100%">
             <div class="container">
-                <h2>Canil de Juiz de Fora</h2>
-                <p class="title">Canil Municipal de Juiz de Fora</p>
+                <h2>Canil Municipal de Juiz de Fora</h2>
+                <p class="title"></p>
                 <p>Facebook: <a href="https://www.facebook.com/canilmunicipaljf/" target="_blank">Canil Municipal - Adote um Amigo</a></p> 
                 <p>Telefone: (32) 3690-3591</p>
                 <p>R. Bartolomeu dos Santos, 384-620, São Damião, Juiz de Fora - MG, 36088-514</p>

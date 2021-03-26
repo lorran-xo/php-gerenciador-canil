@@ -6,7 +6,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Acesse <i class="fab fa-github"></i> <a href="https://github.com/lorran-xo/php-gerenciador-canil" target="_blank">Gerenciador de Canil</a></span>
+            <span>Visite no <i class="fab fa-github"></i> <a href="https://github.com/lorran-xo/php-gerenciador-canil" target="_blank">Github</a></span>
           </div>
         </div>
       </footer>

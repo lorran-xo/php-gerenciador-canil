@@ -8,7 +8,7 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
 ?>
 
 <div class="container">
-        <h2>Início</h2>
+        <h4>Início</h4>
     <!--<div class="container">
             <div class="row">
                 <div class="col-lg-12">            

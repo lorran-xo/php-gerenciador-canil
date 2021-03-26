@@ -29,7 +29,7 @@
 
     Sistema Gerenciador de um canil em PHP
 
-O sistema possui cadastro, listagem, edição e remoção de animais do banco de dados de um canil com dados dos animais cadastrado e informações sobre adoções, ONGs e abrigos localizados em Juiz de Fora - MG.
+O sistema possui cadastro, listagem, edição e remoção de animais do banco de dados de um canil com dados dos animais cadastrados e informações sobre adoções, ONGs e abrigos localizados em Juiz de Fora - MG.
 
     PHP Pet Shelter Manager
 In this system you can  register, list, edit and remove animals from the database of a pet shelter with the animals data and infos about adoptions, NGOs and animal shelters in Juiz de Fora - MG.
@@ -39,10 +39,13 @@ In this system you can  register, list, edit and remove animals from the databas
 The following tools were used in this project:
 
 - [PHP](https://www.php.net/)
+- [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
-- [XAMPP](https://www.apachefriends.org/pt_br/index.html)
+- [BOOTSTRAP](https://getbootstrap.com/)
+
+
 
 ## :white_check_mark: Requirements ##
 

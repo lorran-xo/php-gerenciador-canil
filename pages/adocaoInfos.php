@@ -60,7 +60,7 @@ if(isset($_POST['cadastrar'])){
 <div class="container">
     <h2>Adoção</h2>
         <form class="form">
-            <h4> Preencha com os dados de responsabilidade de quem está adotando para registrar a saída desse animal do canil!</h4>
+            <h4> Preencha com atenção os dados de responsabilidade de quem está adotando para registrar a saída desse animal do canil!</h4>
 
             <label for="sexo">Identificacao</label>
             <input disabled class="field" name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
@@ -71,12 +71,14 @@ if(isset($_POST['cadastrar'])){
                 <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
             
             <br/><br/><hr class="sidebar-divider my-0"><br/>
-            <label for="sexo">Sendo adotado por</label>
+            <label for="sexo">Ao clicar em 'Adotado' fica declarado que toda a responsabilidade do {animal} está sendo passada por meio dessa doação à </label>
             <input class="field" name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
             
-            <label for="sexo">CPF</label>
+            <label for="sexo">portador do CPF Nº</label>
             <input class="field" name="raca" type="number" value="<?php echo $_SESSION['raca']; ?>" required>
-            <br/><br/><hr class="sidebar-divider my-0"><br/>
+			<label for="sexo">e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>.</label>
+			<br/><br/>
+			<hr class="sidebar-divider my-0"><br/>
 
             <div class="col-lg-12">            
                 <br/><a href="adocao.php"> <button type="button" class="btn btn-success" data-toggle="modal">Adotado!</button> </a>   
