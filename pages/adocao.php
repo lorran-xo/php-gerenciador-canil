@@ -117,7 +117,7 @@ function pesquisar() {
                                     <td><?php echo $dado["porte"];?></td>
                                     <td><?php echo $dado["data"];?></td>
                                     <td>
-                                        <a href="adocaoInfos.php"><button><span class="font-size-menor">Adotar</span></button></a>
+                                        <a href="adocaoInfos.php"> <button type="button"><span>Adotar</span></button></a>
                                     </td>
                                     </td>
                                 </tr>
@@ -127,15 +127,15 @@ function pesquisar() {
                     </form>      
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="index.php?page=0">Anterior</a></li>
+                            <li class="page-item"><a class="page-link" href="adocao.php?page=0">Anterior</a></li>
                             <?php for($i=0;$i<$num_total;$i++){
                                 $style = "";
                                 if($pagina_atual == $i)
                                     $style = "class=\"active\"";
                             ?>
-                            <li <?php echo $style; ?>> <a class="page-link" href="index.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                            <li <?php echo $style; ?>> <a class="page-link" href="adocao.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                             <?php }?>
-                            <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                            <li class="page-item"><a class="page-link" href="adocao.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                         </ul>
                     </nav>            
                 </div>

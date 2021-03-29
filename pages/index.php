@@ -6,7 +6,6 @@ include("./../banco/conexao.php");
 
 $itens_por_pagina = 7;
 $pagina_atual = $_GET['page'];
-//$pagina_atual = 1;
 
 if(isset($_POST['search']))
 {
@@ -37,23 +36,29 @@ else
 }
 
 .input-procurar {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 80%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  background-position: 10px 12px; 
+  background-repeat: no-repeat; 
+  width: 80%;
+  font-size: 16px; 
+  padding: 12px 20px 12px 40px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
 }
 
 .input-submit {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 10%; /* Full-width */
-  padding: 10px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 10%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
 }
+
+/*
+ToDo: Passar id do selecionado na tabela:
+
+<a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
+*/
 
 </style>
 
@@ -64,7 +69,7 @@ else
             <div class="row">
                     <div class="col-lg-12">
                         <div class="table-responsive"> 
-                            <form action="index.php?page=filtered" method="post"> 
+                            <form action="index.php?page=0" method="post"> 
                                 <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
                                 <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
                                 <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
@@ -91,9 +96,8 @@ else
                                             <td><?php echo $dado["porte"];?></td>
                                             <td><?php echo $dado["data"];?></td>
                                             <td>
-                                                <a href="editar.php?id=<?php echo $dado["id"];?>"><button>Editar</button></a>
-                                                <a href="maisInfos.php"><button><span class="font-size-menor">Informações</span></button></a>
-                                                <a href="saidas.php?id=<?php echo $dado["id"];?>"><button>Excluir</button></a>
+                                                <a href="maisInfos.php"> <button type="button"><span>Visualizar</span></button></a>
+                                                <a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
                                             </td>
                                             </td>
                                         </tr>
@@ -109,7 +113,7 @@ else
                                         if($pagina_atual == $i)
                                             $style = "class=\"active\"";
                                     ?>
-                                    <li <?php echo $style; ?>> <a class="page-link" href="index.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                    <li class="active"> <a class="page-link" href="index.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                                     <?php }?>
                                     <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                                 </ul>
