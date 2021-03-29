@@ -41,7 +41,7 @@
 
       <!-- Link das abas da página -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="index.php?page=0">
         <i class="fas fa-home"></i>
           <span>Início</span></a>
       </li>
@@ -54,14 +54,14 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="adocao.php">
+        <a class="nav-link" href="adocao.php?page=0">
           <i class="fas fa-hand-holding-heart"></i>
           <span>Adoção</span>
         </a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="adotados.php">
+        <a class="nav-link" href="adotados.php?page=0">
           <i class="fas fa-history"></i>
           <span>Adotados</span>
         </a>

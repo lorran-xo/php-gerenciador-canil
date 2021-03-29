@@ -28,8 +28,8 @@
 
     <!-- tabelas javascript -->
     <script type="text/javascript" src="vendor/datatables/datatables.min.js"></script>    
-    <!-- código proprio javascript --> 
-    <script type="text/javascript" src="main.js"></script>  
+    <!-- código proprio javascript 
+    <script type="text/javascript" src="main.js"></script>  --> 
     
 </body>
 

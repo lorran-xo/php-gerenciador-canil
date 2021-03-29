@@ -41,11 +41,10 @@ The following tools were used in this project:
 - [PHP](https://www.php.net/)
 - [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- [jQuery](https://jquery.com/)
 - [BOOTSTRAP](https://getbootstrap.com/)
 - [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
-
-
 
 
 ## :white_check_mark: Requirements ##
