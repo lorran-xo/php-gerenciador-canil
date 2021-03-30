@@ -96,11 +96,11 @@ function pesquisar() {
                         <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                             <thead class="text-center">
                                 <tr>
-                                    <th>Identificação</th>
+                                    <th>Código</th>
                                     <th>Tipo</th>
                                     <th>Raça</th>                                
                                     <th>Sexo</th>  
-                                    <th>Idade</th>
+                                    <th>Cor</th>
                                     <th>Porte</th>
                                     <th>Data do Resgate</th>
                                     <th>Ação</th>

@@ -188,6 +188,7 @@ if(isset($_POST['cadastrar'])){
 					<option value="Agressivo">Agressivo</option>
 				</select>
 			<input type="text" name="field1" placeholder="Resgate feito por">
+			<input type="text" name="field1" placeholder="Data">
 			<textarea name="field3" placeholder="Descrição"></textarea>
 		</fieldset>
 		<a href="index.php?page=0""> <input type="button" value="Voltar"/> </a>   

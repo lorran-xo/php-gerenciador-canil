@@ -11,20 +11,104 @@ if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
 
-    /*  */
-    $consulta = "SELECT * FROM animais WHERE CONCAT(`id`, `tipo`, `raca`, `sexo`, `idade`, `porte`, `data`) LIKE '%".$valueToSearch."%' /*AND adotado IS FALSE*/";
+    $consulta = "SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0 AND CONCAT(`codigo`, `tipo`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
-    $num_total = $mysqli->query("SELECT * FROM animais")->num_rows;
+    $num_total = $mysqli->query("SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
-    $consulta = "SELECT * FROM animais LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0 LIMIT $pagina_atual, $itens_por_pagina";
+
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
-    $num_total = $mysqli->query("SELECT * FROM animais")->num_rows;
+    $num_total = $mysqli->query("SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -56,11 +140,15 @@ else
 }
 
 /*
-ToDo: Passar id do selecionado na tabela:
-
-<a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
+PASSAR pro maisInfos
+    can.idade,  
+    cap.porte, 
+    cap.peso,
+    cid.apelido,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate
 */
-
 </style>
 
 <div class="container">
@@ -76,7 +164,7 @@ ToDo: Passar id do selecionado na tabela:
                                 <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                                     <thead class="text-center">
                                         <tr>
-                                            <th>Identificação</th>
+                                            <th>Código</th>
                                             <th>Tipo</th>
                                             <th>Raça</th>                                
                                             <th>Sexo</th>  
@@ -89,13 +177,13 @@ ToDo: Passar id do selecionado na tabela:
                                     <tbody>
                                         <?php while($dado = $con->fetch_array()){ ?>
                                         <tr class="trData">
-                                            <td><?php echo $dado["id"];?></td>
+                                            <td><?php echo $dado["codigo"];?></td>
                                             <td><?php echo $dado["tipo"];?></td>
                                             <td><?php echo $dado["raca"];?></td>
                                             <td><?php echo $dado["sexo"];?></td>
-                                            <td><?php echo $dado["idade"];?></td>
+                                            <td><?php echo $dado["cor"];?></td>
                                             <td><?php echo $dado["porte"];?></td>
-                                            <td><?php echo $dado["data"];?></td>
+                                            <td><?php echo $dado["data_resgate"];?></td>
                                             <td>
                                                 <a href="maisInfos.php"> <button type="button"><span>Visualizar</span></button></a>
                                                 <a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>

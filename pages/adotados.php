@@ -69,11 +69,11 @@ else
                         <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">                        
                         <thead class="text-center">
                                 <tr>
-                                    <th>Identificação</th>
+                                    <th>Código</th>
                                     <th>Apelido</th>
                                     <th>Raça</th>                                
                                     <th>Sexo</th>  
-                                    <th>Idade</th>
+                                    <th>Cor</th>
                                     <th>Adotado por</th>
                                     <th>CPF</th>
                                     <th>Data da adoção</th>

@@ -1,0 +1,110 @@
+#INNERJOIN que retorna TUDO das tabelas sem filtro.
+
+SELECT
+  can.id, 
+  can.tipo, 
+  can.sexo, 
+  can.idade,
+  cap.cor, 
+  cap.porte, 
+  cap.peso,
+  cid.codigo,
+  cid.apelido,
+  cra.raca,
+  cra.comportamento,
+  csi.adotado,
+  csi.descricao,
+  csi.nome_responsavel_resgate,
+  csi.data_resgate,
+  csi.nome_responsavel_adocao,
+  csi.cpf_responsavel_adocao,
+  csi.data_adocao
+FROM
+  canil.animais can
+    INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+    INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+    INNER JOIN canil.raca cra ON can.id = cra.id_animal
+    INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+
+
+#INNERJOIN de retorno pras telas 'Início' e 'Adoção' (Apenas animais presentes no Canil adotados = false).
+-com PAGINACAO
+SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0 LIMIT $pagina_atual, $itens_por_pagina
+
+-pela PESQUISA
+SELECT
+    can.id,
+    can.tipo, 
+    can.sexo, 
+    can.idade,
+    cap.cor, 
+    cap.porte, 
+    cap.peso,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    cra.comportamento,
+    csi.descricao,
+    csi.nome_responsavel_resgate,
+    csi.data_resgate
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 0 AND CONCAT(`codigo`, `tipo`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
+
+
+#INNERJOIN de retorno pra tela de 'Adotados' (Apenas animais que já foram adotados adotado = true).
+-com PAGINACAO
+
+SELECT
+  can.id,
+  can.tipo,
+  can.sexo,
+  cap.cor,
+  cap.porte,
+  cid.codigo,
+  cid.apelido,
+  cra.raca,
+  csi.nome_responsavel_adocao,
+  csi.cpf_responsavel_adocao,
+  csi.data_adocao
+FROM
+  canil.animais can
+    INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+    INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+    INNER JOIN canil.raca cra ON can.id = cra.id_animal
+    INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+WHERE csi.adotado = 1
+
+-pela PESQUISA
+
+#INSERTS
+-Quando cadastrar novo (tabela canil.situacao):
+INSERT INTO `situacao`(`adotado`, `descricao`, `nome_responsavel_resgate`, `data_resgate`, `nome_responsavel_adocao`, `cpf_responsavel_adocao`, `data_adocao`, `id_animal`) VALUES (0,'encontrado em arvore','Douglas Dutra', NOW(), NULL, NULL, NULL, 3)
+
+-Quando adotar (tabela canil.situacao):
+UPDATE `situacao` SET `adotado`= 1, `nome_responsavel_adocao`='João da Silva',`cpf_responsavel_adocao`='152.421.332-40' ,`data_adocao`= NOW(),`id_animal`= 2 WHERE id_animal = 1

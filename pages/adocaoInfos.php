@@ -34,7 +34,7 @@ if(isset($_POST['cadastrar'])){
 			$cpfErro = '';
 
 			$sql_code = "UPDATE animais SET (responsavel_adocao_nome, responsavel_adocao_cpf, adotado, data_adocao)
-	 				 VALUES ('$_SESSION[responsavel_adocao_nome]', '$_SESSION[responsavel_adocao_cpf]', true, NOW()) WHERE id = $_SESSION[id]'" ;
+	 				 VALUES ('$_SESSION[responsavel_adocao_nome]', '$_SESSION[responsavel_adocao_cpf]', (true), NOW()) WHERE id = $_SESSION[id]'" ;
 		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php");
