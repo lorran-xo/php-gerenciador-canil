@@ -39,6 +39,7 @@ In this system you can  register, list, edit and remove animals from the databas
 The following tools were used in this project:
 
 - [PHP](https://www.php.net/)
+- [MySQL](https://www.mysql.com/)
 - [XAMPP](https://www.apachefriends.org/pt_br/index.html)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [jQuery](https://jquery.com/)

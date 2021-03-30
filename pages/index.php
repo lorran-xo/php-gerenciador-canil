@@ -79,7 +79,7 @@ ToDo: Passar id do selecionado na tabela:
                                             <th>Tipo</th>
                                             <th>Raça</th>                                
                                             <th>Sexo</th>  
-                                            <th>Idade</th>
+                                            <th>Cor</th>
                                             <th>Porte</th>
                                             <th>Data do Resgate</th>
                                             <th>Ação</th>

@@ -5,17 +5,17 @@
 include("./../banco/conexao.php");
 
 //Iniciando as mensagens de erro com valor vazio 
-$tipoErro = '';
-$racaErro = '';
-$porteErro = '';
-$sexoErro = '';
-$idadeErro = '';
+$nomeErro = '';
+$cpfErro = '';
+
 //Iniciando o value dos inputs com valor vazio 
+$_SESSION['responsavel_adocao_nome'] = '';
+$_SESSION['responsavel_adocao_cpf'] = '';
 $_SESSION['tipo'] = '';
-$_SESSION['raca'] = '';
+$_SESSION['codigo'] = '';
 $_SESSION['porte'] = '';
+$_SESSION['cor'] = '';
 $_SESSION['sexo'] = '';
-$_SESSION['idade'] = '';
 
 if(isset($_POST['cadastrar'])){
 
@@ -24,36 +24,27 @@ if(isset($_POST['cadastrar'])){
 	 	
 	foreach ($_POST as $key => $value) 
 	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
-	 
-	//Validando SE DIGITOU NOS CAMPOS
 
-	 	//Esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
+	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
 		 if(strlen($_SESSION['tipo']) == 0){ 
-		 	$tipoErro = 'É necessário preencher o campo Tipo!';
+		 	$nomeErro = 'É necessário preencher com o nome!';
 		 } else if(strlen($_SESSION['raca']) == 0){
-		 	$racaErro = 'É necessário preencher o campo Raça!';
-		 } else if(strlen($_SESSION['porte']) == 0){
-		 	$porteErro = 'É necessário selecionar um Porte!';
-		 } else if(strlen($_SESSION['sexo']) == 0){
-		 	$sexoErro = 'É necessário selecionar um Sexo';
-		 } else if(strlen($_SESSION['idade']) == 0){
-		 	$idadeErro = 'É necessário preencher o campo Idade!';
+		 	$cpfErro = 'É necessário preencher com o CPF';
 		 } else {
-			$tipoErro = '';
-			$racaErro = '';
-			$porteErro = '';
-			$sexoErro = '';
-			$idadeErro = '';
+			$nomeErro = '';
+			$cpfErro = '';
 
-			$sql_code = "INSERT into animais (tipo, raca, porte, sexo, idade, data) 
-	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[raca]', '$_SESSION[porte]',
-	 				 		 '$_SESSION[sexo]', '$_SESSION[idade]', NOW() )";
+			$sql_code = "UPDATE animais SET (responsavel_adocao_nome, responsavel_adocao_cpf, adotado, data_adocao)
+	 				 VALUES ('$_SESSION[responsavel_adocao_nome]', '$_SESSION[responsavel_adocao_cpf]', true, NOW() ) WHERE id = $_SESSION[id]'" ;
 		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php");
 			exit();
 		}
 	}
+
+
+
 ?>
 
 <style> 
@@ -85,7 +76,6 @@ if(isset($_POST['cadastrar'])){
 .form-style-5 input[type="number"],
 .form-style-5 textarea,
 .form-style-5 select {
-    /*pointer-events: none; */
 	font-family: Georgia, "Times New Roman", Times, serif;
 	background: rgba(255,255,255,.1);
 	border: none;
@@ -157,8 +147,8 @@ if(isset($_POST['cadastrar'])){
 	background: #856e60; /*hover do botao aplicar*/
 }
 
-.sem-link{
-    text-decoration: 'none';
+.input-disabilitado{
+	pointer-events: none;
 }
 
 </style>
@@ -167,21 +157,35 @@ if(isset($_POST['cadastrar'])){
 	<form class="form">
 		<h6> Preencha com atenção os dados de responsabilidade de quem está adotando para registrar a saída desse animal do canil! </h6> <br/>
 		<fieldset>
-			<legend>Sendo adotado:</legend>
-				<input type="text" name="field1" placeholder="Código">
-				<input type="text" name="field4" placeholder="Apelido">
+			<legend>Sendo adotado</legend>
+				<input class="input-disabilitado" name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>">
+
+				<label for="codigo">do código</label>
+					<input class="input-disabilitado" name="codigo" type="text" value="<?php echo $_SESSION['codigo']; ?>">
+
+				<label for="porte">porte</label>
+					<input class="input-disabilitado" name="porte" type="text" value="<?php echo $_SESSION['porte']; ?>">
+
+					<label for="cor">cor</label>
+				<input class="input-disabilitado" name="cor" type="text" value="<?php echo $_SESSION['cor']; ?>">
+
+					<label for="sexo">sexo</label>
+				<input class="input-disabilitado" name="sexo" type="text" value="<?php echo $_SESSION['sexo']; ?>">
 			<hr class="sidebar-divider my-0"><br/>
+
 			<legend> Termo de Responsabilidade </legend>
-				<label for="sexo">Ao clicar em 'Adotado!' fica declarado que toda a responsabilidade do {codigo_animal} está sendo passada por meio dessa doação à </label>
-				<input placeholder="Nome completo" class="field" name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
-				
-				<label for="sexo">portador do CPF Nº</label>
-				<input placeholder="CPF" class="field" name="raca" type="number" value="<?php echo $_SESSION['raca']; ?>" required>
+				<label for="nome">Ao clicar em 'Adotar!', fica declarado que toda a responsabilidade de cuidados está sendo passada por meio dessa doação à </label>
+                    <input name="responsavel_adocao_nome" type="text" value="<?php echo $_SESSION['responsavel_adocao_nome']; ?>" required>
+                    <?php echo "<span class='errortext'>$nomeErro</span>"; ?>
+								
+				<label for="cpf">portador do CPF Nº</label>
+					<input name="responsavel_adocao_cpf" type="number" value="<?php echo $_SESSION['responsavel_adocao_cpf']; ?>" required>
+					<?php echo "<span class='errortext'>$cpfErro</span>"; ?>
 				<label for="sexo">e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>.</label>
 				<br/><br/>
 			<hr class="sidebar-divider my-0"><br/>
 		</fieldset>
-		<a href="adocao.php?page=0"> <input type="button" value="Adotado!"/> </a>   
+		<a href="adocao.php?page=0"> <input type="button" value="Adotar!"/> </a>   
 		<a href="adocao.php?page=0"> <input type="button" value="Cancelar"/> </a>   
 	</form>
 </div>

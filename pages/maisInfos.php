@@ -165,16 +165,16 @@ if(isset($_POST['cadastrar'])){
 
 <div class="form-style-5">
 	<form>
-		<h6> Visualizar informações adicionais</h6><br/>
+		<h6> Visualize informações adicionais do animal selecionado</h6><br/>
 
 		<fieldset>
-			<legend>Identificação</legend>
+				<label for="sexo">Código</label>
 				<input type="text" name="field1" placeholder="Código*">
 
 				<input type="text" name="field4" placeholder="Apelido">
-			<legend>Características </legend>
-
-			<input type="text" name="field1" placeholder="Cor*">
+		</fieldset>
+		<fieldset>
+			<legend> Informações adicionais </legend>
 
 			<input type="text" name="field4" placeholder="Peso">
 			<input class="field" name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>" placeholder="Idade" required>
@@ -187,8 +187,6 @@ if(isset($_POST['cadastrar'])){
 					<option value="Agitado">Agitado</option>
 					<option value="Agressivo">Agressivo</option>
 				</select>
-
-			<legend> Adicionais </legend>
 			<input type="text" name="field1" placeholder="Resgate feito por">
 			<textarea name="field3" placeholder="Descrição"></textarea>
 		</fieldset>

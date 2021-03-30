@@ -6,16 +6,44 @@ include("./../banco/conexao.php");
 
 //Iniciando as mensagens de erro com valor vazio 
 $tipoErro = '';
-$racaErro = '';
-$porteErro = '';
 $sexoErro = '';
-$idadeErro = '';
+$corErro = '';
+$porteErro = '';
+$codigoErro = '';
+$racaErro = '';
+$comportamentoErro = '';
+//Alguns campos nao tem erro pq nao sao obrigatorios
+
 //Iniciando o value dos inputs com valor vazio 
+//tabela animais
 $_SESSION['tipo'] = '';
-$_SESSION['raca'] = '';
-$_SESSION['porte'] = '';
 $_SESSION['sexo'] = '';
 $_SESSION['idade'] = '';
+
+//tabela aparencia id_animal = id.animais
+$_SESSION['cor'] = '';
+$_SESSION['porte'] = '';
+$_SESSION['peso'] = '';
+
+//tabela identificacao id_animal = id.animais
+$_SESSION['apelido'] = '';
+$_SESSION['codigo'] = '';
+
+//tabela raca id_animal = id.animais
+$_SESSION['raca'] = '';
+$_SESSION['comportamento'] = '';
+
+//tabela situacao id_animal = id.animais
+$_SESSION['descricao'] = '';
+$_SESSION['responsavel_resgate'] = '';
+$_SESSION['data_resgate'] = ''; //cadastra data agora sempre
+$_SESSION['adotado'] = 'false'; //cadastra false sempre
+
+
+/*$_SESSION['responsavel_adocao_nome'] = '';
+$_SESSION['responsavel_adocao_cpf'] = '';
+$_SESSION['data_adocao'] = '';  /\ DEIXA NULOS /\ */
+
 
 if(isset($_POST['cadastrar'])){
 
@@ -25,30 +53,52 @@ if(isset($_POST['cadastrar'])){
 	foreach ($_POST as $key => $value) 
 	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
 	 
-	//Validando SE DIGITOU NOS CAMPOS
-
-	 	//Esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
+	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
 		 if(strlen($_SESSION['tipo']) == 0){ 
 		 	$tipoErro = 'É necessário preencher o campo Tipo!';
-		 } else if(strlen($_SESSION['raca']) == 0){
-		 	$racaErro = 'É necessário preencher o campo Raça!';
+		 } else if(strlen($_SESSION['sexo']) == 0){
+			$sexoErro = 'É necessário selecionar um Sexo';
+		} else if(strlen($_SESSION['cor']) == 0){
+		 	$corErro = 'É necessário preencher o campo Cor!';
 		 } else if(strlen($_SESSION['porte']) == 0){
 		 	$porteErro = 'É necessário selecionar um Porte!';
-		 } else if(strlen($_SESSION['sexo']) == 0){
-		 	$sexoErro = 'É necessário selecionar um Sexo';
-		 } else if(strlen($_SESSION['idade']) == 0){
-		 	$idadeErro = 'É necessário preencher o campo Idade!';
-		 } else {
+		 } else if(strlen($_SESSION['codigo']) == 0){
+		 	$codigoErro = 'É necessário digitar o Código!';
+		 } else if(strlen($_SESSION['raca']) == 0){
+			$racaErro = 'É necessário digitar a Raça!';
+		} else if(strlen($_SESSION['comportamento']) == 0){
+			$comportamentoErro = 'É necessário selecionar um Comportamento!!';
+		} else {
 			$tipoErro = '';
-			$racaErro = '';
-			$porteErro = '';
 			$sexoErro = '';
-			$idadeErro = '';
+			$corErro = '';
+			$porteErro = '';
+			$codigoErro = '';
+			$racaErro = '';
+			$comportamentoErro = '';
 
-			$sql_code = "INSERT into animais (tipo, raca, porte, sexo, idade, data) 
-	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[raca]', '$_SESSION[porte]',
-	 				 		 '$_SESSION[sexo]', '$_SESSION[idade]', NOW() )";
+			$sql_code = "INSERT into animais (tipo, sexo, idade) 
+	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')";
+
+			$sql_code2 = "INSERT into aparencia (cor, porte, peso) 
+			VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]')";
+
+			$sql_code3 = "INSERT into identificacao (apelido, codigo) 
+			VALUES ('$_SESSION[apelido]', '$_SESSION[codigo]')";
+
+			$sql_code4 = "INSERT into raca (raca, comportamento) 
+			VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]')";
+
+			$sql_code5 = "INSERT into situacao (descricao, responsavel_resgate, adotado, data_resgate) 
+			VALUES ('$_SESSION[descricao]', '$_SESSION[responsavel_resgate]', false, NOW() )";
+
 		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
+			$cadastra2 = $mysqli->query($sql_code2) or die($mysqli->error);
+		 	$cadastra3 = $mysqli->query($sql_code3) or die($mysqli->error);
+		 	$cadastra4 = $mysqli->query($sql_code4) or die($mysqli->error);
+		 	$cadastra5 = $mysqli->query($sql_code5) or die($mysqli->error);
+
+			 //VER SOBRE CHAVE ESTRANGEIRA / RELACIONAMENTOS ENTRE AS TABELAS
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();
@@ -169,15 +219,21 @@ if(isset($_POST['cadastrar'])){
             <h6> Preencha o formulário abaixo para cadastrar um novo animal no canil</h6><br/>
             <fieldset>
                 <legend><span class="number">1</span>Identificação</legend>
-                    <input type="text" name="field1" placeholder="Código*">
+					<label for="codigo">Código*</label>
+					<input name="codigo" type="number" value="<?php echo $_SESSION['codigo']; ?>" required>
+					<?php echo "<span class='errortext'>$codigoErro</span>"; ?>
 
-                    <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" placeholder="Tipo*" required>
+					<label for="codigo">Tipo*</label>
+                    <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
                     <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
-                    <input type="text" name="field4" placeholder="Apelido">
+					<label for="apelido">Apelido</label>
+					<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
+
                 <legend><span class="number">2</span> Características </legend>
 
-                <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>"  placeholder="Raça*" required>
+				<label for="raca">Raça*</label>
+                <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
                 <?php echo "<span class='errortext'> $racaErro </span>"; ?>
 
                     <label for="sexo">Sexo*</label>
@@ -188,9 +244,11 @@ if(isset($_POST['cadastrar'])){
                     </select>
                     <?php echo "<span class='errortext'>$sexoErro</span>"; ?>
 
-                <input type="text" name="field1" placeholder="Cor*">
+				<label for="cor">Cor*</label>
+                <input name="cor" type="text" value="<?php echo $_SESSION['cor']; ?>" required>
+                <?php echo "<span class='errortext'> $corErro </span>"; ?>
 
-                <label for="job">Porte*</label>
+                <label for="porte">Porte*</label>
                 <select class="field" name="porte" required>
                     <option value="" <?php if($_SESSION['porte'] == '') echo "selected";?>>Selecione</option>
                     <option value="Pequeno" <?php if($_SESSION['porte'] == "Pequeno") echo "selected";?>>Pequeno</option>
@@ -199,21 +257,27 @@ if(isset($_POST['cadastrar'])){
                 </select>
                 <?php echo "<span class='errortext'>$porteErro</span>"; ?>
 
-                <input type="text" name="field4" placeholder="Peso">
-                <input class="field" name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>" placeholder="Idade" required>
-                <?php echo "<span class='errortext'>$idadeErro</span>"; ?>
+				<label for="idade">Idade</label>
+                <input name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>">
+
+				<label for="peso">Peso</label>
+                <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>">
 
                 <label for="sexo">Comportamento</label>
                     <select name="comportamento" required>
-                        <option value="">Selecione</option>
-                        <option value="Calmo">Calmo</option>
-                        <option value="Agitado">Agitado</option>
-                        <option value="Agressivo">Agressivo</option>
+                        <option value="" <?php if($_SESSION['comportamento'] == '') echo "selected";?>>Selecione</option>
+                        <option value="Calmo" <?php if($_SESSION['comportamento'] == "Calmo") echo "selected";?>>Calmo</option>
+                        <option value="Agitado" <?php if($_SESSION['comportamento'] == "Agitado") echo "selected";?>>Agitado</option>
+                        <option value="Agressivo" <?php if($_SESSION['comportamento'] == "Agressivo") echo "selected";?>>Agressivo</option>
                     </select>
+				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
                 <legend><span class="number">3</span> Adicionais </legend>
-                <input type="text" name="field1" placeholder="Responsável pelo resgate">
-                <textarea name="field3" placeholder="Descrição"></textarea>
+				<label for="responsavel_resgate">Responsável pelo resgate</label>
+                <input name="responsavel_resgate" type="text" value="<?php echo $_SESSION['responsavel_resgate']; ?>">
+
+				<label for="descricao">Descrição</label>
+                <textarea name="descricao" value="<?php echo $_SESSION['descricao']; ?>">
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
         </form>
@@ -221,5 +285,3 @@ if(isset($_POST['cadastrar'])){
 </div>
 
 <?php require_once "barras/barra_inferior.php"?>
-
-
