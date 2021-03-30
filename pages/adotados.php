@@ -10,7 +10,7 @@ if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM animais WHERE CONCAT(`id`, `tipo`, `raca`, `sexo`, `idade`, `porte`, `data`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM animais WHERE CONCAT(`id`, `tipo`, `raca`, `sexo`, `idade`, `porte`, `data`) LIKE '%".$valueToSearch."%'/* AND adotado IS TRUE*/";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     $num_total = $mysqli->query("SELECT * FROM animais")->num_rows;
