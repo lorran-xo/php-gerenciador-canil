@@ -9,7 +9,6 @@ $tipoErro = '';
 $sexoErro = '';
 $corErro = '';
 $porteErro = '';
-$codigoErro = '';
 $racaErro = '';
 $comportamentoErro = '';
 //Alguns campos nao tem erro pq nao sao obrigatorios
@@ -36,62 +35,106 @@ $_SESSION['comportamento'] = '';
 //tabela situacao id_animal = id.animais
 $_SESSION['descricao'] = '';
 $_SESSION['nome_responsavel_resgate'] = '';
-$_SESSION['data_resgate'] = ''; //cadastra data agora sempre
-$_SESSION['adotado'] = 'false'; //cadastra false sempre
 
+if(!isset($_GET['id']))
+	echo "<script> alert('Ação Inválida!'); location.href='index.php?page=0'; </script>";
+else{
 
-/*$_SESSION['responsavel_adocao_nome'] = '';
-$_SESSION['responsavel_adocao_cpf'] = '';
-$_SESSION['data_adocao'] = '';  /\ DEIXA NULOS /\ */
+	$selected_animal_id = intval($_GET['id']);
 
+	if(isset($_POST['editar'])){
 
-if(isset($_POST['cadastrar'])){
+		if(!isset($_SESSION))
+			session_start();
+			
+		foreach ($_POST as $key => $value) 
+				$_SESSION[$key] = $mysqli->real_escape_string($value);
+		
+			//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
+			if(strlen($_SESSION['tipo']) == 0){ 
+				$tipoErro = 'É necessário preencher o campo Tipo!';
+			} else if(strlen($_SESSION['sexo']) == 0){
+				$sexoErro = 'É necessário selecionar um Sexo';
+			} else if(strlen($_SESSION['cor']) == 0){
+				$corErro = 'É necessário preencher o campo Cor!';
+			} else if(strlen($_SESSION['porte']) == 0){
+				$porteErro = 'É necessário selecionar um Porte!';
+			} else if(strlen($_SESSION['raca']) == 0){
+				$racaErro = 'É necessário digitar a Raça!';
+			} else if(strlen($_SESSION['comportamento']) == 0){
+				$comportamentoErro = 'É necessário selecionar um Comportamento!!';
+			} else {
+				$tipoErro = '';
+				$sexoErro = '';
+				$corErro = '';
+				$porteErro = '';
+				$racaErro = '';
+				$comportamentoErro = '';
 
-	if(!isset($_SESSION))
+				//Passar pra Transaction para otimizar
+				$mysqli->query("UPDATE animais SET tipo= '$_SESSION['tipo']', sexo= '$_SESSION['sexo']', idade= '$_SESSION['idade']' WHERE id = '$selected_animal_id'");
+				$mysqli->query("UPDATE aparencia SET cor= '$_SESSION['cor']', porte= '$_SESSION['porte']', peso= '$_SESSION['peso']' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE identificacao SET apelido= '$_SESSION['apelido']' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE raca SET raca='$_SESSION['raca']', comportamento= '$_SESSION['comportamento']' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE situacao SET descricao='$_SESSION['descricao']', nome_responsavel_resgate ='$_SESSION['nome_responsavel_resgate']' WHERE id_animal = '$selected_animal_id'");
+
+				/*
+				
+				$sql_code = "UPDATE animais SET tipo= '$_SESSION['tipo']', sexo= '$_SESSION['sexo']', idade= '$_SESSION['idade']' WHERE id = '$selected_animal_id'"
+				$sql_code = "UPDATE aparencia SET cor= '$_SESSION['cor']', porte= '$_SESSION['porte']', peso= '$_SESSION['peso']' WHERE id_animal = '$selected_animal_id'"
+				$sql_code = "UPDATE identificacao SET apelido= '$_SESSION['apelido']' WHERE id_animal = '$selected_animal_id'"
+				$sql_code = "UPDATE raca SET raca='$_SESSION['raca']', comportamento= '$_SESSION['comportamento']' WHERE id_animal = '$selected_animal_id'"
+				$sql_code = "UPDATE situacao SET descricao='$_SESSION['descricao']', nome_responsavel_resgate ='$_SESSION['nome_responsavel_resgate']' WHERE id_animal = '$selected_animal_id'"
+				
+				$confirma = $mysqli->query($sql_code) or die($mysqli->error);
+				
+				*/
+
+				header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
+				exit();
+			}
+	} else {
+		$sql_code = "SELECT
+		can.tipo,
+		can.sexo, 
+		can.idade,
+		cap.cor,
+		cap.porte, 
+		cap.peso,
+		cid.codigo,
+		cid.apelido,
+		cra.raca,
+		cra.comportamento,
+		csi.descricao,
+		csi.nome_responsavel_resgate
+	  FROM
+		canil.animais can
+		  INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+		  INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+		  INNER JOIN canil.raca cra ON can.id = cra.id_animal
+		  INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+	  WHERE can.id = '$selected_animal_id'";
+		$sql_query = $mysqli->query($sql_code) or die($mysqli->error);
+		$array = $sql_query->fetch_assoc();
+
+		if(!isset($_SESSION))
 	 	session_start();
-	 	
-	foreach ($_POST as $key => $value) 
-	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
-	 
-	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
-		 if(strlen($_SESSION['tipo']) == 0){ 
-		 	$tipoErro = 'É necessário preencher o campo Tipo!';
-		 } else if(strlen($_SESSION['sexo']) == 0){
-			$sexoErro = 'É necessário selecionar um Sexo';
-		} else if(strlen($_SESSION['cor']) == 0){
-		 	$corErro = 'É necessário preencher o campo Cor!';
-		 }else if(strlen($_SESSION['cor']) == 0){
-		 	$corErro = 'É necessário preencher o campo Cor!';
-		 } else if(strlen($_SESSION['porte']) == 0){
-		 	$porteErro = 'É necessário selecionar um Porte!';
-		 } else if(strlen($_SESSION['codigo']) == 0){
-		 	$codigoErro = 'É necessário digitar o Código!';
-		 } else if(strlen($_SESSION['raca']) == 0){
-			$racaErro = 'É necessário digitar a Raça!';
-		} else if(strlen($_SESSION['comportamento']) == 0){
-			$comportamentoErro = 'É necessário selecionar um Comportamento!!';
-		} else {
-			$tipoErro = '';
-			$sexoErro = '';
-			$corErro = '';
-			$porteErro = '';
-			$codigoErro = '';
-			$racaErro = '';
-			$comportamentoErro = '';
 
-			//Passar pra Transaction para otimizar
-			$mysqli->query("INSERT INTO animais (tipo, sexo, idade) VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')");
-			$id_atual = $mysqli->insert_id; //Pega o id do insert da tabela animais e coloca como chave estrangeira nos outros inserts
-			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
-			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
-			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
-			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) 
-			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, '$id_atual')");
+		$_SESSION['tipo'] = $array['tipo'];
+		$_SESSION['sexo'] = $array['sexo'];
+		$_SESSION['idade'] = $array['idade'];
+		$_SESSION['cor'] = $array['cor'];
+		$_SESSION['porte'] = $array['porte'];
+		$_SESSION['peso'] = $array['peso'];
+		$_SESSION['apelido'] = $array['apelido'];
+		$_SESSION['codigo'] = $array['codigo'];
+		$_SESSION['raca'] = $array['raca'];
+		$_SESSION['comportamento'] = $array['comportamento'];
+		$_SESSION['descricao'] = $array['descricao'];;
+		$_SESSION['nome_responsavel_resgate'] = $array['nome_responsavel_resgate'];
 
-		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
-			exit();
-		}
 	}
+}
 ?>
 
 <style> 
@@ -199,18 +242,19 @@ if(isset($_POST['cadastrar'])){
 	background: #856e60; /*hover do botao aplicar*/
 }
 
+.input-disabilitado{
+	pointer-events: none;
+}
 </style>
 
 <div>
-    <h4 class="centraliza">Resgatar</h4>
+    <h4 class="centraliza">Editar</h4>
     <div class="form-style-5">
-        <form method="POST" action="./cadastrarAnimal.php">
-            <h6> Preencha o formulário abaixo para cadastrar um novo animal no canil</h6><br/>
+        <form method="POST" action="./editarAnimal.php">
+            <h6> Visualize os dados abaixo e edite quando necessário</h6><br/>
             <fieldset>
-                <legend><span class="number">1</span>Identificação</legend>
-					<label for="codigo">Código*</label>
-					<input name="codigo" type="number" value="<?php echo $_SESSION['codigo']; ?>" required>
-					<?php echo "<span class='errortext'>$codigoErro</span>"; ?>
+					<label class="centraliza" for="codigo">Código</label>
+					<input class="input-disabilitado" name="codigo" type="number" value="<?php echo $_SESSION['codigo']; ?>" required>
 
 					<label for="codigo">Tipo*</label>
                     <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
@@ -219,7 +263,6 @@ if(isset($_POST['cadastrar'])){
 					<label for="apelido">Apelido</label>
 					<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
 
-                <legend><span class="number">2</span> Características </legend>
 
 				<label for="raca">Raça*</label>
                 <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
@@ -261,7 +304,6 @@ if(isset($_POST['cadastrar'])){
                     </select>
 				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
-                <legend><span class="number">3</span> Adicionais </legend>
 				<label for="nome_responsavel_resgate">Responsável pelo resgate</label>
                 <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
@@ -270,7 +312,7 @@ if(isset($_POST['cadastrar'])){
 					<?php echo $_SESSION['descricao']; ?>
 				</textarea>
             </fieldset>
-            <input type="submit" name="cadastrar" value="Cadastrar" />
+            <input type="submit" name="editar" value="Salvar" />
         </form>
     </div>
 </div>

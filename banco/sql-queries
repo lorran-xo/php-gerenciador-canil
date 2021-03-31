@@ -154,3 +154,18 @@ UPDATE `situacao` SET `adotado`= 1, `nome_responsavel_adocao`='Carlos Chagas',`c
 
 #DELETES
  DELETE FROM animais where id=5;
+
+ #UPDATES
+
+ -Tabela do inicio (animais não adotados)
+START TRANSACTION;
+   UPDATE canil.animais SET tipo= 'gato', sexo= 'nao definido', idade= 220 WHERE id = 11;
+   UPDATE canil.aparencia SET cor= 'vermelho', porte= 'grande', peso= 36 WHERE id_animal = 11;
+   UPDATE canil.identificacao SET apelido= 'apelido' WHERE id_animal = 11;
+   UPDATE canil.raca SET raca='funcionou', comportamento= 'louco' WHERE id_animal = 11;
+   UPDATE canil.situacao SET descricao="comprado", nome_responsavel_resgate ="caramelo" WHERE id_animal = 11;
+COMMIT;
+
+
+
+-Tabela do histórico (animais já adotados)

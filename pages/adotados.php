@@ -155,6 +155,8 @@ else
                                     <th>Adotado por</th>
                                     <th>CPF</th>
                                     <th>Data da adoção</th>
+                                    <th>Ação</th>
+
                                 </tr>
                             </thead>
                             <tbody>

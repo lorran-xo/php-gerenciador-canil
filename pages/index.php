@@ -192,7 +192,7 @@ PASSAR pro maisInfos quando tiver
                                             <td><?php echo $dado["data_resgate"];?></td>
                                             <td>
                                                 <a href="maisInfos.php"> <button type="button"><span>Visualizar</span></button></a>
-                                                <a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
+                                                <a href="editarAnimal.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
                                             </td>
                                         </tr>
                                         <?php } ?>
