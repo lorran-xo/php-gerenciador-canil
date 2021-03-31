@@ -35,7 +35,7 @@ $_SESSION['comportamento'] = '';
 
 //tabela situacao id_animal = id.animais
 $_SESSION['descricao'] = '';
-$_SESSION['responsavel_resgate'] = '';
+$_SESSION['nome_responsavel_resgate'] = '';
 $_SESSION['data_resgate'] = ''; //cadastra data agora sempre
 $_SESSION['adotado'] = 'false'; //cadastra false sempre
 
@@ -60,6 +60,8 @@ if(isset($_POST['cadastrar'])){
 			$sexoErro = 'É necessário selecionar um Sexo';
 		} else if(strlen($_SESSION['cor']) == 0){
 		 	$corErro = 'É necessário preencher o campo Cor!';
+		 }else if(strlen($_SESSION['cor']) == 0){
+		 	$corErro = 'É necessário preencher o campo Cor!';
 		 } else if(strlen($_SESSION['porte']) == 0){
 		 	$porteErro = 'É necessário selecionar um Porte!';
 		 } else if(strlen($_SESSION['codigo']) == 0){
@@ -76,29 +78,28 @@ if(isset($_POST['cadastrar'])){
 			$codigoErro = '';
 			$racaErro = '';
 			$comportamentoErro = '';
+			
+			$mysqli->query("INSERT INTO animais (tipo, sexo, idade) VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')");
+			$id_atual = $mysqli->insert_id;
+			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
+			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
+			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
+			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) 
+			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, '$id_atual')");
 
-			$sql_code = "INSERT into animais (tipo, sexo, idade) 
+			/*$sql_code = "INSERT into animais (tipo, sexo, idade) 
 	 				 VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')";
 
-			$sql_code2 = "INSERT into aparencia (cor, porte, peso) 
-			VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]')";
+			$sql_code = "START TRANSACTION;
+			INSERT INTO animais (tipo, sexo, idade) VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]');
+			INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', 11);
+			INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', 11);
+			INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', 11);
+			INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) 
+			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, 11);
+			COMMIT;";
 
-			$sql_code3 = "INSERT into identificacao (apelido, codigo) 
-			VALUES ('$_SESSION[apelido]', '$_SESSION[codigo]')";
-
-			$sql_code4 = "INSERT into raca (raca, comportamento) 
-			VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]')";
-
-			$sql_code5 = "INSERT into situacao (descricao, responsavel_resgate, adotado, data_resgate) 
-			VALUES ('$_SESSION[descricao]', '$_SESSION[responsavel_resgate]', false, NOW() )";
-
-		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);
-			$cadastra2 = $mysqli->query($sql_code2) or die($mysqli->error);
-		 	$cadastra3 = $mysqli->query($sql_code3) or die($mysqli->error);
-		 	$cadastra4 = $mysqli->query($sql_code4) or die($mysqli->error);
-		 	$cadastra5 = $mysqli->query($sql_code5) or die($mysqli->error);
-
-			 //VER SOBRE CHAVE ESTRANGEIRA / RELACIONAMENTOS ENTRE AS TABELAS
+		 	$cadastra = $mysqli->query($sql_code) or die($mysqli->error);*/
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();
@@ -273,11 +274,13 @@ if(isset($_POST['cadastrar'])){
 				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
                 <legend><span class="number">3</span> Adicionais </legend>
-				<label for="responsavel_resgate">Responsável pelo resgate</label>
-                <input name="responsavel_resgate" type="text" value="<?php echo $_SESSION['responsavel_resgate']; ?>">
+				<label for="nome_responsavel_resgate">Responsável pelo resgate</label>
+                <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
 				<label for="descricao">Descrição</label>
-                <textarea name="descricao" value="<?php echo $_SESSION['descricao']; ?>">
+                <textarea name="descricao">
+				<?php echo $_SESSION['descricao']; ?>
+				</textarea>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
         </form>

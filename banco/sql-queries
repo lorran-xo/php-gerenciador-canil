@@ -81,30 +81,76 @@ SELECT
 -com PAGINACAO
 
 SELECT
-  can.id,
-  can.tipo,
-  can.sexo,
-  cap.cor,
-  cap.porte,
-  cid.codigo,
-  cid.apelido,
-  cra.raca,
-  csi.nome_responsavel_adocao,
-  csi.cpf_responsavel_adocao,
-  csi.data_adocao
-FROM
-  canil.animais can
-    INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-    INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-    INNER JOIN canil.raca cra ON can.id = cra.id_animal
-    INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-WHERE csi.adotado = 1
+    can.id,
+    can.tipo,
+    can.sexo,
+    cap.cor,
+    cap.porte,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    csi.nome_responsavel_adocao,
+    csi.cpf_responsavel_adocao,
+    csi.data_adocao
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 1 LIMIT $pagina_atual, $itens_por_pagina
 
 -pela PESQUISA
 
-#INSERTS
--Quando cadastrar novo (tabela canil.situacao):
-INSERT INTO `situacao`(`adotado`, `descricao`, `nome_responsavel_resgate`, `data_resgate`, `nome_responsavel_adocao`, `cpf_responsavel_adocao`, `data_adocao`, `id_animal`) VALUES (0,'encontrado em arvore','Douglas Dutra', NOW(), NULL, NULL, NULL, 3)
+SELECT
+    can.id,
+    can.tipo,
+    can.sexo,
+    cap.cor,
+    cap.porte,
+    cid.codigo,
+    cid.apelido,
+    cra.raca,
+    csi.nome_responsavel_adocao,
+    csi.cpf_responsavel_adocao,
+    csi.data_adocao
+  FROM
+    canil.animais can
+      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
+      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
+      INNER JOIN canil.raca cra ON can.id = cra.id_animal
+      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
+  WHERE csi.adotado = 1 AND CONCAT(`codigo`, `tipo`, `apelido`, `raca`, `sexo`, `cor`, `nome_responsavel_adocao`, `cpf_responsavel_adocao`, `data_adocao`) LIKE '%".$valueToSearch."%'
 
--Quando adotar (tabela canil.situacao):
-UPDATE `situacao` SET `adotado`= 1, `nome_responsavel_adocao`='João da Silva',`cpf_responsavel_adocao`='152.421.332-40' ,`data_adocao`= NOW(),`id_animal`= 2 WHERE id_animal = 1
+
+
+#INSERTS
+-CADASTRAR NOVO:
+
+START TRANSACTION;
+   INSERT INTO canil.animais(tipo, sexo, idade) VALUES ('gato', 'fêmea', 6);
+   INSERT INTO canil.aparencia(cor, porte, peso, id_animal) VALUES ('branco', 'grande', 15, 10);
+   INSERT INTO canil.identificacao(codigo, apelido, id_animal) VALUES ('9185', 'Teste', 10);
+   INSERT INTO canil.raca(raca, comportamento, id_animal) VALUES ('vira-lata', 'calmo', 10);
+   INSERT INTO canil.situacao(adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) VALUES (0,'encontrado sozinho','Cassio Texeiras', NOW(), NULL, NULL, NULL, 10);
+COMMIT;
+
+
+-- NO PHP E PEGANDO O ID AUTOMATICO:
+    $mysqli->query("INSERT INTO animais (tipo, sexo, idade) VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')");
+			$id_atual = $mysqli->insert_id;
+			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
+			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
+			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
+			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) 
+			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, '$id_atual')");
+
+
+-ANIMAL SENDO ADOTADO:
+UPDATE `situacao` SET `adotado`= 1, `nome_responsavel_adocao`='Carlos Chagas',`cpf_responsavel_adocao`='112.471.387-49' ,`data_adocao`= NOW() WHERE id_animal = 10
+
+*VER START TRANSACTION*
+
+
+#DELETES
+ DELETE FROM animais where id=5;

@@ -9,6 +9,7 @@ $pagina_atual = $_GET['page'];
 
 if(isset($_POST['search']))
 {
+    //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
     $consulta = "SELECT
@@ -32,9 +33,10 @@ if(isset($_POST['search']))
       INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
       INNER JOIN canil.raca cra ON can.id = cra.id_animal
       INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-  WHERE csi.adotado = 0 AND CONCAT(`codigo`, `tipo`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
+  WHERE csi.adotado = 0 AND CONCAT(`codigo`, `apelido`, `tipo`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
+    //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
     $num_total = $mysqli->query("SELECT
     can.id,
     can.tipo, 
@@ -62,6 +64,7 @@ if(isset($_POST['search']))
 }
 else 
 {
+    //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
     $consulta = "SELECT
     can.id,
     can.tipo, 
@@ -87,6 +90,7 @@ else
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
+    //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
     $num_total = $mysqli->query("SELECT
     can.id,
     can.tipo, 
@@ -140,7 +144,7 @@ else
 }
 
 /*
-PASSAR pro maisInfos
+PASSAR pro maisInfos quando tiver
     can.idade,  
     cap.porte, 
     cap.peso,
@@ -166,6 +170,7 @@ PASSAR pro maisInfos
                                         <tr>
                                             <th>Código</th>
                                             <th>Tipo</th>
+                                            <th>Apelido</th>
                                             <th>Raça</th>                                
                                             <th>Sexo</th>  
                                             <th>Cor</th>
@@ -178,6 +183,7 @@ PASSAR pro maisInfos
                                         <?php while($dado = $con->fetch_array()){ ?>
                                         <tr class="trData">
                                             <td><?php echo $dado["codigo"];?></td>
+                                            <td><?php echo $dado["apelido"];?></td>
                                             <td><?php echo $dado["tipo"];?></td>
                                             <td><?php echo $dado["raca"];?></td>
                                             <td><?php echo $dado["sexo"];?></td>
@@ -187,7 +193,6 @@ PASSAR pro maisInfos
                                             <td>
                                                 <a href="maisInfos.php"> <button type="button"><span>Visualizar</span></button></a>
                                                 <a href="editar.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
-                                            </td>
                                             </td>
                                         </tr>
                                         <?php } ?>
