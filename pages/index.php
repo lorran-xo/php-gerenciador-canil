@@ -183,16 +183,16 @@ PASSAR pro maisInfos quando tiver
                                         <?php while($dado = $con->fetch_array()){ ?>
                                         <tr class="trData">
                                             <td><?php echo $dado["codigo"];?></td>
-                                            <td><?php echo $dado["apelido"];?></td>
                                             <td><?php echo $dado["tipo"];?></td>
+                                            <td><?php echo $dado["apelido"];?></td>
                                             <td><?php echo $dado["raca"];?></td>
                                             <td><?php echo $dado["sexo"];?></td>
                                             <td><?php echo $dado["cor"];?></td>
                                             <td><?php echo $dado["porte"];?></td>
                                             <td><?php echo $dado["data_resgate"];?></td>
                                             <td>
-                                                <a href="maisInfos.php"> <button type="button"><span>Visualizar</span></button></a>
-                                                <a href="editarAnimal.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
+                                              <a href="maisInfos.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Selecionar</span></button></a>
+                                              <a href="editarAnimal.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

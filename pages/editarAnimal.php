@@ -70,13 +70,15 @@ else{
 				$porteErro = '';
 				$racaErro = '';
 				$comportamentoErro = '';
-
+				
+				/*
 				//Passar pra Transaction para otimizar
 				$mysqli->query("UPDATE animais SET tipo= '$_SESSION['tipo']', sexo= '$_SESSION['sexo']', idade= '$_SESSION['idade']' WHERE id = '$selected_animal_id'");
 				$mysqli->query("UPDATE aparencia SET cor= '$_SESSION['cor']', porte= '$_SESSION['porte']', peso= '$_SESSION['peso']' WHERE id_animal = '$selected_animal_id'");
 				$mysqli->query("UPDATE identificacao SET apelido= '$_SESSION['apelido']' WHERE id_animal = '$selected_animal_id'");
 				$mysqli->query("UPDATE raca SET raca='$_SESSION['raca']', comportamento= '$_SESSION['comportamento']' WHERE id_animal = '$selected_animal_id'");
 				$mysqli->query("UPDATE situacao SET descricao='$_SESSION['descricao']', nome_responsavel_resgate ='$_SESSION['nome_responsavel_resgate']' WHERE id_animal = '$selected_animal_id'");
+				*/
 
 				/*
 				
@@ -244,6 +246,16 @@ else{
 
 .input-disabilitado{
 	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.cabecario{
+	width: 60%;
+	margin-left: 25%;
+}
+
+.label-centro{
+	margin-left: 40%;
 }
 </style>
 
@@ -251,17 +263,19 @@ else{
     <h4 class="centraliza">Editar</h4>
     <div class="form-style-5">
         <form method="POST" action="./editarAnimal.php">
-            <h6> Visualize os dados abaixo e edite quando necessário</h6><br/>
+			<h6> Visualize os dados do <b>animal selecionado</b> abaixo e edite quando necessário</h6><br/>
+			<fieldset class="cabecario">
+				<label for="codigo" class="label-centro">Código</label>
+				<input class="input-disabilitado" name="codigo" type="text" value="<?php echo $_SESSION['codigo']; ?>">
+			</fieldset>
+			
             <fieldset>
-					<label class="centraliza" for="codigo">Código</label>
-					<input class="input-disabilitado" name="codigo" type="number" value="<?php echo $_SESSION['codigo']; ?>" required>
+				<label for="codigo">Tipo*</label>
+				<input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
+				<?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
-					<label for="codigo">Tipo*</label>
-                    <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
-                    <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
-
-					<label for="apelido">Apelido</label>
-					<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
+				<label for="apelido">Apelido</label>
+				<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
 
 
 				<label for="raca">Raça*</label>
@@ -295,7 +309,7 @@ else{
 				<label for="peso">Peso</label>
                 <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>">
 
-                <label for="sexo">Comportamento</label>
+                <label for="sexo">Comportamento*</label>
                     <select name="comportamento" required>
                         <option value="" <?php if($_SESSION['comportamento'] == '') echo "selected";?>>Selecione</option>
                         <option value="Calmo" <?php if($_SESSION['comportamento'] == "Calmo") echo "selected";?>>Calmo</option>
