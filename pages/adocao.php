@@ -1,4 +1,4 @@
-<?php require_once "barras/barra_superior.php" ?>
+<?php require_once "bars/side_bar.php" ?>
 <?php 
 
 include("./../banco/conexao.php");
@@ -117,34 +117,6 @@ else
 }
 
 ?>
-
-<style>
-
-.centraliza{
-  margin-left: 40%;
-}
-
-.input-procurar {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 80%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-.input-submit {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 10%; /* Full-width */
-  padding: 10px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-</style>
-
 <script>
 function pesquisar() {
   // Declare variables
@@ -174,7 +146,8 @@ function pesquisar() {
 </script>
 
 <div class="container">
-    <h4 class="centraliza">Adoções</h4><br>  
+    <h3 class="centraliza-titulo">Adoção</h3>
+    <h6 class="centraliza-intro">Visualize os animais disponíveis  atualmente no canil e clique em adotar!</h6><br>  
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -233,4 +206,4 @@ function pesquisar() {
     </div>    
 </div>
 
-<?php require_once "barras/barra_inferior.php"?>
+<?php require_once "bars/bottom_bar.php"?>

@@ -1,4 +1,4 @@
-<?php require_once "barras/barra_superior.php" ?>
+<?php require_once "bars/side_bar.php" ?>
 
 <?php 
 
@@ -119,44 +119,9 @@ else
 
 ?>
 
-<style> 
-.centraliza{
-  margin-left: 45%;
-}
-
-.input-procurar {
-  background-position: 10px 12px; 
-  background-repeat: no-repeat; 
-  width: 80%;
-  font-size: 16px; 
-  padding: 12px 20px 12px 40px; 
-  border: 1px solid #ddd; 
-  margin-bottom: 12px; 
-}
-
-.input-submit {
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 10%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-/*
-PASSAR pro maisInfos quando tiver
-    can.idade,  
-    cap.porte, 
-    cap.peso,
-    cid.apelido,
-    cra.comportamento,
-    csi.descricao,
-    csi.nome_responsavel_resgate
-*/
-</style>
-
 <div class="container">
-        <h4 class="centraliza">Início</h4>
+    <h3 class="centraliza-titulo">Início</h3>
+    <h6 class="centraliza-intro">Visualize os animais do canil, edite ou clique para ver mais informações!</h6>
     <br><br> 
     <div class="container">
             <div class="row">
@@ -218,4 +183,4 @@ PASSAR pro maisInfos quando tiver
         </div>    
 </div>
 
-<?php require_once "barras/barra_inferior.php"?>
+<?php require_once "bars/bottom_bar.php"?>

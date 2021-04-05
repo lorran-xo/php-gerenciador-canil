@@ -1,4 +1,4 @@
-<?php require_once "barras/barra_superior.php" ?>
+<?php require_once "bars/side_bar.php" ?>
 <?php 
 
 include("./../banco/conexao.php");
@@ -106,35 +106,9 @@ else
 
 ?>
 
-<style> 
-
-.centraliza{
-  margin-left: 40%;
-}
-
-.input-procurar {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 80%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-.input-submit {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 10%; /* Full-width */
-  padding: 10px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-</style>
-
 <div class="container">
-    <h4 class="centraliza">Histórico de adoções</h4>
+    <h3 class="centraliza-titulo">Histórico</h3>
+    <h6 class="centraliza-intro">Visualize os animais que já foram adotados até hoje no Histórico de Adoções!</h6> 
     <br>  
     <div class="container">
         <div class="row">
@@ -155,8 +129,6 @@ else
                                     <th>Adotado por</th>
                                     <th>CPF</th>
                                     <th>Data da adoção</th>
-                                    <th>Ação</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -196,4 +168,4 @@ else
     </div>    
 </div>
 
-<?php require_once "barras/barra_inferior.php"?>
+<?php require_once "bars/bottom_bar.php"?>

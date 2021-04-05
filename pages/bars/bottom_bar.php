@@ -22,15 +22,9 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="js/sb-admin-2.min.js"></script>
-  <script src="js/sb-admin-2.css"></script>
-
-
-    <!-- tabelas javascript -->
-    <script type="text/javascript" src="vendor/datatables/datatables.min.js"></script>    
-    <!-- código proprio javascript 
-    <script type="text/javascript" src="main.js"></script>  --> 
-    
+  <script src="css/js/sb-admin-2.min.js"></script>
+  <script src="css/js/sb-admin-2.css"></script>
+  
 </body>
 
 </html>
