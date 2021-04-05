@@ -206,7 +206,7 @@ function pesquisar() {
                                     <td><?php echo $dado["porte"];?></td>
                                     <td><?php echo $dado["data_resgate"];?></td>
                                     <td>
-                                        <a href="adocaoInfos.php"> <button type="button"><span>Adotar</span></button></a>
+                                      <a href="adocaoInfos.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Adotar</span></button></a>
                                     </td>
                                 </td>
                                 </tr>

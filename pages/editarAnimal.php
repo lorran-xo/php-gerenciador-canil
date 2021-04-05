@@ -36,16 +36,12 @@ $_SESSION['comportamento'] = '';
 $_SESSION['descricao'] = '';
 $_SESSION['nome_responsavel_resgate'] = '';
 
-if(!isset($_GET['id']))
-	echo "<script> alert('Ação Inválida!'); location.href='index.php?page=0'; </script>";
-else{
-
-	$selected_animal_id = intval($_GET['id']);
+$selected_animal_id = intval($_GET['id']);
 
 	if(isset($_POST['editar'])){
-
-		if(!isset($_SESSION))
+		if(!isset($_SESSION)){
 			session_start();
+		}
 			
 		foreach ($_POST as $key => $value) 
 				$_SESSION[$key] = $mysqli->real_escape_string($value);
@@ -62,7 +58,7 @@ else{
 			} else if(strlen($_SESSION['raca']) == 0){
 				$racaErro = 'É necessário digitar a Raça!';
 			} else if(strlen($_SESSION['comportamento']) == 0){
-				$comportamentoErro = 'É necessário selecionar um Comportamento!!';
+				$comportamentoErro = 'É necessário selecionar um Comportamento!';
 			} else {
 				$tipoErro = '';
 				$sexoErro = '';
@@ -71,27 +67,13 @@ else{
 				$racaErro = '';
 				$comportamentoErro = '';
 				
-				/*
-				//Passar pra Transaction para otimizar
-				$mysqli->query("UPDATE animais SET tipo= '$_SESSION['tipo']', sexo= '$_SESSION['sexo']', idade= '$_SESSION['idade']' WHERE id = '$selected_animal_id'");
-				$mysqli->query("UPDATE aparencia SET cor= '$_SESSION['cor']', porte= '$_SESSION['porte']', peso= '$_SESSION['peso']' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE identificacao SET apelido= '$_SESSION['apelido']' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE raca SET raca='$_SESSION['raca']', comportamento= '$_SESSION['comportamento']' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE situacao SET descricao='$_SESSION['descricao']', nome_responsavel_resgate ='$_SESSION['nome_responsavel_resgate']' WHERE id_animal = '$selected_animal_id'");
-				*/
-
-				/*
+				//usar PDO 
+				$mysqli->query("UPDATE animais SET tipo= '$_SESSION[tipo]', sexo= '$_SESSION[sexo]', idade= '$_SESSION[idade]' WHERE id = '$selected_animal_id'");
+				$mysqli->query("UPDATE aparencia SET cor= '$_SESSION[cor]', porte= '$_SESSION[porte]', peso= '$_SESSION[peso]' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE identificacao SET apelido= '$_SESSION[apelido]' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE raca SET raca='$_SESSION[raca]', comportamento= '$_SESSION[comportamento]' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE situacao SET descricao='$_SESSION[descricao]', nome_responsavel_resgate ='$_SESSION[nome_responsavel_resgate]' WHERE id_animal = '$selected_animal_id'");
 				
-				$sql_code = "UPDATE animais SET tipo= '$_SESSION['tipo']', sexo= '$_SESSION['sexo']', idade= '$_SESSION['idade']' WHERE id = '$selected_animal_id'"
-				$sql_code = "UPDATE aparencia SET cor= '$_SESSION['cor']', porte= '$_SESSION['porte']', peso= '$_SESSION['peso']' WHERE id_animal = '$selected_animal_id'"
-				$sql_code = "UPDATE identificacao SET apelido= '$_SESSION['apelido']' WHERE id_animal = '$selected_animal_id'"
-				$sql_code = "UPDATE raca SET raca='$_SESSION['raca']', comportamento= '$_SESSION['comportamento']' WHERE id_animal = '$selected_animal_id'"
-				$sql_code = "UPDATE situacao SET descricao='$_SESSION['descricao']', nome_responsavel_resgate ='$_SESSION['nome_responsavel_resgate']' WHERE id_animal = '$selected_animal_id'"
-				
-				$confirma = $mysqli->query($sql_code) or die($mysqli->error);
-				
-				*/
-
 				header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 				exit();
 			}
@@ -132,11 +114,11 @@ else{
 		$_SESSION['codigo'] = $array['codigo'];
 		$_SESSION['raca'] = $array['raca'];
 		$_SESSION['comportamento'] = $array['comportamento'];
-		$_SESSION['descricao'] = $array['descricao'];;
+		$_SESSION['descricao'] = $array['descricao'];
 		$_SESSION['nome_responsavel_resgate'] = $array['nome_responsavel_resgate'];
 
 	}
-}
+
 ?>
 
 <style> 
@@ -262,7 +244,7 @@ else{
 <div>
     <h4 class="centraliza">Editar</h4>
     <div class="form-style-5">
-        <form method="POST" action="./editarAnimal.php">
+        <form method="POST" action="./editarAnimal.php?id=<?php echo $selected_animal_id; ?>">
 			<h6> Visualize os dados do <b>animal selecionado</b> abaixo e edite quando necessário</h6><br/>
 			<fieldset class="cabecario">
 				<label for="codigo" class="label-centro">Código</label>
@@ -277,25 +259,24 @@ else{
 				<label for="apelido">Apelido</label>
 				<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
 
-
 				<label for="raca">Raça*</label>
                 <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
                 <?php echo "<span class='errortext'> $racaErro </span>"; ?>
 
-                    <label for="sexo">Sexo*</label>
-                    <select name="sexo" required>
-                        <option value="" <?php if($_SESSION['sexo'] == '') echo "selected";?>>Selecione</option>
-                        <option value="Macho" <?php if($_SESSION['sexo'] == "Macho") echo "selected";?>>Macho</option>
-                        <option value="Fêmea" <?php if($_SESSION['sexo'] == "Fêmea") echo "selected";?>>Fêmea</option>
-                    </select>
-                    <?php echo "<span class='errortext'>$sexoErro</span>"; ?>
+				<label for="sexo">Sexo*</label>
+				<select name="sexo" required>
+					<option value="" <?php if($_SESSION['sexo'] == '') echo "selected";?>>Selecione</option>
+					<option value="Macho" <?php if($_SESSION['sexo'] == "Macho") echo "selected";?>>Macho</option>
+					<option value="Fêmea" <?php if($_SESSION['sexo'] == "Fêmea") echo "selected";?>>Fêmea</option>
+				</select>
+				<?php echo "<span class='errortext'>$sexoErro</span>"; ?>
 
 				<label for="cor">Cor*</label>
                 <input name="cor" type="text" value="<?php echo $_SESSION['cor']; ?>" required>
                 <?php echo "<span class='errortext'> $corErro </span>"; ?>
 
                 <label for="porte">Porte*</label>
-                <select class="field" name="porte" required>
+                <select name="porte" required>
                     <option value="" <?php if($_SESSION['porte'] == '') echo "selected";?>>Selecione</option>
                     <option value="Pequeno" <?php if($_SESSION['porte'] == "Pequeno") echo "selected";?>>Pequeno</option>
                     <option value="Médio" <?php if($_SESSION['porte'] == "Médio") echo "selected";?>>Médio</option>
@@ -309,7 +290,7 @@ else{
 				<label for="peso">Peso</label>
                 <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>">
 
-                <label for="sexo">Comportamento*</label>
+                <label for="comportamento">Comportamento*</label>
                     <select name="comportamento" required>
                         <option value="" <?php if($_SESSION['comportamento'] == '') echo "selected";?>>Selecione</option>
                         <option value="Calmo" <?php if($_SESSION['comportamento'] == "Calmo") echo "selected";?>>Calmo</option>

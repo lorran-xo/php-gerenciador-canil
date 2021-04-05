@@ -191,8 +191,8 @@ PASSAR pro maisInfos quando tiver
                                             <td><?php echo $dado["porte"];?></td>
                                             <td><?php echo $dado["data_resgate"];?></td>
                                             <td>
-                                              <a href="maisInfos.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Selecionar</span></button></a>
                                               <a href="editarAnimal.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Editar</span></button></a>
+                                              <a href="maisInfos.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Mais</span></button></a>
                                             </td>
                                         </tr>
                                         <?php } ?>

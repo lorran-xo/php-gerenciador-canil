@@ -61,9 +61,9 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="adotados.php?page=0">
+        <a class="nav-link" href="historicoAdocao.php?page=0">
           <i class="fas fa-history"></i>
-          <span>Adotados</span>
+          <span>Histórico</span>
         </a>
       </li>
 

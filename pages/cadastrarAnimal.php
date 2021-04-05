@@ -58,9 +58,7 @@ if(isset($_POST['cadastrar'])){
 		 	$tipoErro = 'É necessário preencher o campo Tipo!';
 		 } else if(strlen($_SESSION['sexo']) == 0){
 			$sexoErro = 'É necessário selecionar um Sexo';
-		} else if(strlen($_SESSION['cor']) == 0){
-		 	$corErro = 'É necessário preencher o campo Cor!';
-		 }else if(strlen($_SESSION['cor']) == 0){
+		 } else if(strlen($_SESSION['cor']) == 0){
 		 	$corErro = 'É necessário preencher o campo Cor!';
 		 } else if(strlen($_SESSION['porte']) == 0){
 		 	$porteErro = 'É necessário selecionar um Porte!';
