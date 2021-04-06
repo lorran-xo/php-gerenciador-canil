@@ -312,6 +312,7 @@ tabela5 Situação{
 
 Criar coluna nova na tabela:
 ALTER TABLE canil.animais ADD data date(null)
+ALTER TABLE canil.situacao ADD motivo_devolucao varchar(100) DEFAULT NULL
 
 Videos de auxílio:
 Criacao da pagina html/php> https://www.youtube.com/watch?v=LUMFITn510U

@@ -129,6 +129,7 @@ else
                                     <th>Adotado por</th>
                                     <th>CPF</th>
                                     <th>Data da adoção</th>
+                                    <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,6 +144,9 @@ else
                                     <td><?php echo $dado["nome_responsavel_adocao"];?></td>
                                     <td><?php echo $dado["cpf_responsavel_adocao"];?></td>
                                     <td><?php echo $dado["data_adocao"];?></td>
+                                    <td>
+                                        <a href="devolverAdotado.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Devolver</span></button></a>
+                                    </td>
                                     </td>
                                 </tr>
                                 <?php } ?>

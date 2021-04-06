@@ -188,12 +188,11 @@ $selected_animal_id = intval($_GET['id']);
                 <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
 				<label for="descricao">Descrição</label>
-                <textarea name="descricao">
-					<?php echo $_SESSION['descricao']; ?>
-				</textarea>
+                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
             </fieldset>
             <input type="submit" name="editar" value="Salvar" />
 			<input type="submit" name="excluir" value="Excluir" />
+			<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
         </form>
     </div>
 </div>

@@ -88,13 +88,13 @@ if(isset($_POST['excluir'])){
 			<legend> Informações adicionais </legend>
 
 			<label for="Peso">Peso</label>
-			<input name="peso" type="text" value="<?php echo $_SESSION['peso']; ?>">
+			<input class="input-disabilitado" name="peso" type="text" value="<?php echo $_SESSION['peso']; ?>">
 
 			<label for="idade">Idade</label>
-			<input class="field" name="idade" type="text" value="<?php echo $_SESSION['idade']; ?>" placeholder="Idade">
+			<input class="input-disabilitado" name="idade" type="text" value="<?php echo $_SESSION['idade']; ?>" placeholder="Idade">
 
 			<label for="Comportamento">Comportamento</label>
-				<select name="comportamento">
+				<select class="input-disabilitado" name="comportamento">
 					<option value="" <?php if($_SESSION['comportamento'] == '') echo "selected";?>>Selecione</option>
 					<option value="Calmo" <?php if($_SESSION['comportamento'] == "Calmo") echo "selected";?>>Calmo</option>
 					<option value="Agitado" <?php if($_SESSION['comportamento'] == "Agitado") echo "selected";?>>Agitado</option>
@@ -102,15 +102,13 @@ if(isset($_POST['excluir'])){
 				</select>
 
 			<label for="nome_responsavel_resgate">Resgate feito por</label>
-			<input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
+			<input class="input-disabilitado" name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
 			<label for="data_resgate">no dia</label>
-			<input name="data_resgate" type="text" value="<?php echo $_SESSION['data_resgate']; ?>">
+			<input class="input-disabilitado" name="data_resgate" type="text" value="<?php echo $_SESSION['data_resgate']; ?>">
 
 			<label for="descricao">Descrição</label>
-			<textarea name="descricao">
-				<?php echo $_SESSION['descricao']; ?>
-			</textarea>
+			<textarea class="input-disabilitado" name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
 		</fieldset>
 		<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
 	</form>

@@ -42,7 +42,10 @@ $_SESSION['adotado'] = 'false'; //cadastra false sempre
 
 /*$_SESSION['responsavel_adocao_nome'] = '';
 $_SESSION['responsavel_adocao_cpf'] = '';
-$_SESSION['data_adocao'] = '';  /\ DEIXA NULOS /\ */
+$_SESSION['data_adocao'] = '';  
+motivo_devolucao
+
+/\ DEIXA NULOS /\ */
 
 
 if(isset($_POST['cadastrar'])){
@@ -83,8 +86,8 @@ if(isset($_POST['cadastrar'])){
 			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
 			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
 			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
-			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, id_animal) 
-			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, '$id_atual')");
+			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, motivo_devolucao, id_animal) 
+			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, NULL, '$id_atual')");
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();
@@ -157,9 +160,7 @@ if(isset($_POST['cadastrar'])){
                 <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
 				<label for="descricao">Descrição</label>
-                <textarea name="descricao">
-					<?php echo $_SESSION['descricao']; ?>
-				</textarea>
+                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
         </form>
