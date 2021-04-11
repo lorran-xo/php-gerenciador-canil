@@ -23,7 +23,7 @@ Class homeController extends Controller{
             $result = $animais->getAvaiableAnimals();
 
             // 2 - Com esses dados do banco, o controller pega, trata se precisar e manda pra view exibir pro usuário
-            $this->carregarTemplate('home', array(), $result); //segundo parametro tem restrição de passagem, entao usa o terceiro pro momento
+            $this->carregarTemplate('editar', array(), $result); //segundo parametro tem restrição de passagem, entao usa o terceiro pro momento
 
         } catch (Exception $error){
             echo $error->getMessage();
@@ -37,7 +37,7 @@ Class homeController extends Controller{
             $result = $animais->getAvaiableAnimals();
 
             // 2 - Com esses dados do banco, o controller pega, trata se precisar e manda pra view exibir pro usuário
-            $this->carregarTemplate('home', array(), $result); //segundo parametro tem restrição de passagem, entao usa o terceiro pro momento
+            $this->carregarTemplate('maisInfo', array(), $result); //segundo parametro tem restrição de passagem, entao usa o terceiro pro momento
 
         } catch (Exception $error){
             echo $error->getMessage();
