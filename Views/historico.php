@@ -1,6 +1,6 @@
 <div class="container">
     <h3 class="centraliza-titulo">Histórico</h3>
-    <h6 class="centraliza-intro">Visualize os animais que já foram adotados até hoje no Histórico de Adoções!</h6> 
+    <h6 class="centraliza-intro">Visualize os animais que já foram adotados até hoje!</h6> 
     <br>  
     <div class="container">
         <div class="row">
@@ -25,9 +25,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="trData">
-                                   
-                                </tr>
+                            <?php 
+                                    for($i=0; $i < count($this->dados2); $i++) 
+                                    {
+                                    
+                                ?>
+                                    <tr class="trData">
+                                        <td><?php echo $this->dados2[$i]["codigo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["apelido"];?></td>
+                                        <td><?php echo $this->dados2[$i]["tipo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["raca"];?></td>
+                                        <td><?php echo $this->dados2[$i]["sexo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["cor"];?></td>
+                                        <td><?php echo $this->dados2[$i]["nome_responsavel_adocao"];?></td>
+                                        <td><?php echo $this->dados2[$i]["cpf_responsavel_adocao"];?></td>
+                                        <td><?php echo $this->dados2[$i]["data_adocao"];?></td>
+                                        <td>
+                                        <a href="devolucaoAdotado?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Devolução</span></button></a>
+                                        </td>
+                                    </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>        
                         </table>   
                     </form>     

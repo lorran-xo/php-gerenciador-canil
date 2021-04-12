@@ -22,20 +22,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while($dado = $con->fetch_array()){ ?>
-                                <tr class="trData">
-                                    <td><?php echo $dado["codigo"];?></td>
-                                    <td><?php echo $dado["tipo"];?></td>
-                                    <td><?php echo $dado["raca"];?></td>
-                                    <td><?php echo $dado["sexo"];?></td>
-                                    <td><?php echo $dado["cor"];?></td>
-                                    <td><?php echo $dado["porte"];?></td>
-                                    <td><?php echo $dado["data_resgate"];?></td>
-                                    <td>
-                                      <a href="adocaoInfos.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Adotar</span></button></a>
+                                <?php 
+                                    for($i=0; $i < count($this->dados2); $i++) 
+                                    {
+                                    
+                                ?>
+                                    <tr class="trData">
+                                        <td><?php echo $this->dados2[$i]["codigo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["tipo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["raca"];?></td>
+                                        <td><?php echo $this->dados2[$i]["sexo"];?></td>
+                                        <td><?php echo $this->dados2[$i]["cor"];?></td>
+                                        <td><?php echo $this->dados2[$i]["porte"];?></td>
+                                        <td><?php echo $this->dados2[$i]["data_resgate"];?></td>
+                                        <td>
+                                        <a href="adocaoInfo?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Adotar</span></button></a>
+                                        </td>
                                     </td>
-                                </td>
-                                </tr>
+                                    </tr>
                                 <?php } ?>
                             </tbody>        
                         </table>   

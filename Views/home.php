@@ -1,18 +1,6 @@
 <div class="container">
     <h3 class="centraliza-titulo">Início</h3>
     <h6 class="centraliza-intro">Visualize os animais do canil, edite ou clique para ver mais informações!</h6>
-
-    <h4> Dado do banco: 
-    <?php 
-     
-    echo '<pre>';
-      print_r($this->dados2[0]["id"]);
-    echo '</pre>';
-
-    ?> 
-    
-    </h4>
-
     <br><br> 
     <div class="container">
             <div class="row">
@@ -50,8 +38,8 @@
                                                 <td><?php echo $this->dados2[$i]["porte"];?></td>
                                                 <td><?php echo $this->dados2[$i]["data_resgate"];?></td>
                                                 <td>
-                                                <a href="home/editar?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Editar</span></button></a>
-                                                <a href="home/maisInfo?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Mais</span></button></a>
+                                                <a href="<?php echo 'home/editar/'.$this->dados2[$i]["id"];?>"> <button type="button"><span>Editar</span></button></a>
+                                                <a href="<?php echo 'home/maisInfo/'.$this->dados2[$i]["id"];?>"> <button type="button"><span>Mais</span></button></a>
                                                 </td>
                                             </tr>
                                             <?php 
