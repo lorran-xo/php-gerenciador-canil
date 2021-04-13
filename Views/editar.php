@@ -1,3 +1,8 @@
+<?php require_once "side_bar.php" ?>
+<?php
+echo "<link rel=”stylesheet” type=”text/css” href=”Styles/css/sb-admin-2.css” />"
+?>
+
 <div>
     <h4 class="centraliza-titulo">Editar</h4>
     <div class="form-style-5">
@@ -64,7 +69,9 @@
             </fieldset>
             <input type="submit" name="editar" value="Salvar" />
 			<input type="submit" name="excluir" value="Excluir" />
-			<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			<a href="home"> <input type="button" value="Voltar"/> </a>   
         </form>
     </div>
 </div>
+
+<?php require_once "bottom_bar.php"?>
