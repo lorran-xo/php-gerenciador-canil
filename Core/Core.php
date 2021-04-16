@@ -45,11 +45,11 @@ Class Core{
         // -- Tratativa caso passarem na url uma pagina que nao existe --
         $caminho = 'php-gerenciador-canil/Controllers/'.$controller.'.php';
 
-        if(!file_exists($caminho) && !method_exists($controller, $metodo))
+        /*if(!file_exists($caminho) && !method_exists($controller, $metodo))
         {
             $controller = 'errorController';
             $metodo = 'index';
-        }
+        }*/
         
         $c = new $controller; //instancia o que estiver dentro de controller
         
