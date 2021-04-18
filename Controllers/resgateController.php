@@ -19,8 +19,14 @@ Class resgateController extends Controller{
 
     public function insertAnimal()
     {
-        Animais::insertAnimal($_POST);
-        
-        //$insertAnimal = $animais->insertAnimal();
+        try {
+            $animais = new Animais();
+            $result = $animais->insertAnimal($_POST);
+            echo '<script>alert("Cadastro realizado com sucesso!")</script>';
+            echo '<script>location.href="http://localhost/php-gerenciador-canil/home"</script>';
+        } catch(Exception $error){
+            echo '<script>alert("'.$error->getMessage().'")</script>';
+            echo '<script>location.href="http://localhost/php-gerenciador-canil/resgate"</script>';
+        }
     }
 }
