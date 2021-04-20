@@ -11,10 +11,10 @@ Class Core{
     // -- PREENCHIMENTO DAS VARIAVEIS CLASSE(controller), METODO E PARAMETROS da url --
     public function run()
     {
-        $parametros = array();
+        $parameters = array();
         if(isset($_GET['page']))
         {
-            $url = $_GET['page'];
+            $url = htmlentities(addslashes($_GET['page']));
         }
         // -- cai nessa condicao se tiver alguma info na url dps do dominio --
         if(!empty($url))
@@ -32,10 +32,10 @@ Class Core{
                 $metodo = 'index';
             }
             //agora verifica se tem parametros, se tem mais alguma coisa sobrando no array/url
-            if(count($url) > 0)
+            /*if(count($url) > 0)
             {
-                $parametros = $url;
-            }
+                $parametros = $url
+            }*/
         } else //cai aqui se nao tem informacao nenhuma na url, só o dominio
         { 
             $controller = 'homeController';
@@ -53,6 +53,6 @@ Class Core{
         
         $c = new $controller; //instancia o que estiver dentro de controller
         
-        call_user_func_array(array($c, $metodo), $parametros);
+        call_user_func_array(array($c, $metodo), $parameters);
     }
 }

@@ -12,7 +12,7 @@
 		public function getAvaiableAnimals()
 		{
 			$data = array();
-			$stmt = $this->con->query(
+			$sql = $this->con->query(
 			"SELECT
 				can.id,
 				can.tipo, 
@@ -36,69 +36,23 @@
               INNER JOIN canil.situacao csi ON can.id = csi.id_animal
           	WHERE csi.adotado = 0");
 
-			$data = $stmt->fetchall(PDO::FETCH_ASSOC);
+			$data = $sql->fetchall(PDO::FETCH_ASSOC);
 			
 			return $data;
 		}
 
-		public function getAvaiableAnimalsById($id)
+		public static function getAvaiableAnimalsById($id)
 		{
-			$data = array();
-			$stmt = $this->con->prepare(
-			"SELECT
-				can.tipo,
-				can.sexo, 
-				can.idade,
-				cap.cor,
-				cap.porte, 
-				cap.peso,
-				cid.codigo,
-				cid.apelido,
-				cra.raca,
-				cra.comportamento,
-				csi.descricao,
-				csi.nome_responsavel_resgate
-		  	FROM
-			canil.animais can
-			  INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-			  INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-			  INNER JOIN canil.raca cra ON can.id = cra.id_animal
-			  INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-		  	WHERE can.id = :id ");
+			$con = Connection::getConn(); //conecta no banco
 
-			$stmt->bindValue(":id", $id);
-			$stmt->execute();
-			$data = $stmt->fetch(PDO::FETCH_ASSOC); //usa fetch ao inves de fetchall pq vai retornar apenas uma linha
-			return $data;
-		}
+			$result = array();
 
-		public function getAdoptionsHistory()
-		{
-			$data = array();
-			$stmt = $this->con->query(
-			"SELECT
-				can.id,
-				can.tipo,
-				can.sexo,
-				cap.cor,
-				cap.porte,
-				cid.codigo,
-				cid.apelido,
-				cra.raca,
-				csi.nome_responsavel_adocao,
-				csi.cpf_responsavel_adocao,
-				csi.data_adocao
-			FROM
-				canil.animais can
-				INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-				INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-				INNER JOIN canil.raca cra ON can.id = cra.id_animal
-				INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-			WHERE csi.adotado = 1");
-
-			$data = $stmt->fetchall(PDO::FETCH_ASSOC);
+			$sql = $this->Connection->prepare("SELECT * from animais WHERE id= :id");
+			$sql->bindValue(':id',$id);
+			$sql->execute();
+			$result = $sql->fetch();
 			
-			return $data;
+			return $result;
 		}
 
 		/*public static function selecionaPorId($idPost)
