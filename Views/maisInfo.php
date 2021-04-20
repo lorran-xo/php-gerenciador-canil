@@ -35,6 +35,6 @@
 			<label for="descricao">Descrição</label>
 			<textarea class="input-disabilitado" name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
 		</fieldset>
-		<a href="http://localhost/php-gerenciador-canil/home"> <input type="button" value="Voltar"/> </a>   
+		<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
 	</form>
 </div>
