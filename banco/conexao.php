@@ -1,29 +1,13 @@
-<?php //Singleton: Cria apenas uma instancia de conexao com o banco para consumir menos
+<?php 
 
-Class Connection{
-	private static $conn;
-	
-	private function __construct(){}
+$host = "localhost";
+$usuario = "root";
+$senha = "";
+$bd = "canil";
 
-	public static function getConn()
-	{
-		if(!isset(self::$conn))
-		{
-			$dbname = 'canil';
-			$host = 'localhost';
-			$user = 'root';
-			$senha = '';
+$mysqli = new mysqli($host, $usuario, $senha, $bd);
 
-			try{
-				self::$conn = new PDO('mysql:dbname='.$dbname.';host='.$host,$user,$senha);
-			}catch(Exception $error)
-			{
-				echo 'Erro: '.$error;
-			}
-		}
-
-		return self::$conn;
-	}
+if($mysqli->connect_errno){ //Se der erro ao conectar retorna erro
+	echo "servidor: offline, (".$mysqli->connect_errno.") ".$mysqli->connect_error;
 }
-
 ?>
