@@ -41,7 +41,7 @@
 			return $data;
 		}
 
-		public function insertAnimal($animalInfos)
+		public static function insertAnimal($animalInfos)
 		{
 			if(empty($animalInfos['codigo']) || empty($animalInfos['tipo']) || empty($animalInfos['raca'])){
 				throw new Exception("Preencha todos os campos obrigatórios!");
@@ -49,18 +49,14 @@
 			}
 
 			$data = array();
-			$stmt = $this->con->prepare("INSERT INTO canil.animais (tipo) VALUES (:tipo)");
-			$stmt->bindValue(":tipo", $animalInfos['tipo']);
+			$stmt = $this->con->query("INSERT INTO canil.animais(tipo) VALUES (:type)");
+			$stmt->bindValue(":type", $animalInfos['tipo']);
 			$res = $stmt->execute();
 
-			if($res == 0){
-				throw new Exception("Ocorreu um erro ao salvar!");
-			}
-
-			return true;
+			var_dump($res);
 		}
 	
-		/*public function getAvaiableAnimalsById($id)
+		public function getAvaiableAnimalsById($id)
 		{
 			$data = array();
 			$stmt = $this->con->prepare(
@@ -89,7 +85,7 @@
 			$stmt->execute();
 			$data = $stmt->fetch(PDO::FETCH_ASSOC); //usa fetch ao inves de fetchall pq vai retornar apenas uma linha
 			return $data;
-		}*/
+		}
 
 		public function getAdoptionsHistory()
 		{

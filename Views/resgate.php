@@ -39,8 +39,6 @@
                 </select>
 
 				<label for="idade">Idade</label>
-                <input name="idade" type="text">
-
 
 				<label for="peso">Peso</label>
 
