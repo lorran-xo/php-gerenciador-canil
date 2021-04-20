@@ -9,6 +9,7 @@ Class Controller{
     {
         $this->dados = array();
     }
+
     //passa como parametro uma view e algum dado dos Models do banco. Unindo front com banco
     public function carregarTemplate($nomeView, $dadosModel = array(), $dados2 = array())
     {
@@ -16,10 +17,13 @@ Class Controller{
         $this->dados2 = $dados2;
         require 'Views/template.php';
     }
+
     //Extrai as variaveis do array
     public function carregarViewNoTemplate($nomeView, $dadosModel = array())
     {
         extract($dadosModel);
+
         require 'Views/'.$nomeView.'.php'; //dinamico
     }
+
 }

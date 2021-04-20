@@ -1,8 +1,13 @@
+<?php require_once "side_bar.php" ?>
+<?php
+echo "<link rel=”stylesheet” type=”text/css” href=”Styles/css/sb-admin-2.css” />"
+?>
+
 <div>
     <h4 class="centraliza-titulo">Editar</h4>
     <div class="form-style-5">
         <form method="POST" action="./editarAnimal.php?id=<?php echo $selected_animal_id; ?>">
-			<h6> Visualize abaixo os dados do animal selecionado <b>(<?php echo $apelido?>)</b> e edite-os quando necessário</h6><br/>
+			<h6> Visualize os dados do <b>animal selecionado</b> abaixo e edite quando necessário</h6><br/>
 			<fieldset class="cabecario">
 				<label for="codigo" class="label-centro">Código</label>
 				<input class="input-disabilitado" name="codigo" type="text" value="<?php echo $_SESSION['codigo']; ?>">
@@ -68,3 +73,5 @@
         </form>
     </div>
 </div>
+
+<?php require_once "bottom_bar.php"?>
