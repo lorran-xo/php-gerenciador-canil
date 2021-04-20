@@ -50,8 +50,8 @@
                                                 <td><?php echo $this->dados2[$i]["porte"];?></td>
                                                 <td><?php echo $this->dados2[$i]["data_resgate"];?></td>
                                                 <td>
-                                                <a href="home/editar?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Editar</span></button></a>
-                                                <a href="home/maisInfo?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Mais</span></button></a>
+                                                <a href="editar"> <button type="button"><span>Editar</span></button></a>
+                                                <a href="maisInfos.php?id=<?php echo $this->dados2[$i]["id"];?>"> <button type="button"><span>Mais</span></button></a>
                                                 </td>
                                             </tr>
                                             <?php 

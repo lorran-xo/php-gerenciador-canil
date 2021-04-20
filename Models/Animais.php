@@ -12,32 +12,29 @@
 		public function getAvaiableAnimals()
 		{
 			$data = array();
-			$sql = $this->con->query(
-			"SELECT
-				can.id,
-				can.tipo, 
-				can.sexo, 
-				can.idade,
-				cap.cor, 
-				cap.porte, 
-				cap.peso,
-				cid.codigo,
-				cid.apelido,
-				cra.raca,
-				cra.comportamento,
-				csi.descricao,
-				csi.nome_responsavel_resgate,
-				csi.data_resgate
-          	FROM
+			$sql = $this->con->query("SELECT
+            can.id,
+            can.tipo, 
+            can.sexo, 
+            can.idade,
+            cap.cor, 
+            cap.porte, 
+            cap.peso,
+            cid.codigo,
+            cid.apelido,
+            cra.raca,
+            cra.comportamento,
+            csi.descricao,
+            csi.nome_responsavel_resgate,
+            csi.data_resgate
+          FROM
             canil.animais can
               INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
               INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
               INNER JOIN canil.raca cra ON can.id = cra.id_animal
               INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-          	WHERE csi.adotado = 0");
-
+          WHERE csi.adotado = 0");
 			$data = $sql->fetchall(PDO::FETCH_ASSOC);
-			
 			return $data;
 		}
 

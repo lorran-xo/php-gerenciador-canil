@@ -37,7 +37,7 @@
       <!-- Link das abas da página -->
       <li class="nav-item active">
         <a class="nav-link" href="home">
-          <i class="fas fa-home"></i>
+        <i class="fas fa-home"></i>
           <span>Início</span></a>
       </li>
 
