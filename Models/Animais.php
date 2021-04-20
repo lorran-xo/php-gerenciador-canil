@@ -41,21 +41,6 @@
 			return $data;
 		}
 
-		public static function insertAnimal($animalInfos)
-		{
-			if(empty($animalInfos['codigo']) || empty($animalInfos['tipo']) || empty($animalInfos['raca'])){
-				throw new Exception("Preencha todos os campos obrigatórios!");
-				return false;
-			}
-
-			$data = array();
-			$stmt = $this->con->query("INSERT INTO canil.animais(tipo) VALUES (:type)");
-			$stmt->bindValue(":type", $animalInfos['tipo']);
-			$res = $stmt->execute();
-
-			var_dump($res);
-		}
-	
 		public function getAvaiableAnimalsById($id)
 		{
 			$data = array();
