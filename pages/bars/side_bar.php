@@ -63,6 +63,13 @@
       </li>
 
       <li class="nav-item active">
+        <a class="nav-link" href="adocao.php?page=0">
+          <i class="fas fa-user-md"></i>
+          <span>Veterinários</span>
+        </a>
+      </li>
+
+      <li class="nav-item active">
         <a class="nav-link" href="apoios.php">
           <i class="fas fa-hands-helping"></i>
           <span>Apoiar</span>
