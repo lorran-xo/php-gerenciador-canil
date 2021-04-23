@@ -26,7 +26,7 @@ $_SESSION['porte'] = '';
 $_SESSION['peso'] = '';
 
 //tabela identificacao id_animal = id.animais
-$_SESSION['apelido'] = '';
+$_SESSION['nome_animal'] = '';
 $_SESSION['codigo'] = '';
 
 //tabela raca id_animal = id.animais
@@ -81,13 +81,14 @@ if(isset($_POST['cadastrar'])){
 			$comportamentoErro = '';
 
 			//Passar pra Transaction para otimizar
-			$mysqli->query("INSERT INTO animais (tipo, sexo, idade) VALUES ('$_SESSION[tipo]', '$_SESSION[sexo]', '$_SESSION[idade]')");
-			$id_atual = $mysqli->insert_id; //Pega o id do insert da tabela animais e coloca como chave estrangeira nos outros inserts
+			$mysqli->query("INSERT INTO canil.animal (codigo, tipo, nome_animal, sexo, idade, cor, porte, raca, comportamento, castrado, data_resgate) VALUES ('$_SESSION[codigo]', '$_SESSION[tipo]', '$_SESSION[nome_animal], '$_SESSION[sexo]', '$_SESSION[idade]', '$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[raca]', '$_SESSION[comportamento]', NOW(), NOW())");
+			
+			/*$id_atual = $mysqli->insert_id; //Pega o id do insert da tabela animais e coloca como chave estrangeira nos outros inserts
 			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
 			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
 			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
 			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, motivo_devolucao, id_animal) 
-			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, NULL, '$id_atual')");
+			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, NULL, '$id_atual')");*/
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();
@@ -110,8 +111,8 @@ if(isset($_POST['cadastrar'])){
                     <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
                     <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
-					<label for="apelido">Apelido</label>
-					<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
+					<label for="nome">Nome</label>
+					<input name="nome" type="text" value="<?php echo $_SESSION['nome_animal']; ?>">
 
                 <legend><span class="number">2</span> Características </legend>
 
@@ -155,12 +156,12 @@ if(isset($_POST['cadastrar'])){
                     </select>
 				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
-                <legend><span class="number">3</span> Adicionais </legend>
+                <!--<legend><span class="number">3</span> Adicionais </legend>
 				<label for="nome_responsavel_resgate">Responsável pelo resgate</label>
                 <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
 
 				<label for="descricao">Descrição</label>
-                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
+                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>-->
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
         </form>
