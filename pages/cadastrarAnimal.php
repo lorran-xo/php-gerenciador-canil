@@ -15,37 +15,21 @@ $comportamentoErro = '';
 //Alguns campos nao tem erro pq nao sao obrigatorios
 
 //Iniciando o value dos inputs com valor vazio 
-//tabela animais
+//tabela animal
 $_SESSION['tipo'] = '';
 $_SESSION['sexo'] = '';
 $_SESSION['idade'] = '';
-
-//tabela aparencia id_animal = id.animais
 $_SESSION['cor'] = '';
 $_SESSION['porte'] = '';
-$_SESSION['peso'] = '';
-
-//tabela identificacao id_animal = id.animais
 $_SESSION['nome_animal'] = '';
 $_SESSION['codigo'] = '';
-
-//tabela raca id_animal = id.animais
 $_SESSION['raca'] = '';
 $_SESSION['comportamento'] = '';
+$_SESSION['castrado'] = '';
+$_SESSION['data_resgate'] = ''; //cadastra sempre a data do dia que esta sendo feito o cadastro
+$_SESSION['responsavel_resgate'] = '';
+$_SESSION['descricao_resgate'] = '';
 
-//tabela situacao id_animal = id.animais
-$_SESSION['descricao'] = '';
-$_SESSION['nome_responsavel_resgate'] = '';
-$_SESSION['data_resgate'] = ''; //cadastra data agora sempre
-$_SESSION['adotado'] = 'false'; //cadastra false sempre
-
-
-/*$_SESSION['responsavel_adocao_nome'] = '';
-$_SESSION['responsavel_adocao_cpf'] = '';
-$_SESSION['data_adocao'] = '';  
-motivo_devolucao
-
-/\ DEIXA NULOS /\ */
 
 
 if(isset($_POST['cadastrar'])){
@@ -80,15 +64,7 @@ if(isset($_POST['cadastrar'])){
 			$racaErro = '';
 			$comportamentoErro = '';
 
-			//Passar pra Transaction para otimizar
-			$mysqli->query("INSERT INTO canil.animal (codigo, tipo, nome_animal, sexo, idade, cor, porte, raca, comportamento, castrado, data_resgate) VALUES ('$_SESSION[codigo]', '$_SESSION[tipo]', '$_SESSION[nome_animal], '$_SESSION[sexo]', '$_SESSION[idade]', '$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[raca]', '$_SESSION[comportamento]', NOW(), NOW())");
-			
-			/*$id_atual = $mysqli->insert_id; //Pega o id do insert da tabela animais e coloca como chave estrangeira nos outros inserts
-			$mysqli->query("INSERT INTO aparencia (cor, porte, peso, id_animal) VALUES ('$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[peso]', '$id_atual')");
-			$mysqli->query("INSERT INTO identificacao (codigo, apelido, id_animal) VALUES ('$_SESSION[codigo]', '$_SESSION[apelido]', '$id_atual')");
-			$mysqli->query("INSERT INTO raca (raca, comportamento, id_animal) VALUES ('$_SESSION[raca]', '$_SESSION[comportamento]', '$id_atual')");
-			$mysqli->query("INSERT INTO situacao (adotado, descricao, nome_responsavel_resgate, data_resgate, nome_responsavel_adocao, cpf_responsavel_adocao, data_adocao, motivo_devolucao, id_animal) 
-			VALUES (0, '$_SESSION[descricao]', '$_SESSION[nome_responsavel_resgate]', NOW(), NULL, NULL, NULL, NULL, '$id_atual')");*/
+			$mysqli->query("INSERT INTO animal (codigo, tipo, nome_animal, raca, sexo, cor, porte, idade, comportamento, castrado, data_resgate, responsavel_resgate, descricao_resgate) VALUES ('$_SESSION[codigo]', '$_SESSION[tipo]', '$_SESSION[nome_animal]', '$_SESSION[raca]', '$_SESSION[sexo]', '$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[idade]', '$_SESSION[comportamento]', '$_SESSION[castrado]', NOW(), '$_SESSION[responsavel_resgate]', '$_SESSION[descricao_resgate]')");
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();
@@ -111,8 +87,8 @@ if(isset($_POST['cadastrar'])){
                     <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
                     <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
-					<label for="nome">Nome</label>
-					<input name="nome" type="text" value="<?php echo $_SESSION['nome_animal']; ?>">
+					<label for="nome_animal">Apelido</label>
+					<input name="nome_animal" type="text" value="<?php echo $_SESSION['nome_animal'] ?>">
 
                 <legend><span class="number">2</span> Características </legend>
 
@@ -142,10 +118,7 @@ if(isset($_POST['cadastrar'])){
                 <?php echo "<span class='errortext'>$porteErro</span>"; ?>
 
 				<label for="idade">Idade</label>
-                <input name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>">
-
-				<label for="peso">Peso</label>
-                <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>">
+                <input name="idade" type="text" value="<?php echo $_SESSION['idade']; ?>">
 
                 <label for="sexo">Comportamento</label>
                     <select name="comportamento" required>
@@ -156,12 +129,15 @@ if(isset($_POST['cadastrar'])){
                     </select>
 				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
-                <!--<legend><span class="number">3</span> Adicionais </legend>
-				<label for="nome_responsavel_resgate">Responsável pelo resgate</label>
-                <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
+				<label for="castrado">Data de castração</label> <h2 class="font-size-menor">Caso tenha chegado castrado, colocar como data de cadastro. Se ainda não foi castrado, não preencher. </h2>
+                <input name="castrado" type="date" value="<?php echo $_SESSION['castrado']; ?>">
 
-				<label for="descricao">Descrição</label>
-                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>-->
+                <legend><span class="number">3</span> Adicionais </legend>
+				<label for="responsavel_resgate">Responsável pelo resgate</label>
+                <input name="responsavel_resgate" type="text" value="<?php echo $_SESSION['responsavel_resgate']; ?>" required>
+
+				<label for="descricao_resgate">Descrição do resgate</label>
+                <textarea name="descricao_resgate" required><?php echo $_SESSION['descricao_resgate']; ?></textarea>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
         </form>

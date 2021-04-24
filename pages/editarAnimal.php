@@ -22,10 +22,10 @@ $_SESSION['idade'] = '';
 //tabela aparencia id_animal = id.animais
 $_SESSION['cor'] = '';
 $_SESSION['porte'] = '';
-$_SESSION['peso'] = '';
+//$_SESSION['peso'] = '';
 
 //tabela identificacao id_animal = id.animais
-$_SESSION['apelido'] = '';
+$_SESSION['nome_animal'] = '';
 $_SESSION['codigo'] = '';
 
 //tabela raca id_animal = id.animais
@@ -33,13 +33,13 @@ $_SESSION['raca'] = '';
 $_SESSION['comportamento'] = '';
 
 //tabela situacao id_animal = id.animais
-$_SESSION['descricao'] = '';
-$_SESSION['nome_responsavel_resgate'] = '';
+$_SESSION['descricao_resgate'] = '';
+$_SESSION['responsavel_resgate'] = '';
 
 $selected_animal_id = intval($_GET['id']);
 
 	if(isset($_POST['excluir'])){
-		$mysqli->query("DELETE FROM animais WHERE id = '$selected_animal_id'");
+		$mysqli->query("DELETE FROM animal WHERE id_animal = '$selected_animal_id'");
 				
 		header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 		exit();
@@ -74,36 +74,13 @@ $selected_animal_id = intval($_GET['id']);
 				$comportamentoErro = '';
 				
 				//usar PDO 
-				$mysqli->query("UPDATE animais SET tipo= '$_SESSION[tipo]', sexo= '$_SESSION[sexo]', idade= '$_SESSION[idade]' WHERE id = '$selected_animal_id'");
-				$mysqli->query("UPDATE aparencia SET cor= '$_SESSION[cor]', porte= '$_SESSION[porte]', peso= '$_SESSION[peso]' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE identificacao SET apelido= '$_SESSION[apelido]' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE raca SET raca='$_SESSION[raca]', comportamento= '$_SESSION[comportamento]' WHERE id_animal = '$selected_animal_id'");
-				$mysqli->query("UPDATE situacao SET descricao='$_SESSION[descricao]', nome_responsavel_resgate ='$_SESSION[nome_responsavel_resgate]' WHERE id_animal = '$selected_animal_id'");
+				$mysqli->query("UPDATE animal SET tipo= '$_SESSION[tipo]', nome_animal= '$_SESSION[nome_animal]', raca= '$_SESSION[raca]', sexo= '$_SESSION[sexo]', cor= '$_SESSION[cor]', porte= '$_SESSION[porte]', idade= '$_SESSION[idade]', comportamento= '$_SESSION[comportamento]', castrado= '$_SESSION[castrado]', data_resgate= '$_SESSION[data_resgate]', responsavel_resgate= '$_SESSION[responsavel_resgate]', descricao_resgate= '$_SESSION[descricao_resgate]' WHERE id_animal = '$selected_animal_id'");
 				
 				header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 				exit();
 			}
 	} else {
-		$sql_code = "SELECT
-		can.tipo,
-		can.sexo, 
-		can.idade,
-		cap.cor,
-		cap.porte, 
-		cap.peso,
-		cid.codigo,
-		cid.apelido,
-		cra.raca,
-		cra.comportamento,
-		csi.descricao,
-		csi.nome_responsavel_resgate
-	  FROM
-		canil.animais can
-		  INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-		  INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-		  INNER JOIN canil.raca cra ON can.id = cra.id_animal
-		  INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-	  WHERE can.id = '$selected_animal_id'";
+		$sql_code = "SELECT * FROM canil.animal WHERE id_animal = '$selected_animal_id'";
 		$sql_query = $mysqli->query($sql_code) or die($mysqli->error);
 		$array = $sql_query->fetch_assoc();
 
@@ -111,18 +88,19 @@ $selected_animal_id = intval($_GET['id']);
 	 	session_start();
 
 		$_SESSION['tipo'] = $array['tipo'];
+		$_SESSION['nome_animal'] = $array['nome_animal'];
 		$_SESSION['sexo'] = $array['sexo'];
 		$_SESSION['idade'] = $array['idade'];
 		$_SESSION['cor'] = $array['cor'];
 		$_SESSION['porte'] = $array['porte'];
-		$_SESSION['peso'] = $array['peso'];
-		$_SESSION['apelido'] = $array['apelido'];
+		//$_SESSION['peso'] = $array['peso'];
 		$_SESSION['codigo'] = $array['codigo'];
 		$_SESSION['raca'] = $array['raca'];
 		$_SESSION['comportamento'] = $array['comportamento'];
-		$_SESSION['descricao'] = $array['descricao'];
-		$_SESSION['nome_responsavel_resgate'] = $array['nome_responsavel_resgate'];
-
+		$_SESSION['data_resgate'] = $array['data_resgate'];
+		$_SESSION['descricao_resgate'] = $array['descricao_resgate'];
+		$_SESSION['responsavel_resgate'] = $array['responsavel_resgate'];
+		$_SESSION['castrado'] = $array['castrado'];
 	}
 ?>
 
@@ -141,8 +119,8 @@ $selected_animal_id = intval($_GET['id']);
 				<input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
 				<?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
-				<label for="apelido">Apelido</label>
-				<input name="apelido" type="text" value="<?php echo $_SESSION['apelido']; ?>">
+				<label for="nome_animal">Nome</label>
+				<input name="nome_animal" type="text" value="<?php echo $_SESSION['nome_animal']; ?>">
 
 				<label for="raca">Raça*</label>
                 <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
@@ -170,10 +148,13 @@ $selected_animal_id = intval($_GET['id']);
                 <?php echo "<span class='errortext'>$porteErro</span>"; ?>
 
 				<label for="idade">Idade</label>
-                <input name="idade" type="number" value="<?php echo $_SESSION['idade']; ?>">
+                <input name="idade" type="text" value="<?php echo $_SESSION['idade']; ?>">
 
-				<label for="peso">Peso</label>
-                <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>">
+				<!--<label for="peso">Peso</label>
+                <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>"> -->
+
+				<label for="castrado">Castração</label>
+                <input name="castrado" type="date" value="<?php echo $_SESSION['castrado']; ?>">
 
                 <label for="comportamento">Comportamento*</label>
                     <select name="comportamento" required>
@@ -184,11 +165,14 @@ $selected_animal_id = intval($_GET['id']);
                     </select>
 				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
 
-				<label for="nome_responsavel_resgate">Responsável pelo resgate</label>
-                <input name="nome_responsavel_resgate" type="text" value="<?php echo $_SESSION['nome_responsavel_resgate']; ?>">
+				<label for="responsavel_resgate">Responsável pelo resgate</label>
+                <input name="responsavel_resgate" type="text" value="<?php echo $_SESSION['responsavel_resgate']; ?>">
 
-				<label for="descricao">Descrição</label>
-                <textarea name="descricao"><?php echo $_SESSION['descricao']; ?></textarea>
+				<label for="data_resgate">Data do resgate</label>
+                <input name="data_resgate" type="date" value="<?php echo $_SESSION['data_resgate']; ?>">
+
+				<label for="descricao_resgate">Descrição do resgate</label>
+                <textarea name="descricao_resgate"><?php echo $_SESSION['descricao_resgate']; ?></textarea>
             </fieldset>
             <input type="submit" name="editar" value="Salvar" />
 			<input type="submit" name="excluir" value="Excluir" />
