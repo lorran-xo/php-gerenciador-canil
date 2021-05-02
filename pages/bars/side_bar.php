@@ -41,12 +41,12 @@
           <span>Início</span></a>
       </li>
 
-      <li class="nav-item active">
+      <!--<li class="nav-item active">
         <a class="nav-link" href="cadastrarAnimal.php">
           <i class="fas fa-medkit"></i>
           <span>Resgate</span>
         </a>
-      </li>
+      </li> -->
 
       <li class="nav-item active">
         <a class="nav-link" href="adocao.php?page=0">
