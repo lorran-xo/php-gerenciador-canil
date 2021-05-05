@@ -68,13 +68,13 @@
 .input-submit {
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 10%; /* Full-width */
-  padding: 10px; /* Add some padding */
+  width: 9%; /* Full-width */
+  padding: 9px; /* Add some padding */
   border: 1px solid #ddd; /* Add a grey border */
   margin-bottom: 12px; /* Add some space below the input */
 }
 
-a{
+a {
 	text-decoration: none!important;
 }
 /* fim fontes e centralizaçoes */

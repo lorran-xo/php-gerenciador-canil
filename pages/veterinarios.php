@@ -12,23 +12,23 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM canil.animal WHERE CONCAT(`codigo`, `tipo`, `nome_animal`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM canil.veterinario WHERE CONCAT(`nome_veterinario`, `cpf`, `crmv`, `contato`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.veterinario")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT * FROM canil.animal LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT * FROM canil.veterinario LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.veterinario")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -36,8 +36,8 @@ else
 ?>
 
 <div class="container">
-    <h3 class="centraliza-titulo">Início</h3>
-    <h6 class="centraliza-intro">Visualize os animais do canil, cadastre mais, edite ou clique para ver mais informações!</h6>
+    <h3 class="centraliza-titulo">Veterinários</h3>
+    <h6 class="centraliza-intro">Visualize os veterinários do canil, cadastre mais ou edite-os!</h6>
     <br><br> 
     <div class="container">
             <div class="row">
@@ -46,35 +46,26 @@ else
                         <form action="index.php?page=0" method="post"> 
                             <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
                             <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
-                            <a href="cadastrarAnimal.php"><button type="button" class="input-submit">Cadastrar</button></a>
+                            <a href="cadastrarVeterinario.php"><button type="button" class="input-submit">Cadastrar</button></a>
                             <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center">
                                     <tr>
-                                        <th>Código</th>
-                                        <th>Tipo</th>
+                                        <th>CRMV</th>
                                         <th>Nome</th>
-                                        <th>Raça</th>                                
-                                        <th>Sexo</th>  
-                                        <th>Cor</th>
-                                        <th>Porte</th>
-                                        <th>Data do Resgate</th>
+                                        <th>CPF</th>
+                                        <th>Contato</th>
                                         <th>Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while($dado = $con->fetch_array()){ ?>
                                     <tr class="trData">
-                                        <td><?php echo $dado["codigo"];?></td>
-                                        <td><?php echo $dado["tipo"];?></td>
-                                        <td><?php echo $dado["nome_animal"];?></td>
-                                        <td><?php echo $dado["raca"];?></td>
-                                        <td><?php echo $dado["sexo"];?></td>
-                                        <td><?php echo $dado["cor"];?></td>
-                                        <td><?php echo $dado["porte"];?></td>
-                                        <td><?php echo $dado["data_resgate"];?></td>
+                                        <td><?php echo $dado["crmv"];?></td>
+                                        <td><?php echo $dado["nome_veterinario"];?></td>
+                                        <td><?php echo $dado["cpf"];?></td>
+                                        <td><?php echo $dado["contato"];?></td>
                                         <td>
-                                            <a href="editarAnimal.php?id=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Editar</span></button></a>
-                                            <a href="maisInfos.php?id=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Mais</span></button></a>
+                                            <a href="editarVeterinario.php?id=<?php echo $dado["id_veterinario"];?>"> <button type="button"><span>Editar</span></button></a>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -89,9 +80,9 @@ else
                                     if($pagina_atual == $i)
                                         $style = "class=\"active\"";
                                 ?>
-                                <li class="active"> <a class="page-link" href="index.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <li class="active"> <a class="page-link" href="veterinario.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                                 <?php }?>
-                                <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                                <li class="page-item"><a class="page-link" href="veterinario.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                             </ul>
                         </nav>
                     </div>

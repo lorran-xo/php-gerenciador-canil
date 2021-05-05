@@ -39,7 +39,7 @@ $_SESSION['responsavel_resgate'] = '';
 $selected_animal_id = intval($_GET['id']);
 
 	if(isset($_POST['excluir'])){
-		$mysqli->query("DELETE FROM animal WHERE id_animal = '$selected_animal_id'");
+		$mysqli->query("DELETE FROM canil.veterinario WHERE id_veterinario = '$selected_animal_id'");
 				
 		header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 		exit();
@@ -80,7 +80,7 @@ $selected_animal_id = intval($_GET['id']);
 				exit();
 			}
 	} else {
-		$sql_code = "SELECT * FROM canil.animal WHERE id_animal = '$selected_animal_id'";
+		$sql_code = "SELECT * FROM canil.veterinario WHERE id_veterinario = '$selected_animal_id'";
 		$sql_query = $mysqli->query($sql_code) or die($mysqli->error);
 		$array = $sql_query->fetch_assoc();
 
@@ -108,7 +108,7 @@ $selected_animal_id = intval($_GET['id']);
     <h4 class="centraliza-titulo">Editar</h4>
     <div class="form-style-5">
         <form method="POST" action="./editarAnimal.php?id=<?php echo $selected_animal_id; ?>">
-			<h6> Edite as informações do animal selecionado </h6><br/>
+			<h6> Edite as informações do veterinário selecionado </h6><br/>
 			<fieldset class="cabecario">
 				<label for="codigo" class="label-centro">Código</label>
 				<input class="input-disabilitado" name="codigo" type="text" value="<?php echo $_SESSION['codigo']; ?>">
