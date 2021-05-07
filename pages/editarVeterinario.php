@@ -1,47 +1,27 @@
 <?php require_once "bars/side_bar.php" ?>
 
 <?php
-
 include("./../banco/conexao.php");
 
 //Iniciando as mensagens de erro com valor vazio 
-$tipoErro = '';
-$sexoErro = '';
-$corErro = '';
-$porteErro = '';
-$racaErro = '';
-$comportamentoErro = '';
+$nomeErro = '';
+$cpfErro = '';
+$crmvErro = '';
+$contatoErro = '';
 //Alguns campos nao tem erro pq nao sao obrigatorios
 
 //Iniciando o value dos inputs com valor vazio 
-//tabela animais
-$_SESSION['tipo'] = '';
-$_SESSION['sexo'] = '';
-$_SESSION['idade'] = '';
+$_SESSION['nome_veterinario'] = '';
+$_SESSION['cpf'] = '';
+$_SESSION['crmv'] = '';
+$_SESSION['contato'] = '';
 
-//tabela aparencia id_animal = id.animais
-$_SESSION['cor'] = '';
-$_SESSION['porte'] = '';
-//$_SESSION['peso'] = '';
-
-//tabela identificacao id_animal = id.animais
-$_SESSION['nome_animal'] = '';
-$_SESSION['codigo'] = '';
-
-//tabela raca id_animal = id.animais
-$_SESSION['raca'] = '';
-$_SESSION['comportamento'] = '';
-
-//tabela situacao id_animal = id.animais
-$_SESSION['descricao_resgate'] = '';
-$_SESSION['responsavel_resgate'] = '';
-
-$selected_animal_id = intval($_GET['id']);
+$selected_id = intval($_GET['id']);
 
 	if(isset($_POST['excluir'])){
-		$mysqli->query("DELETE FROM canil.veterinario WHERE id_veterinario = '$selected_animal_id'");
+		$mysqli->query("DELETE FROM veterinario WHERE id_veterinario = '$selected_id'");
 				
-		header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
+		header("Location: http://localhost/php-gerenciador-canil/pages/veterinarios.php?page=0");
 		exit();
 	} else if(isset($_POST['editar'])){
 			
@@ -53,130 +33,70 @@ $selected_animal_id = intval($_GET['id']);
 				$_SESSION[$key] = $mysqli->real_escape_string($value);
 		
 			//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
-			if(strlen($_SESSION['tipo']) == 0){ 
-				$tipoErro = 'É necessário preencher o campo Tipo!';
-			} else if(strlen($_SESSION['sexo']) == 0){
-				$sexoErro = 'É necessário selecionar um Sexo';
-			} else if(strlen($_SESSION['cor']) == 0){
-				$corErro = 'É necessário preencher o campo Cor!';
-			} else if(strlen($_SESSION['porte']) == 0){
-				$porteErro = 'É necessário selecionar um Porte!';
-			} else if(strlen($_SESSION['raca']) == 0){
-				$racaErro = 'É necessário digitar a Raça!';
-			} else if(strlen($_SESSION['comportamento']) == 0){
-				$comportamentoErro = 'É necessário selecionar um Comportamento!';
+			if(strlen($_SESSION['nome_veterinario']) == 0){ 
+				$nomeErro = 'É necessário preencher o campo Nome!';
+			} else if(strlen($_SESSION['cpf']) == 0){
+			   $cpfErro = 'É necessário preencher o campo CPF!';
+			} else if(strlen($_SESSION['crmv']) == 0){
+				$crmvErro = 'É necessário preencher o campo CRMV!';
+			} else if(strlen($_SESSION['contato']) == 0){
+				$contatoErro = 'É necessário preencher o campo Contato!';
 			} else {
-				$tipoErro = '';
-				$sexoErro = '';
-				$corErro = '';
-				$porteErro = '';
-				$racaErro = '';
-				$comportamentoErro = '';
-				
+				$nomeErro = '';
+				$cpfErro = '';
+				$crmvErro = '';
+				$contatoErro = '';
+
 				//usar PDO 
-				$mysqli->query("UPDATE animal SET tipo= '$_SESSION[tipo]', nome_animal= '$_SESSION[nome_animal]', raca= '$_SESSION[raca]', sexo= '$_SESSION[sexo]', cor= '$_SESSION[cor]', porte= '$_SESSION[porte]', idade= '$_SESSION[idade]', comportamento= '$_SESSION[comportamento]', castrado= '$_SESSION[castrado]', data_resgate= '$_SESSION[data_resgate]', responsavel_resgate= '$_SESSION[responsavel_resgate]', descricao_resgate= '$_SESSION[descricao_resgate]' WHERE id_animal = '$selected_animal_id'");
-				
-				header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
+				$mysqli->query("UPDATE veterinario SET nome_veterinario= '$_SESSION[nome_veterinario]', cpf= '$_SESSION[cpf]', crmv= '$_SESSION[crmv]', contato= '$_SESSION[contato]' WHERE id_veterinario = '$selected_id'");
+
+				header("Location: http://localhost/php-gerenciador-canil/pages/veterinarios.php?page=0");
 				exit();
 			}
 	} else {
-		$sql_code = "SELECT * FROM canil.veterinario WHERE id_veterinario = '$selected_animal_id'";
+		$sql_code = "SELECT * FROM veterinario WHERE id_veterinario = '$selected_id'";
 		$sql_query = $mysqli->query($sql_code) or die($mysqli->error);
 		$array = $sql_query->fetch_assoc();
 
 		if(!isset($_SESSION))
 	 	session_start();
 
-		$_SESSION['tipo'] = $array['tipo'];
-		$_SESSION['nome_animal'] = $array['nome_animal'];
-		$_SESSION['sexo'] = $array['sexo'];
-		$_SESSION['idade'] = $array['idade'];
-		$_SESSION['cor'] = $array['cor'];
-		$_SESSION['porte'] = $array['porte'];
-		//$_SESSION['peso'] = $array['peso'];
-		$_SESSION['codigo'] = $array['codigo'];
-		$_SESSION['raca'] = $array['raca'];
-		$_SESSION['comportamento'] = $array['comportamento'];
-		$_SESSION['data_resgate'] = $array['data_resgate'];
-		$_SESSION['descricao_resgate'] = $array['descricao_resgate'];
-		$_SESSION['responsavel_resgate'] = $array['responsavel_resgate'];
-		$_SESSION['castrado'] = $array['castrado'];
+		$_SESSION['nome_veterinario'] = $array['nome_veterinario'];
+		$_SESSION['cpf'] = $array['cpf'];
+		$_SESSION['crmv'] = $array['crmv'];
+		$_SESSION['contato'] = $array['contato'];
 	}
 ?>
 
 <div>
     <h4 class="centraliza-titulo">Editar</h4>
     <div class="form-style-5">
-        <form method="POST" action="./editarAnimal.php?id=<?php echo $selected_animal_id; ?>">
+        <form method="POST" action="./editarVeterinario.php?id=<?php echo $selected_id; ?>">
 			<h6> Edite as informações do veterinário selecionado </h6><br/>
 			<fieldset class="cabecario">
-				<label for="codigo" class="label-centro">Código</label>
-				<input class="input-disabilitado" name="codigo" type="text" value="<?php echo $_SESSION['codigo']; ?>">
+				<label for="crmv" class="label-centro">CRMV</label>
+				<input class="input-disabilitado" name="crmv" type="text" value="<?php echo $_SESSION['crmv']; ?>">
 			</fieldset>
-			
             <fieldset>
-				<label for="codigo">Tipo*</label>
-				<input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
-				<?php echo "<span class='errortext'>$tipoErro</span>"; ?>
+				<label for="codigo">Nome*</label>
+				<input name="nome" type="text" value="<?php echo $_SESSION['nome_veterinario']; ?>" required>
+				<?php echo "<span class='errortext'>$nomeErro</span>"; ?>
 
-				<label for="nome_animal">Nome</label>
-				<input name="nome_animal" type="text" value="<?php echo $_SESSION['nome_animal']; ?>">
+				<label for="cpf">CPF*</label>
+				<input name="cpf" type="text" value="<?php echo $_SESSION['cpf']; ?>" required>
+				<?php echo "<span class='errortext'>$cpfErro</span>"; ?>
 
-				<label for="raca">Raça*</label>
-                <input name="raca" type="text" value="<?php echo $_SESSION['raca']; ?>" required>
-                <?php echo "<span class='errortext'> $racaErro </span>"; ?>
+				<label for="crmv">CRMV*</label>
+				<input name="crmv" type="text" value="<?php echo $_SESSION['crmv']; ?>" required>
+				<?php echo "<span class='errortext'>$crmvErro</span>"; ?>
 
-				<label for="sexo">Sexo*</label>
-				<select name="sexo" required>
-					<option value="" <?php if($_SESSION['sexo'] == '') echo "selected";?>>Selecione</option>
-					<option value="Macho" <?php if($_SESSION['sexo'] == "Macho") echo "selected";?>>Macho</option>
-					<option value="Fêmea" <?php if($_SESSION['sexo'] == "Fêmea") echo "selected";?>>Fêmea</option>
-				</select>
-				<?php echo "<span class='errortext'>$sexoErro</span>"; ?>
-
-				<label for="cor">Cor*</label>
-                <input name="cor" type="text" value="<?php echo $_SESSION['cor']; ?>" required>
-                <?php echo "<span class='errortext'> $corErro </span>"; ?>
-
-                <label for="porte">Porte*</label>
-                <select name="porte" required>
-                    <option value="" <?php if($_SESSION['porte'] == '') echo "selected";?>>Selecione</option>
-                    <option value="Pequeno" <?php if($_SESSION['porte'] == "Pequeno") echo "selected";?>>Pequeno</option>
-                    <option value="Médio" <?php if($_SESSION['porte'] == "Médio") echo "selected";?>>Médio</option>
-                    <option value="Grande" <?php if($_SESSION['porte'] == "Grande") echo "selected";?>>Grande</option>
-                </select>
-                <?php echo "<span class='errortext'>$porteErro</span>"; ?>
-
-				<label for="idade">Idade</label>
-                <input name="idade" type="text" value="<?php echo $_SESSION['idade']; ?>">
-
-				<!--<label for="peso">Peso</label>
-                <input name="peso" type="number" value="<?php echo $_SESSION['peso']; ?>"> -->
-
-				<label for="castrado">Castração</label>
-                <input name="castrado" type="date" value="<?php echo $_SESSION['castrado']; ?>">
-
-                <label for="comportamento">Comportamento*</label>
-                    <select name="comportamento" required>
-                        <option value="" <?php if($_SESSION['comportamento'] == '') echo "selected";?>>Selecione</option>
-                        <option value="Calmo" <?php if($_SESSION['comportamento'] == "Calmo") echo "selected";?>>Calmo</option>
-                        <option value="Agitado" <?php if($_SESSION['comportamento'] == "Agitado") echo "selected";?>>Agitado</option>
-                        <option value="Agressivo" <?php if($_SESSION['comportamento'] == "Agressivo") echo "selected";?>>Agressivo</option>
-                    </select>
-				<?php echo "<span class='errortext'>$comportamentoErro</span>"; ?>
-
-				<label for="responsavel_resgate">Responsável pelo resgate</label>
-                <input name="responsavel_resgate" type="text" value="<?php echo $_SESSION['responsavel_resgate']; ?>">
-
-				<label for="data_resgate">Data do resgate</label>
-                <input name="data_resgate" type="date" value="<?php echo $_SESSION['data_resgate']; ?>">
-
-				<label for="descricao_resgate">Descrição do resgate</label>
-                <textarea name="descricao_resgate"><?php echo $_SESSION['descricao_resgate']; ?></textarea>
+				<label for="contato">Contato*</label>
+				<input name="contato" type="number" value="<?php echo $_SESSION['contato']; ?>" required>
+				<?php echo "<span class='errortext'>$contatoErro</span>"; ?>
             </fieldset>
             <input type="submit" name="editar" value="Salvar" />
 			<input type="submit" name="excluir" value="Excluir" />
-			<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			<a href="veterinarios.php?page=0"> <input type="button" value="Voltar"/> </a>   
         </form>
     </div>
 </div>
