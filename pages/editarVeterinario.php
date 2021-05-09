@@ -31,7 +31,7 @@ $selected_id = intval($_GET['id']);
 			
 		foreach ($_POST as $key => $value) 
 				$_SESSION[$key] = $mysqli->real_escape_string($value);
-		
+
 			//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
 			if(strlen($_SESSION['nome_veterinario']) == 0){ 
 				$nomeErro = 'É necessário preencher o campo Nome!';
@@ -49,12 +49,12 @@ $selected_id = intval($_GET['id']);
 
 				//usar PDO 
 				$mysqli->query("UPDATE veterinario SET nome_veterinario= '$_SESSION[nome_veterinario]', cpf= '$_SESSION[cpf]', crmv= '$_SESSION[crmv]', contato= '$_SESSION[contato]' WHERE id_veterinario = '$selected_id'");
-
+				
 				header("Location: http://localhost/php-gerenciador-canil/pages/veterinarios.php?page=0");
 				exit();
 			}
 	} else {
-		$sql_code = "SELECT * FROM veterinario WHERE id_veterinario = '$selected_id'";
+		$sql_code = "SELECT * FROM canil.veterinario WHERE id_veterinario = '$selected_id'";
 		$sql_query = $mysqli->query($sql_code) or die($mysqli->error);
 		$array = $sql_query->fetch_assoc();
 
@@ -72,14 +72,10 @@ $selected_id = intval($_GET['id']);
     <h4 class="centraliza-titulo">Editar</h4>
     <div class="form-style-5">
         <form method="POST" action="./editarVeterinario.php?id=<?php echo $selected_id; ?>">
-			<h6> Edite as informações do veterinário selecionado </h6><br/>
-			<fieldset class="cabecario">
-				<label for="crmv" class="label-centro">CRMV</label>
-				<input class="input-disabilitado" name="crmv" type="text" value="<?php echo $_SESSION['crmv']; ?>">
-			</fieldset>
+			<h6> Edite os dados do(a) veterinário(a) selecionado (<?php echo $_SESSION['nome_veterinario']; ?>) </h6><br/>
             <fieldset>
-				<label for="codigo">Nome*</label>
-				<input name="nome" type="text" value="<?php echo $_SESSION['nome_veterinario']; ?>" required>
+				<label for="nome_veterinario">Nome*</label>
+				<input name="nome_veterinario" type="text" value="<?php echo $_SESSION['nome_veterinario']; ?>" required>
 				<?php echo "<span class='errortext'>$nomeErro</span>"; ?>
 
 				<label for="cpf">CPF*</label>
@@ -91,7 +87,7 @@ $selected_id = intval($_GET['id']);
 				<?php echo "<span class='errortext'>$crmvErro</span>"; ?>
 
 				<label for="contato">Contato*</label>
-				<input name="contato" type="number" value="<?php echo $_SESSION['contato']; ?>" required>
+				<input name="contato" type="text" value="<?php echo $_SESSION['contato']; ?>" required>
 				<?php echo "<span class='errortext'>$contatoErro</span>"; ?>
             </fieldset>
             <input type="submit" name="editar" value="Salvar" />
