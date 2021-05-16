@@ -63,6 +63,13 @@
       </li>
 
       <li class="nav-item active">
+        <a class="nav-link" href="consultas.php?page=0">
+          <i class="fas fa-heartbeat"></i>
+          <span>Consultas</span>
+        </a>
+      </li>
+
+      <li class="nav-item active">
         <a class="nav-link" href="veterinarios.php?page=0">
           <i class="fas fa-user-md"></i>
           <span>Veterinários</span>
