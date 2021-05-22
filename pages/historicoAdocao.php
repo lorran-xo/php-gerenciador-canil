@@ -11,95 +11,24 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT
-    can.id,
-    can.tipo,
-    can.sexo,
-    cap.cor,
-    cap.porte,
-    cid.codigo,
-    cid.apelido,
-    cra.raca,
-    csi.nome_responsavel_adocao,
-    csi.cpf_responsavel_adocao,
-    csi.data_adocao
-  FROM
-    canil.animais can
-      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-      INNER JOIN canil.raca cra ON can.id = cra.id_animal
-      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-  WHERE csi.adotado = 1 AND CONCAT(`codigo`, `tipo`, `apelido`, `raca`, `sexo`, `cor`, `nome_responsavel_adocao`, `cpf_responsavel_adocao`, `data_adocao`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM
+    canil.adocao WHERE CONCAT(`id_animal`, `id_pessoa`, `data_adocao`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT
-    can.id,
-    can.tipo,
-    can.sexo,
-    cap.cor,
-    cap.porte,
-    cid.codigo,
-    cid.apelido,
-    cra.raca,
-    csi.nome_responsavel_adocao,
-    csi.cpf_responsavel_adocao,
-    csi.data_adocao
-  FROM
-    canil.animais can
-      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-      INNER JOIN canil.raca cra ON can.id = cra.id_animal
-      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-  WHERE csi.adotado = 1")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.adocao")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT
-    can.id,
-    can.tipo,
-    can.sexo,
-    cap.cor,
-    cap.porte,
-    cid.codigo,
-    cid.apelido,
-    cra.raca,
-    csi.nome_responsavel_adocao,
-    csi.cpf_responsavel_adocao,
-    csi.data_adocao
-  FROM
-    canil.animais can
-      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-      INNER JOIN canil.raca cra ON can.id = cra.id_animal
-      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-  WHERE csi.adotado = 1 LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT * FROM canil.adocao LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT
-    can.id,
-    can.tipo,
-    can.sexo,
-    cap.cor,
-    cap.porte,
-    cid.codigo,
-    cid.apelido,
-    cra.raca,
-    csi.nome_responsavel_adocao,
-    csi.cpf_responsavel_adocao,
-    csi.data_adocao
-  FROM
-    canil.animais can
-      INNER JOIN canil.aparencia cap ON can.id = cap.id_animal
-      INNER JOIN canil.identificacao cid ON can.id = cid.id_animal
-      INNER JOIN canil.raca cra ON can.id = cra.id_animal
-      INNER JOIN canil.situacao csi ON can.id = csi.id_animal
-  WHERE csi.adotado = 1")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.adocao")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -120,32 +49,20 @@ else
                         <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">                        
                         <thead class="text-center">
                                 <tr>
-                                    <th>Código</th>
-                                    <th>Apelido</th>
-                                    <th>Tipo</th>
-                                    <th>Raça</th>                                
-                                    <th>Sexo</th>  
-                                    <th>Cor</th>
-                                    <th>Adotado por</th>
-                                    <th>CPF</th>
-                                    <th>Data da adoção</th>
+                                    <th>id_animal</th>
+                                    <th>id_pessoa</th>
+                                    <th>data_adocao</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while($dado = $con->fetch_array()){ ?>
                                 <tr class="trData">
-                                    <td><?php echo $dado["codigo"];?></td>
-                                    <td><?php echo $dado["apelido"];?></td>
-                                    <td><?php echo $dado["tipo"];?></td>
-                                    <td><?php echo $dado["raca"];?></td>
-                                    <td><?php echo $dado["sexo"];?></td>
-                                    <td><?php echo $dado["cor"];?></td>
-                                    <td><?php echo $dado["nome_responsavel_adocao"];?></td>
-                                    <td><?php echo $dado["cpf_responsavel_adocao"];?></td>
+                                    <td><?php echo $dado["id_animal"];?></td>
+                                    <td><?php echo $dado["id_pessoa"];?></td>
                                     <td><?php echo $dado["data_adocao"];?></td>
                                     <td>
-                                        <a href="devolverAdotado.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Devolver</span></button></a>
+                                        <!--<a href="devolverAdotado.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Devolver</span></button></a>-->
                                     </td>
                                     </td>
                                 </tr>

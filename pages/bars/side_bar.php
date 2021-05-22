@@ -49,7 +49,7 @@
       </li> -->
 
       <li class="nav-item active">
-        <a class="nav-link" href="adocao.php?page=0">
+        <a class="nav-link" href="adocao.php">
           <i class="fas fa-hand-holding-heart"></i>
           <span>Adoção</span>
         </a>

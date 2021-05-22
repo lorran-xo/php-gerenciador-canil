@@ -7,16 +7,17 @@ include("./../banco/conexao.php");
 //Iniciando as mensagens de erro com valor vazio 
 $nomeErro = '';
 $cpfErro = '';
-$crmvErro = '';
 $contatoErro = '';
+$enderecoErro = '';
+
 //Alguns campos nao tem erro pq nao sao obrigatorios
 
 //Iniciando o value dos inputs com valor vazio 
-//tabela canil.veterinarios
-$_SESSION['nome_veterinario'] = '';
+//tabela canil.pessoa
+$_SESSION['nome'] = '';
 $_SESSION['cpf'] = '';
-$_SESSION['crmv'] = '';
 $_SESSION['contato'] = '';
+$_SESSION['endereco'] = '';
 
 if(isset($_POST['cadastrar'])){
 
@@ -27,53 +28,54 @@ if(isset($_POST['cadastrar'])){
 	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
 	 
 	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
-		 if(strlen($_SESSION['nome_veterinario']) == 0){ 
+		 if(strlen($_SESSION['nome']) == 0){ 
 		 	$nomeErro = 'É necessário preencher o campo Nome!';
 		 } else if(strlen($_SESSION['cpf']) == 0){
 			$cpfErro = 'É necessário preencher o campo CPF!';
-		 } else if(strlen($_SESSION['crmv']) == 0){
-		 	$crmvErro = 'É necessário preencher o campo CRMV!';
 		 } else if(strlen($_SESSION['contato']) == 0){
 		 	$contatoErro = 'É necessário preencher o campo Contato!';
+		 } else if(strlen($_SESSION['endereco']) == 0){
+		 	$enderecoErro = 'É necessário preencher o campo Endereço!';
 		 } else {
 			$nomeErro = '';
 			$cpfErro = '';
-			$crmvErro = '';
 			$contatoErro = '';
+			$enderecoErro = '';
 
-			$mysqli->query("INSERT INTO veterinario (nome_veterinario, cpf, crmv, contato) VALUES ('$_SESSION[nome_veterinario]', '$_SESSION[cpf]', '$_SESSION[crmv]', '$_SESSION[contato]')");
+			$mysqli->query("INSERT INTO pessoa (nome, cpf, contato, endereco) VALUES ('$_SESSION[nome]', '$_SESSION[cpf]', '$_SESSION[contato]', '$_SESSION[endereco]')");
 
-		 	header("Location: http://localhost/php-gerenciador-canil/pages/veterinarios.php?page=0");
+		 	header("Location: http://localhost/php-gerenciador-canil/pages/registrarAdocao.php?page=0");
 			exit();
 		}
 	}
 ?>
 
 <div>
-    <h3 class="centraliza-titulo">Cadastrar novo veterinário</h3>
+    <h3 class="centraliza-titulo">Cadastrar pessoa</h3>
     <div class="form-style-5">
-        <form method="POST" action="./cadastrarVeterinario.php">
-            <h6> Preencha o formulário abaixo para cadastrar um novo veterinário no canil</h6><br/>
+        <form method="POST" action="./cadastrarPessoa.php">
+            <h6> Preencha o formulário abaixo para cadastrar a pessoa que vai adotar no canil</h6><br/>
             <fieldset>
                 <legend><span class="number">.</span>Informações</legend>
 
-					<label for="nome_veterinario">Nome*</label>
-					<input name="nome_veterinario" type="text" value="<?php echo $_SESSION['nome_veterinario'] ?>">
+					<label for="nome">Nome*</label>
+					<input name="nome" type="text" value="<?php echo $_SESSION['nome'] ?>">
 					<?php echo "<span class='errortext'>$nomeErro</span>"; ?>
 
 					<label for="cpf">CPF*</label>
 					<input name="cpf" type="number" value="<?php echo $_SESSION['cpf']; ?>" required>
 					<?php echo "<span class='errortext'>$cpfErro</span>"; ?>
 
-					<label for="crmv">CRMV*</label>
-                    <input name="crmv" type="text" value="<?php echo $_SESSION['crmv']; ?>" required>
-                    <?php echo "<span class='errortext'>$crmvErro</span>"; ?>
-
 					<label for="contato">Contato*</label>
 					<input name="contato" type="number" value="<?php echo $_SESSION['contato']; ?>" required>
 					<?php echo "<span class='errortext'>$contatoErro</span>"; ?>
+
+					<label for="endereco">Endereço*</label>
+					<input name="endereco" type="text" value="<?php echo $_SESSION['endereco']; ?>" required>
+					<?php echo "<span class='errortext'>$enderecoErro</span>"; ?>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
+			<a href="adocao.php"> <input type="button" value="Voltar"/> </a>
         </form>
     </div>
 </div>
