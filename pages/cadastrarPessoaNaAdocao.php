@@ -44,7 +44,7 @@ if(isset($_POST['cadastrar'])){
 
 			$mysqli->query("INSERT INTO pessoa (nome, cpf, contato, endereco) VALUES ('$_SESSION[nome]', '$_SESSION[cpf]', '$_SESSION[contato]', '$_SESSION[endereco]')");
 
-		 	header("Location: http://localhost/php-gerenciador-canil/pages/pessoas.php?page=0");
+		 	header("Location: http://localhost/php-gerenciador-canil/pages/selecionarAnimal.php?page=0");
 			exit();
 		}
 	}
@@ -53,7 +53,7 @@ if(isset($_POST['cadastrar'])){
 <div>
     <h3 class="centraliza-titulo">Cadastrar pessoa</h3>
     <div class="form-style-5">
-        <form method="POST" action="./cadastrarPessoa.php">
+        <form method="POST" action="./cadastrarPessoaNaAdocao.php">
             <h6> Preencha o formulário abaixo para cadastrar a pessoa que vai adotar no canil</h6><br/>
             <fieldset>
                 <legend><span class="number">.</span>Informações</legend>

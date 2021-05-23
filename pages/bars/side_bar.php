@@ -58,7 +58,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="historicoAdocao.php?page=0">
           <i class="fas fa-history"></i>
-          <span>Histórico</span>
+          <span>Histórico de Adoções</span>
         </a>
       </li>
 
@@ -73,6 +73,13 @@
         <a class="nav-link" href="veterinarios.php?page=0">
           <i class="fas fa-user-md"></i>
           <span>Veterinários</span>
+        </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="pessoas.php?page=0">
+          <i class="far fa-id-card"></i>
+          <span>Pessoas</span>
         </a>
       </li>
 

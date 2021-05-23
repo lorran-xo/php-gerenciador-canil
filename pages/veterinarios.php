@@ -80,9 +80,9 @@ else
                                     if($pagina_atual == $i)
                                         $style = "class=\"active\"";
                                 ?>
-                                <li class="active"> <a class="page-link" href="veterinario.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <li class="active"> <a class="page-link" href="veterinarios.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                                 <?php }?>
-                                <li class="page-item"><a class="page-link" href="veterinario.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                                <li class="page-item"><a class="page-link" href="veterinarios.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                             </ul>
                         </nav>
                     </div>

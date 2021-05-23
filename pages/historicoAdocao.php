@@ -12,23 +12,23 @@ if(isset($_POST['search']))
     $valueToSearch = $_POST['valueToSearch'];
 
     $consulta = "SELECT * FROM
-    canil.adocao WHERE CONCAT(`id_animal`, `id_pessoa`, `data_adocao`) LIKE '%".$valueToSearch."%'";
+    canil.adocao WHERE data_retorno = 0 AND CONCAT(`id_animal`, `id_pessoa`, `data_adocao`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.adocao")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.adocao WHERE data_retorno = 0")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT * FROM canil.adocao LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT * FROM canil.adocao WHERE data_retorno = 0 LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.adocao")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.adocao WHERE data_retorno = 0")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -62,7 +62,7 @@ else
                                     <td><?php echo $dado["id_pessoa"];?></td>
                                     <td><?php echo $dado["data_adocao"];?></td>
                                     <td>
-                                        <!--<a href="devolverAdotado.php?id=<?php echo $dado["id"];?>"> <button type="button"><span>Devolver</span></button></a>-->
+                                        <a href="devolverAdotado.php?id=<?php echo $dado["id_adocao"];?>&animal=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Devolver</span></button></a>
                                     </td>
                                     </td>
                                 </tr>

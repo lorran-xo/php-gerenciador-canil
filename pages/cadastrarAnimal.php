@@ -64,7 +64,7 @@ if(isset($_POST['cadastrar'])){
 			$racaErro = '';
 			$comportamentoErro = '';
 
-			$mysqli->query("INSERT INTO animal (codigo, tipo, nome_animal, raca, sexo, cor, porte, idade, comportamento, castrado, data_resgate, responsavel_resgate, descricao_resgate) VALUES ('$_SESSION[codigo]', '$_SESSION[tipo]', '$_SESSION[nome_animal]', '$_SESSION[raca]', '$_SESSION[sexo]', '$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[idade]', '$_SESSION[comportamento]', '$_SESSION[castrado]', NOW(), '$_SESSION[responsavel_resgate]', '$_SESSION[descricao_resgate]')");
+			$mysqli->query("INSERT INTO animal (codigo, tipo, nome_animal, raca, sexo, cor, porte, idade, comportamento, castrado, data_resgate, responsavel_resgate, descricao_resgate, adotado) VALUES ('$_SESSION[codigo]', '$_SESSION[tipo]', '$_SESSION[nome_animal]', '$_SESSION[raca]', '$_SESSION[sexo]', '$_SESSION[cor]', '$_SESSION[porte]', '$_SESSION[idade]', '$_SESSION[comportamento]', '$_SESSION[castrado]', NOW(), '$_SESSION[responsavel_resgate]', '$_SESSION[descricao_resgate]', 0)");
 
 		 	header("Location: http://localhost/php-gerenciador-canil/pages/index.php?page=0");
 			exit();

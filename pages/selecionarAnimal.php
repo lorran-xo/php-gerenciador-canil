@@ -72,7 +72,7 @@ else
                                         <td><?php echo $dado["porte"];?></td>
                                         <td><?php echo $dado["data_resgate"];?></td>
                                         <td>
-                                            <a href="pessoa.php?page=0&id=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Selecionar</span></button></a>
+                                            <a href="selecionarPessoa.php?page=0&id=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Selecionar</span></button></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

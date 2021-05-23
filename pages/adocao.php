@@ -10,13 +10,13 @@
         <div class="row">
         <div class="column cards-position-langs">
           <div>
-            <p class="title"> <a href="cadastrarPessoa.php"><button class="button">Cadastre a pessoa</button></a></p>
+            <p class="title"> <a href="cadastrarPessoaNaAdocao.php"><button class="button">Cadastre a pessoa</button></a></p>
           </div>
         </div>
         <div class="column cards-position-langs">
           <p class="title">Se a pessoa já tiver adotado antes</p>
           <div>
-            <p class="title"> <a href="registrarAdocao.php?page=0"><button class="button">Registre a adoção</button></a></p>
+            <p class="title"> <a href="selecionarAnimal.php?page=0"><button class="button">Registre a adoção</button></a></p>
           </div><br/>
         </div>
     </div>

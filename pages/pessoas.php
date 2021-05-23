@@ -12,23 +12,23 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM canil.animal WHERE CONCAT(`codigo`, `tipo`, `nome_animal`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM canil.pessoa CONCAT(`nome`, `cpf`, `contato`, `endereco`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.pessoa")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT * FROM canil.animal LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT * FROM canil.pessoa LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
+    $num_total = $mysqli->query("SELECT * FROM canil.pessoa")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -36,39 +36,37 @@ else
 ?>
 
 <div class="container">
-    <h3 class="centraliza-titulo">Consultas</h3>
-    <h6 class="centraliza-intro">Visualize o histórico de consultas realizadas ou registre outra!</h6>
+    <h3 class="centraliza-titulo">Pessoas</h3>
+    <h6 class="centraliza-intro">Visualize as pessoas cadastradas no sistema do canil, cadastre mais ou edite-os!</h6>
     <br><br> 
     <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive"> 
-                        <form action="index.php?page=0" method="post"> 
+                        <form action="pessoas.php?page=0" method="post"> 
                             <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
                             <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
-                            <a href="consultar.php"><button type="button" class="input-submit">Nova</button></a>
+                            <a href="cadastrarPessoa.php"><button type="button" class="input-submit">Cadastrar</button></a>
                             <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center">
                                     <tr>
-                                        <th>Animal</th>
-                                        <th>Veterinário responsável</th>
-                                        <th>Peso</th>
-                                        <th>Saúde</th>                                
-                                        <th>Descrição</th>  
-                                        <th>Data</th>
-                                        <th>Procedimento realizado</th>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>Contato</th>
+                                        <th>Endereco</th>
+                                        <th>Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while($dado = $con->fetch_array()){ ?>
                                     <tr class="trData">
-                                        <td><?php echo $dado["codigo"];?></td>
-                                        <td><?php echo $dado["tipo"];?></td>
-                                        <td><?php echo $dado["nome_animal"];?></td>
-                                        <td><?php echo $dado["raca"];?></td>
-                                        <td><?php echo $dado["sexo"];?></td>
-                                        <td><?php echo $dado["data_resgate"];?></td>
-                                        <td><?php echo $dado["cor"];?></td>
+                                        <td><?php echo $dado["nome"];?></td>
+                                        <td><?php echo $dado["cpf"];?></td>
+                                        <td><?php echo $dado["contato"];?></td>
+                                        <td><?php echo $dado["endereco"];?></td>
+                                        <td>
+                                            <a href="editarPessoa.php?id=<?php echo $dado["id_pessoa"];?>"> <button type="button"><span>Editar</span></button></a>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>        
@@ -82,9 +80,9 @@ else
                                     if($pagina_atual == $i)
                                         $style = "class=\"active\"";
                                 ?>
-                                <li class="active"> <a class="page-link" href="consultas.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <li class="active"> <a class="page-link" href="pessoas.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                                 <?php }?>
-                                <li class="page-item"><a class="page-link" href="consultas.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                                <li class="page-item"><a class="page-link" href="pessoas.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                             </ul>
                         </nav>
                     </div>
