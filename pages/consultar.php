@@ -1,98 +1,101 @@
 <?php require_once "bars/side_bar.php" ?>
 
-<?php
+<?php 
 
 include("./../banco/conexao.php");
 
-$crmvErro = '';
-$animalErro = '';
-$pesoErro = '';
-$saudeErro = '';
-$descricaoErro = '';
-$procedimentoErro = '';
-$_SESSION['crmv'] = '';
-$_SESSION['animal'] = '';
-$_SESSION['peso'] = '';
-$_SESSION['saude'] = '';
-$_SESSION['descricao'] = '';
-$_SESSION['procedimento'] = '';
+$itens_por_pagina = 7;
+$pagina_atual = $_GET['page'];
 
-if(isset($_POST['cadastrar'])){
+if(isset($_POST['search']))
+{
+    //Funcao de pesquisar na tabela
+    $valueToSearch = $_POST['valueToSearch'];
 
-	if(!isset($_SESSION))
-	 	session_start();
-	 	
-	foreach ($_POST as $key => $value) 
-	 		 $_SESSION[$key] = $mysqli->real_escape_string($value);
-	 
-	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
-		 if(strlen($_SESSION['crmv']) == 0){ 
-		 	$crmvErro = 'É necessário preencher com o CRMV do veterinário!';
-		 } else if(strlen($_SESSION['animal']) == 0){
-			$animalErro = 'É necessário selecionar um animal!';
-		 } else if(strlen($_SESSION['peso']) == 0){
-			$pesoErro = 'Insira o peso atual do animal!';
-		 } else if(strlen($_SESSION['saude']) == 0){
-			$saudeErro = 'Insira o estado de saúde do animal!';
-		 } else if(strlen($_SESSION['descricao']) == 0){
-			$descricaoErro = 'Insira uma breve descricao do procedimento!';
-		 } else if(strlen($_SESSION['procedimento']) == 0){
-			$procedimentoErro = 'É necessário selecionar qual procedimento foi realizado!';
-		 } else {
-			$crmvErro = '';
-			$animalErro = '';
-			$pesoErro = '';
-			$saudeErro = '';
-			$descricaoErro = '';
-			$procedimentoErro = '';
+    $consulta = "SELECT * FROM canil.animal WHERE CONCAT(`codigo`, `tipo`, `nome_animal`, `raca`, `sexo`, `cor`, `porte`, `data_resgate`) LIKE '%".$valueToSearch."%'";
+    $con = $mysqli->query($consulta) or die($mysqli->error);
 
-			$mysqli->query("INSERT INTO acompanhamento (id_veterinario, id_animal, peso, saude, descricao, data_acompanhamento, id_procedimento) VALUES ('$_SESSION[id_veterinario]', '$_SESSION[id_animal]', '$_SESSION[peso]', '$_SESSION[saude]', '$_SESSION[descricao]', NOW(), '$_SESSION[id_procedimento]')");
+    //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
+    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
 
-		 	header("Location: http://localhost/php-gerenciador-canil/pages/consultas.php?page=0");
-			exit();
-		}
-	}
+    $num_total = ceil($num_total/$itens_por_pagina);
+}
+else 
+{
+    //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
+    $consulta = "SELECT * FROM canil.animal LIMIT $pagina_atual, $itens_por_pagina";
+
+    $con = $mysqli->query($consulta) or die($mysqli->error);
+
+    //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
+    $num_total = $mysqli->query("SELECT * FROM canil.animal")->num_rows;
+
+    $num_total = ceil($num_total/$itens_por_pagina);
+}
+
 ?>
 
-<div>
-    <h3 class="centraliza-titulo">Resgate</h3>
-    <div class="form-style-5">
-        <form method="POST" action="./consultar.php">
-            <h6> Preencha o formulário abaixo após a realização da consulta médica do animal</h6><br/>
-            <fieldset>
-                <legend><span class="number">1</span>Veterinário</legend>
-					<label for="crmv">CRMV*</label>
-					<input name="crmv" type="number" value="<?php echo $_SESSION['crmv']; ?>" required>
-					<?php echo "<span class='errortext'>$crmvErro</span>"; ?>
-
-                <legend><span class="number">2</span> Animal </legend>
-
-				<label for="animal">Animal*</label>
-                <input name="animal" type="text" value="<?php echo $_SESSION['animal']; ?>" required>
-                <?php echo "<span class='errortext'> $animalErro </span>"; ?>
-
-                <legend><span class="number">3</span> Consulta </legend>
-
-				<label for="peso">Peso*</label>
-                <input name="peso" type="text" value="<?php echo $_SESSION['peso']; ?>" required>
-                <?php echo "<span class='errortext'> $pesoErro </span>"; ?>
-
-				<label for="saude">Saúde*</label>
-                <input name="saude" type="text" value="<?php echo $_SESSION['saude']; ?>" required>
-                <?php echo "<span class='errortext'> $saudeErro </span>"; ?>
-
-				<label for="descricao">Descrição geral*</label>
-                <textarea name="descricao" required><?php echo $_SESSION['descricao']; ?></textarea>
-				<?php echo "<span class='errortext'> $descricaoErro </span>"; ?>
-
-				<label for="procedimento">Procedimento*</label>
-                <input name="procedimento" type="text" value="<?php echo $_SESSION['procedimento']; ?>" required>
-                <?php echo "<span class='errortext'> $procedimentoErro </span>"; ?>
-
-            </fieldset>
-            <input type="submit" name="cadastrar" value="Cadastrar" />
-        </form>
-    </div>
+<div class="container">
+    <h3 class="centraliza-titulo">Selecione o animal</h3>
+    <h6 class="centraliza-intro">Visualize os animais do canil e selecione qual fez uma consulta veterinária</h6>
+    <br><br> 
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive"> 
+                        <form action="consultar.php?page=0" method="post"> 
+                            <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
+                            <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
+                            <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Tipo</th>
+                                        <th>Nome</th>
+                                        <th>Raça</th>                                
+                                        <th>Sexo</th>  
+                                        <th>Cor</th>
+                                        <th>Porte</th>
+                                        <th>Data do Resgate</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while($dado = $con->fetch_array()){ ?>
+                                    <tr class="trData">
+                                        <td><?php echo $dado["codigo"];?></td>
+                                        <td><?php echo $dado["tipo"];?></td>
+                                        <td><?php echo $dado["nome_animal"];?></td>
+                                        <td><?php echo $dado["raca"];?></td>
+                                        <td><?php echo $dado["sexo"];?></td>
+                                        <td><?php echo $dado["cor"];?></td>
+                                        <td><?php echo $dado["porte"];?></td>
+                                        <td><?php echo $dado["data_resgate"];?></td>
+                                        <td>
+                                            <a href="selecionarProcedimento.php?page=0&id=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Selecionar</span></button></a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>        
+                            </table>
+                        </form>    
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="consultar.php?page=0">Anterior</a></li>
+                                <?php for($i=0;$i<$num_total;$i++){
+                                    $style = "";
+                                    if($pagina_atual == $i)
+                                        $style = "class=\"active\"";
+                                ?>
+                                <li class="active"> <a class="page-link" href="consultar.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <?php }?>
+                                <li class="page-item"><a class="page-link" href="consultar.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>  
+        </div>    
 </div>
 
 <?php require_once "bars/bottom_bar.php"?>

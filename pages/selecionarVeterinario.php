@@ -6,13 +6,15 @@ include("./../banco/conexao.php");
 
 $itens_por_pagina = 7;
 $pagina_atual = $_GET['page'];
+$id_animal = $_GET['id'];
+$id_procedimento = $_GET['procedimento'];
 
 if(isset($_POST['search']))
 {
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM canil.veterinario WHERE CONCAT(`nome_veterinario`, `cpf`, `crmv`, `contato`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM canil.veterinario WHERE CONCAT(`nome`, `cpf`, `contato`, `endereco`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
@@ -36,17 +38,16 @@ else
 ?>
 
 <div class="container">
-    <h3 class="centraliza-titulo">Veterinários</h3>
-    <h6 class="centraliza-intro">Visualize os veterinários do canil, cadastre mais ou edite-os!</h6>
+    <h3 class="centraliza-titulo">Selecione o veterinário que realizou o procedimento</h3>
+    <h6 class="centraliza-intro">Visualize a lista de veterinários e selecione qual realizou</h6>
     <br><br> 
     <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive"> 
-                        <form action="veterinarios.php?page=0" method="post"> 
+                        <form action="selecionarVeterinario.php?page=0" method="post"> 
                             <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
                             <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
-                            <a href="cadastrarVeterinario.php"><button type="button" class="input-submit">Cadastrar</button></a>
                             <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center">
                                     <tr>
@@ -65,7 +66,7 @@ else
                                         <td><?php echo $dado["cpf"];?></td>
                                         <td><?php echo $dado["contato"];?></td>
                                         <td>
-                                            <a href="editarVeterinario.php?id=<?php echo $dado["id_veterinario"];?>"> <button type="button"><span>Editar</span></button></a>
+                                            <a href="finalizaConsulta.php?id=<?php echo $id_animal?>&procedimento=<?php echo $id_procedimento?>&veterinario=<?php echo $dado["id_veterinario"];?>"> <button type="button"><span>Selecionar</span></button></a>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -74,15 +75,15 @@ else
                         </form>    
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="veterinarios.php?page=0">Anterior</a></li>
+                                <li class="page-item"><a class="page-link" href="selecionarVeterinario.php?page=0">Anterior</a></li>
                                 <?php for($i=0;$i<$num_total;$i++){
                                     $style = "";
                                     if($pagina_atual == $i)
                                         $style = "class=\"active\"";
                                 ?>
-                                <li class="active"> <a class="page-link" href="veterinarios.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <li class="active"> <a class="page-link" href="selecionarVeterinario.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
                                 <?php }?>
-                                <li class="page-item"><a class="page-link" href="veterinarios.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                                <li class="page-item"><a class="page-link" href="selecionarVeterinario.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
                             </ul>
                         </nav>
                     </div>

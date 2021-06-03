@@ -9,32 +9,30 @@ $tipoErro = '';
 $sexoErro = '';
 
 $selected_animal_id = intval($_GET['id']);
-$selected_person_id = intval($_GET['pessoa']);
+$selected_procedimento_id = intval($_GET['procedimento']);
+$selected_vet_id = intval($_GET['veterinario']);
 
 	if(isset($_POST['finalizar'])){
-    $mysqli->query("INSERT INTO adocao (id_animal, id_pessoa, data_adocao, data_retorno) VALUES ('$selected_animal_id', '$selected_person_id', NOW(), 0)");
+    $mysqli->query("INSERT INTO acompanhamento (id_animal, id_procedimento, id_veterinario, data_acompanhamento) VALUES 
+      ('$selected_animal_id', '$selected_procedimento_id', '$selected_vet_id', NOW())");
    
     $mysqli->query("UPDATE animal SET adotado= 1 WHERE id_animal = '$selected_animal_id'");
 
-		header("Location: http://localhost/php-gerenciador-canil/pages/historicoAdocao.php?page=0");
+		header("Location: http://localhost/php-gerenciador-canil/pages/consultas.php?page=0");
 		exit();
 	}
 ?>
 <div class="container about-section">
       <div>
-        <h1>Finalizar adoção</h1>
-        <legend> Termo de Responsabilidade </legend>
-				<label>Ao clicar para confirmar a adoção, fica declarado que toda a responsabilidade sobre o animal está sendo passada por meio dessa doação à pessoa selecionada
-				<label>e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>.</label>
+        <h1>Finalizar consulta</h1>
 				<br/><br/>
 			<hr class="sidebar-divider my-0"><br/>
-         <p>Tem certeza que deseja registrar essa adoção? </p> <br/>
+         <p>Deseja finalizar o registro dessa consulta?</p> <br/>
         </div>
-        <!--<h2 style="text-align:center">Our Team</h2> -->
         <div class="row">
         <div class="column cards-position-langs">
           <div>
-            <form method="POST" action="./finalizaAdocao.php?id=<?php echo $selected_animal_id; ?>&pessoa=<?php echo $selected_person_id; ?>">
+            <form method="POST" action="./finalizaConsulta.php?id=<?php echo $selected_animal_id; ?>&procedimento=<?php echo $selected_procedimento_id; ?>&veterinario=<?php echo $selected_vet_id; ?>">
               <p class="title"> <input class="button" type="submit" name="finalizar" value="Sim" />  </p>
             </form>
           </div>

@@ -74,7 +74,7 @@ else
                         </form>    
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="index.php?page=0">Anterior</a></li>
+                                <li class="page-item"><a class="page-link" href="pessoas.php?page=0">Anterior</a></li>
                                 <?php for($i=0;$i<$num_total;$i++){
                                     $style = "";
                                     if($pagina_atual == $i)
