@@ -77,6 +77,20 @@
 a {
 	text-decoration: none!important;
 }
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover, .nav-link:focus {
+  text-decoration: none;
+}
+
+.alinha-sociais {
+  margin-left: 25%;
+}
+
 /* fim fontes e centralizaçoes */
 
 /*FORMULÁRIOS (forms)*/
@@ -646,48 +660,4 @@ a:focus {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #1cc88a), to(#13855c));
   background-image: linear-gradient(180deg, #1cc88a 10%, #13855c 100%);
   background-size: cover;
-}
-
-
-.o-hidden {
-  overflow: hidden !important;
-}
-
-.text-xs {
-  font-size: .7rem;
-}
-
-.text-lg {
-  font-size: 1.2rem;
-}
-
-@media (min-width: 576px) {
-  .topbar .dropdown {
-    position: relative;
-  }
-  .topbar .dropdown .dropdown-menu {
-    width: auto;
-    right: 0;
-  }
-  .topbar .dropdown-list {
-    width: 20rem !important;
-  }
-  .topbar .dropdown-list .dropdown-item .text-truncate {
-    max-width: 13.375rem;
-  }
-}
-
-footer.sticky-footer {
-  padding: 2rem 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-footer.sticky-footer .copyright {
-  line-height: 1;
-  font-size: 0.8rem;
-}
-
-body.sidebar-toggled footer.sticky-footer {
-  width: 100%;
 }

@@ -70,15 +70,15 @@ else
                         </form>    
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="selecionarProcedimento.php?page=0">Anterior</a></li>
+                                <li class="page-item"><a class="page-link" href="selecionarProcedimento.php?page=0&id=<?php echo $id_animal?>">Anterior</a></li>
                                 <?php for($i=0;$i<$num_total;$i++){
                                     $style = "";
                                     if($pagina_atual == $i)
                                         $style = "class=\"active\"";
                                 ?>
-                                <li class="active"> <a class="page-link" href="selecionarProcedimento.php?page=<?php echo ($i * $itens_por_pagina); ?>"><?php echo ($i + 1); ?></a> </li>
+                                <li class="active"> <a class="page-link" href="selecionarProcedimento.php?page=<?php echo ($i * $itens_por_pagina); ?>&id=<?php echo $id_animal?>"><?php echo ($i + 1); ?></a> </li>
                                 <?php }?>
-                                <li class="page-item"><a class="page-link" href="selecionarProcedimento.php?page=<?php echo $num_total-1; ?>">Próxima</a></li>
+                                <li class="page-item"><a class="page-link" href="selecionarProcedimento.php?page=<?php echo $num_total-1; ?>&id=<?php echo $id_animal?>">Próxima</a></li>
                             </ul>
                         </nav>
                     </div>
