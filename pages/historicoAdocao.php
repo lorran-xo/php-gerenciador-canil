@@ -11,24 +11,47 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM
-    canil.adocao WHERE data_retorno = 0 AND CONCAT(`id_animal`, `id_pessoa`, `data_adocao`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT an.codigo, an.nome_animal, an.id_animal, pe.nome, pe.cpf, ad.id_adocao, ad.data_adocao FROM canil.animal an 
+    JOIN canil.adocao ad 
+    ON an.id_animal = ad.id_animal
+    JOIN canil.pessoa pe
+    ON ad.id_pessoa = pe.id_pessoa
+    WHERE ad.data_retorno = 0 AND CONCAT(`codigo`, `nome_animal`, `nome`, `cpf`, `data_adocao`) LIKE '%".$valueToSearch."%'
+    order by an.codigo";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.adocao WHERE data_retorno = 0")->num_rows;
+    $num_total = $mysqli->query("SELECT an.codigo, an.nome_animal, an.id_animal, pe.nome, pe.cpf, ad.id_adocao, ad.data_adocao FROM canil.animal an 
+    JOIN canil.adocao ad 
+    ON an.id_animal = ad.id_animal
+    JOIN canil.pessoa pe
+    ON ad.id_pessoa = pe.id_pessoa
+    WHERE ad.data_retorno = 0
+    order by an.codigo")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT * FROM canil.adocao WHERE data_retorno = 0 LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT an.codigo, an.nome_animal, an.id_animal, pe.nome, pe.cpf, ad.id_adocao, ad.data_adocao FROM canil.animal an 
+    JOIN canil.adocao ad 
+    ON an.id_animal = ad.id_animal
+    JOIN canil.pessoa pe
+    ON ad.id_pessoa = pe.id_pessoa
+    WHERE ad.data_retorno = 0
+    order by an.codigo LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.adocao WHERE data_retorno = 0")->num_rows;
+    $num_total = $mysqli->query("SELECT an.codigo, an.nome_animal, an.id_animal, pe.nome, pe.cpf, ad.id_adocao, ad.data_adocao FROM canil.animal an 
+    JOIN canil.adocao ad 
+    ON an.id_animal = ad.id_animal
+    JOIN canil.pessoa pe
+    ON ad.id_pessoa = pe.id_pessoa
+    WHERE ad.data_retorno = 0
+    order by an.codigo")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -49,17 +72,21 @@ else
                         <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">                        
                         <thead class="text-center">
                                 <tr>
-                                    <th>id_animal adotado</th>
-                                    <th>id_pessoa que adotou</th>
-                                    <th>data_adocao</th>
+                                    <th>Código do Animal</th>
+                                    <th>Nome do Animal</th>
+                                    <th>Nome do Responsável</th>
+                                    <th>CPF do Responsável</th>
+                                    <th>Data da adoção</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while($dado = $con->fetch_array()){ ?>
                                 <tr class="trData">
-                                    <td><?php echo $dado["id_animal"];?></td>
-                                    <td><?php echo $dado["id_pessoa"];?></td>
+                                    <td><?php echo $dado["codigo"];?></td>
+                                    <td><?php echo $dado["nome_animal"];?></td>
+                                    <td><?php echo $dado["nome"];?></td>
+                                    <td><?php echo $dado["cpf"];?></td>
                                     <td><?php echo $dado["data_adocao"];?></td>
                                     <td>
                                         <a href="devolverAdotado.php?id=<?php echo $dado["id_adocao"];?>&animal=<?php echo $dado["id_animal"];?>"> <button type="button"><span>Devolver</span></button></a>
