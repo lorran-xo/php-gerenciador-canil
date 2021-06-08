@@ -12,7 +12,7 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM canil.pessoa CONCAT(`nome`, `cpf`, `contato`, `endereco`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT * FROM canil.pessoa WHERE CONCAT(`nome`, `cpf`, `contato`, `endereco`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela

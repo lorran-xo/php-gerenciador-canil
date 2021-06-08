@@ -43,7 +43,7 @@ else
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive"> 
-                        <form action="registrarAdocao.php?page=0" method="post"> 
+                        <form action="selecionarAnimal.php?page=0" method="post"> 
                             <input type="text" name="valueToSearch" class="input-procurar" placeholder="Procurar...">
                             <button type="submit" name="search" class="input-submit"><i class="fas fa-search"></i></button>
                             <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">

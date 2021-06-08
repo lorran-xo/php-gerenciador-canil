@@ -12,23 +12,31 @@ if(isset($_POST['search']))
     //Funcao de pesquisar na tabela
     $valueToSearch = $_POST['valueToSearch'];
 
-    $consulta = "SELECT * FROM canil.acompanhamento WHERE CONCAT(`id_veterinario`, `id_procedimento`, `id_animal`, `data_acompanhamento`) LIKE '%".$valueToSearch."%'";
+    $consulta = "SELECT an.codigo, an.nome_animal, pr.nome, pr.descricao, ve.nome_veterinario, ac.data_acompanhamento FROM canil.animal an 
+    JOIN canil.acompanhamento ac ON an.id_animal = ac.id_animal JOIN canil.procedimento pr ON ac.id_procedimento = pr.id_procedimento 
+    JOIN canil.veterinario ve ON ac.id_veterinario = ve.id_veterinario WHERE CONCAT(`codigo`, `nome_animal`, `nome`, `descricao`, `nome_veterinario`, `data_acompanhamento`) LIKE '%".$valueToSearch."%'";
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.acompanhamento")->num_rows;
+    $num_total = $mysqli->query("SELECT an.codigo, an.nome_animal, pr.nome, pr.descricao, ve.nome_veterinario, ac.data_acompanhamento FROM canil.animal an 
+    JOIN canil.acompanhamento ac ON an.id_animal = ac.id_animal JOIN canil.procedimento pr ON ac.id_procedimento = pr.id_procedimento 
+    JOIN canil.veterinario ve ON ac.id_veterinario = ve.id_veterinario order by an.codigo")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
 else 
 {
     //Consulta normal com paginação, sem ser filtrando pela pesquisa da tabela
-    $consulta = "SELECT * FROM canil.acompanhamento LIMIT $pagina_atual, $itens_por_pagina";
+    $consulta = "SELECT an.codigo, an.nome_animal, pr.nome, pr.descricao, ve.nome_veterinario, ac.data_acompanhamento FROM canil.animal an 
+    JOIN canil.acompanhamento ac ON an.id_animal = ac.id_animal JOIN canil.procedimento pr ON ac.id_procedimento = pr.id_procedimento 
+    JOIN canil.veterinario ve ON ac.id_veterinario = ve.id_veterinario order by an.codigo LIMIT $pagina_atual, $itens_por_pagina";
 
     $con = $mysqli->query($consulta) or die($mysqli->error);
 
     //pega o numero total de linhas que retornou da pesquisa pra paginação da tabela
-    $num_total = $mysqli->query("SELECT * FROM canil.acompanhamento")->num_rows;
+    $num_total = $mysqli->query("SELECT an.codigo, an.nome_animal, pr.nome, pr.descricao, ve.nome_veterinario, ac.data_acompanhamento FROM canil.animal an 
+    JOIN canil.acompanhamento ac ON an.id_animal = ac.id_animal JOIN canil.procedimento pr ON ac.id_procedimento = pr.id_procedimento 
+    JOIN canil.veterinario ve ON ac.id_veterinario = ve.id_veterinario order by an.codigo")->num_rows;
 
     $num_total = ceil($num_total/$itens_por_pagina);
 }
@@ -50,18 +58,22 @@ else
                             <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center">
                                     <tr>
-                                        <th>id_veterinario</th>
-                                        <th>id_procedimento</th>
-                                        <th>id_animal</th>
-                                        <th>data_acompanhamento</th>
+                                        <th>Código do animal</th>
+                                        <th>Nome do animal</th>
+                                        <th>Procedimento</th>
+                                        <th>Descrição</th>
+                                        <th>Veterinário responsável</th>
+                                        <th>Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while($dado = $con->fetch_array()){ ?>
                                     <tr class="trData">
-                                        <td><?php echo $dado["id_veterinario"];?></td>
-                                        <td><?php echo $dado["id_procedimento"];?></td>
-                                        <td><?php echo $dado["id_animal"];?></td>
+                                        <td><?php echo $dado["codigo"];?></td>
+                                        <td><?php echo $dado["nome_animal"];?></td>
+                                        <td><?php echo $dado["nome"];?></td>
+                                        <td><?php echo $dado["descricao"];?></td>
+                                        <td><?php echo $dado["nome_veterinario"];?></td>
                                         <td><?php echo $dado["data_acompanhamento"];?></td>
                                     </tr>
                                     <?php } ?>

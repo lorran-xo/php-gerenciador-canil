@@ -49,8 +49,8 @@ else
                         <table id="myTable" class="table table-striped table-bordered table-condensed" style="width:100%">                        
                         <thead class="text-center">
                                 <tr>
-                                    <th>id_animal</th>
-                                    <th>id_pessoa</th>
+                                    <th>id_animal adotado</th>
+                                    <th>id_pessoa que adotou</th>
                                     <th>data_adocao</th>
                                     <th>Ação</th>
                                 </tr>
