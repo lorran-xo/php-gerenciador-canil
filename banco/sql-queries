@@ -1,3 +1,27 @@
+#INNERJOINS em várias tabelas para tratar a tabela de id estrangeiros 
+
+	CONSULTAS DO CANIL
+SELECT an.codigo, an.nome_animal, pr.nome, pr.descricao, ve.nome_veterinario, ac.data_acompanhamento FROM canil.animal an 
+JOIN canil.acompanhamento ac 
+ON an.id_animal = ac.id_animal
+JOIN canil.procedimento pr
+ON ac.id_procedimento = pr.id_procedimento
+JOIN canil.veterinario ve
+ON ac.id_veterinario = ve.id_veterinario
+order by an.codigo;
+  ###ECT acompanhamento.id_animal, acompanhamento.id_procedimento, procedimento.nome, procedimento.descricao from acompanhamento join procedimento on acompanhamento.id_procedimento = procedimento.nome;
+
+
+	HISTORICO ADOCOES DO CANIL
+SELECT an.codigo, an.nome_animal, an.id_animal, pe.nome, pe.cpf, ad.id_adocao, ad.data_adocao FROM canil.animal an 
+JOIN canil.adocao ad 
+ON an.id_animal = ad.id_animal
+JOIN canil.pessoa pe
+ON ad.id_pessoa = pe.id_pessoa
+WHERE ad.data_retorno = 0
+order by an.codigo;
+
+
 #INNERJOIN que retorna TUDO das tabelas sem filtro.
 
 SELECT
@@ -169,25 +193,6 @@ COMMIT;
 
 
 -Tabela do histórico (animais já adotados)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
