@@ -115,7 +115,7 @@ $selected_animal_id = intval($_GET['id']);
 			</fieldset>
 			
             <fieldset>
-				<label for="codigo">Tipo*</label>
+				<label for="codigo">Animal*</label>
 				<input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
 				<?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 
@@ -174,9 +174,15 @@ $selected_animal_id = intval($_GET['id']);
 				<label for="descricao_resgate">Descrição do resgate</label>
                 <textarea name="descricao_resgate"><?php echo $_SESSION['descricao_resgate']; ?></textarea>
             </fieldset>
-            <input type="submit" name="editar" value="Salvar" />
-			<input type="submit" name="excluir" value="Excluir" />
-			<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			<div class="alinha-botaoUm">  
+				<a href="index.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			</div>
+			<div class="alinha-botaoDois"> 
+				<input type="submit" name="editar" value="Salvar" />
+			</div>
+			<div class="alinha-botaoTres"> 
+				<input type="submit" name="excluir" value="Excluir" />
+			</div>
         </form>
     </div>
 </div>

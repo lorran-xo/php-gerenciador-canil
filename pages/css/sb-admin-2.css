@@ -16,6 +16,20 @@
   font-size: 13px;
 }
 
+.alinha-botaoUm{
+  margin-right: 47%;
+  margin-bottom: -13%;
+}
+
+.alinha-botaoDois{
+  margin-top: -13%;
+}
+
+.alinha-botaoTres{
+  margin-left: 47%;
+  margin-top: -13.3%;
+}
+
 .centraliza-titulo{
   margin-left: 45%;
 }
@@ -72,6 +86,7 @@
   padding: 9px; /* Add some padding */
   border: 1px solid #ddd; /* Add a grey border */
   margin-bottom: 12px; /* Add some space below the input */
+  display:inline-block;
 }
 
 a {

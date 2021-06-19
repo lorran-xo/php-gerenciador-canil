@@ -42,7 +42,7 @@ if(isset($_POST['cadastrar'])){
 	 
 	 	//Validando SE DIGITOU NOS CAMPOS, esses erros aparecerão em navegadores que nao detectam o atributo 'required' automaticamente dos inputs
 		 if(strlen($_SESSION['tipo']) == 0){ 
-		 	$tipoErro = 'É necessário preencher o campo Tipo!';
+		 	$tipoErro = 'É necessário preencher o campo Animal!';
 		 } else if(strlen($_SESSION['sexo']) == 0){
 			$sexoErro = 'É necessário selecionar um Sexo';
 		 } else if(strlen($_SESSION['cor']) == 0){
@@ -83,7 +83,7 @@ if(isset($_POST['cadastrar'])){
 					<input name="codigo" type="number" value="<?php echo $_SESSION['codigo']; ?>" required>
 					<?php echo "<span class='errortext'>$codigoErro</span>"; ?>
 
-					<label for="codigo">Tipo*</label>
+					<label for="codigo">Animal*</label>
                     <input name="tipo" type="text" value="<?php echo $_SESSION['tipo']; ?>" required>
                     <?php echo "<span class='errortext'>$tipoErro</span>"; ?>
 

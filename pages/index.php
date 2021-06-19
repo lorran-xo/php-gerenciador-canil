@@ -51,7 +51,7 @@ else
                                 <thead class="text-center">
                                     <tr>
                                         <th>Código</th>
-                                        <th>Tipo</th>
+                                        <th>Animal</th>
                                         <th>Nome</th>
                                         <th>Raça</th>                                
                                         <th>Sexo</th>  
