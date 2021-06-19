@@ -24,6 +24,9 @@ $selected_animal_id = intval($_GET['animal']);
       <div>
         <h1>Devolução de animais</h1>
          <p>Tem certeza que o animal selecionado está retornando ao canil? </p> <br/>
+         <label>Ao clicar para confirmar esse retorno, fica declarado que toda a responsabilidade sobre o animal está </br>sendo passada à instituição (Canil),
+				<label>e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>,</label>
+        <label> que deve ser imprimido, assinado e arquivado no exato momento deste registro.</label>
         </div>
         <!--<h2 style="text-align:center">Our Team</h2> -->
         <div class="row">

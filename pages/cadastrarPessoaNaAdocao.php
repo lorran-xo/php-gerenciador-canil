@@ -57,25 +57,23 @@ if(isset($_POST['cadastrar'])){
             <h6> Preencha o formulário abaixo para cadastrar a pessoa que vai adotar no canil</h6><br/>
             <fieldset>
                 <legend><span class="number">.</span>Informações</legend>
-
 					<label for="nome">Nome*</label>
 					<input name="nome" type="text" value="<?php echo $_SESSION['nome'] ?>">
 					<?php echo "<span class='errortext'>$nomeErro</span>"; ?>
-
 					<label for="cpf">CPF*</label>
 					<input name="cpf" type="number" value="<?php echo $_SESSION['cpf']; ?>" required>
 					<?php echo "<span class='errortext'>$cpfErro</span>"; ?>
-
 					<label for="contato">Contato*</label>
 					<input name="contato" type="number" value="<?php echo $_SESSION['contato']; ?>" required>
 					<?php echo "<span class='errortext'>$contatoErro</span>"; ?>
-
 					<label for="endereco">Endereço*</label>
 					<input name="endereco" type="text" value="<?php echo $_SESSION['endereco']; ?>" required>
 					<?php echo "<span class='errortext'>$enderecoErro</span>"; ?>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
-			<a href="adocao.php"> <input type="button" value="Voltar"/> </a>
+			<div class="ajusta-botaoVoltar">
+				<a href="adocao.php"> <input type="button" value="Voltar"/> </a>
+			</div>
         </form>
     </div>
 </div>

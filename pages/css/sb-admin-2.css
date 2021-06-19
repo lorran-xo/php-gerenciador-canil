@@ -16,6 +16,7 @@
   font-size: 13px;
 }
 
+/* Alinhar três botões */
 .alinha-botaoUm{
   margin-right: 47%;
   margin-bottom: -13%;
@@ -27,6 +28,11 @@
 
 .alinha-botaoTres{
   margin-left: 47%;
+  margin-top: -13.3%;
+}
+
+.ajusta-botaoVoltar{
+  margin-right: 47%;
   margin-top: -13.3%;
 }
 

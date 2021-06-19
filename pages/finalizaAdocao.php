@@ -24,8 +24,10 @@ $selected_person_id = intval($_GET['pessoa']);
       <div>
         <h1>Finalizar adoção</h1>
         <legend> Termo de Responsabilidade </legend>
-				<label>Ao clicar para confirmar a adoção, fica declarado que toda a responsabilidade sobre o animal está sendo passada por meio dessa doação à pessoa selecionada
-				<label>e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>.</label>
+				<label>Ao clicar para confirmar a adoção, fica declarado que toda a responsabilidade sobre o animal está sendo passada </br> por meio dessa doação à pessoa selecionada
+				<label>e que todos os envolvidos estão de acordo com o <a href="termo-de-adocao.docx" download="Termo-de-Adoção.docx">Termo de Adoção</a>,</label>
+        <label> que deve ser imprimido, assinado e arquivado no exato momento deste registro.</label>
+
 				<br/><br/>
 			<hr class="sidebar-divider my-0"><br/>
          <p>Tem certeza que deseja registrar essa adoção? </p> <br/>
