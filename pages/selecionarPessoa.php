@@ -38,7 +38,7 @@ else
 
 <div class="container">
     <h3 class="centraliza-titulo">Selecione a pessoa</h3>
-    <h6 class="centraliza-intro">Visualize as pessoas cadastradas no canil e selecione quem está adotando</h6>
+    <h6 class="centraliza-intro">Visualize as pessoas cadastradas no canil e selecione quem está adotando neste momento</h6>
     <br><br> 
     <div class="container">
             <div class="row">

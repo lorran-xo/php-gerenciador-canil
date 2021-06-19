@@ -37,8 +37,8 @@ else
 ?>
 
 <div class="container">
-    <h3 class="centraliza-titulo">Selecione o procedimento realizado</h3>
-    <h6 class="centraliza-intro">Visualize a lista de procedimentos e selecione qual a realizada</h6>
+    <h3 class="centraliza-titulo">Procedimentos</h3>
+    <h6 class="centraliza-intro">Visualize a lista de procedimentos possíveis de realizar no canil e selecione</h6>
     <br><br> 
     <div class="container">
             <div class="row">

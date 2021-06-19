@@ -75,7 +75,9 @@ if(isset($_POST['cadastrar'])){
 					<?php echo "<span class='errortext'>$enderecoErro</span>"; ?>
             </fieldset>
             <input type="submit" name="cadastrar" value="Cadastrar" />
-			<a href="adocao.php"> <input type="button" value="Voltar"/> </a>
+			<div class="ajusta-botaoVoltar">
+				<a href="pessoas.php?page=0"> <input type="button" value="Voltar"/> </a>
+			</div>
         </form>
     </div>
 </div>

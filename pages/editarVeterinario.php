@@ -90,9 +90,15 @@ $selected_id = intval($_GET['id']);
 				<input name="contato" type="text" value="<?php echo $_SESSION['contato']; ?>" required>
 				<?php echo "<span class='errortext'>$contatoErro</span>"; ?>
             </fieldset>
-            <input type="submit" name="editar" value="Salvar" />
-			<input type="submit" name="excluir" value="Excluir" />
-			<a href="veterinarios.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			<div class="alinha-botaoUm">  
+				<a href="veterinarios.php?page=0"> <input type="button" value="Voltar"/> </a>   
+			</div>
+			<div class="alinha-botaoDois"> 
+				<input type="submit" name="editar" value="Salvar" />
+			</div>
+			<div class="alinha-botaoTres"> 
+				<input type="submit" name="excluir" value="Excluir" />
+			</div>
         </form>
     </div>
 </div>

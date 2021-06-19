@@ -37,7 +37,7 @@ else
 
 <div class="container">
     <h3 class="centraliza-titulo">Veterinários</h3>
-    <h6 class="centraliza-intro">Visualize os veterinários do canil, cadastre mais ou edite-os!</h6>
+    <h6 class="centraliza-intro">Visualize os veterinários presentes no canil, cadastre mais ou edite os já existentes!</h6>
     <br><br> 
     <div class="container">
             <div class="row">

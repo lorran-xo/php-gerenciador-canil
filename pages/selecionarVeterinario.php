@@ -38,8 +38,8 @@ else
 ?>
 
 <div class="container">
-    <h3 class="centraliza-titulo">Selecione o veterinário que realizou o procedimento</h3>
-    <h6 class="centraliza-intro">Visualize a lista de veterinários e selecione qual realizou</h6>
+    <h3 class="centraliza-titulo">Selecione o veterinário</h3>
+    <h6 class="centraliza-intro">Visualize a lista de veterinários presentes no Canil e selecione qual realizou o procedimento atual</h6>
     <br><br> 
     <div class="container">
             <div class="row">
