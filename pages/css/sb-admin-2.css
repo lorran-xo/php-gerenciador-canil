@@ -249,8 +249,20 @@ a {
   /*margin-left: 50% !important; toDo */ 
 }
 
+.smaller-title {
+  color: grey;
+  font-size: 17px;
+}
+
 .title {
   color: grey;
+  font-size: 25px;
+}
+
+.card-description {
+  color: grey;
+  margin: 2%;
+  font-size: 15px;
 }
 
 .button {

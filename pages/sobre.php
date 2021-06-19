@@ -12,13 +12,13 @@
             <img src="img/langs-logo.png" class="left-card-image" lt="Languages Logo" style="width:100%">
             <div>
             <br><h2 class="title">Gerenciador de Canil</h2><br>
-              <h4 class="title">Tecnologias</h4>
-              <p class="title">Front-End: HTML, CSS, JavaScript e Bootstrap</p>
-              <p class="title">Back-End: PHP</p>
-              <p class="title">Banco de Dados: MySQL (PHPMyAdmin)</p>
-              <p class="title">Repositório: <a href="https://github.com/lorran-xo/php-gerenciador-canil" target="_blank">lorran-xo/php-gerenciador-canil</a></p> 
-              <p class="title"> <a href="https://www.linkedin.com/in/lorran-oliveira-38194b117" target="_blank"><button class="button">Contato</button></a></p>
-            </div>
+              <h4 class="card-description"><b>Tecnologias</b></h4><br/>
+              <p class="card-description">Front-End: HTML, CSS, JavaScript e Bootstrap</p>
+              <p class="card-description">Back-End: PHP</p>
+              <p class="card-description">Banco de Dados: MySQL (PHPMyAdmin)</p>
+              <p class="card-description">Repositório: <a href="https://github.com/lorran-xo/php-gerenciador-canil" target="_blank">lorran-xo/php-gerenciador-canil</a></p> 
+            </div></br>
+            <p> <a href="https://www.linkedin.com/in/lorran-oliveira-38194b117" target="_blank"><button class="button">Contato</button></a></p>
           </div>
         </div>
     </div>
