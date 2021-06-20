@@ -32,7 +32,6 @@ $selected_person_id = intval($_GET['pessoa']);
 			<hr class="sidebar-divider my-0"><br/>
          <p>Tem certeza que deseja registrar essa adoção? </p> <br/>
         </div>
-        <!--<h2 style="text-align:center">Our Team</h2> -->
         <div class="row">
         <div class="column cards-position-langs">
           <div>

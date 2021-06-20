@@ -8,7 +8,6 @@
             alimentos, <br/>trabalhos voluntários no canil ou até mesmo adotando um dos animais!
         </p>
         </div>
-        <!--<h2 style="text-align:center">Our Team</h2> -->
         <div class="row">
         <div class="column dois-cards-position">
           <div class="card">

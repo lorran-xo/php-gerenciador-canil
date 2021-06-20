@@ -3,9 +3,7 @@
 <div class="container about-section">
       <div>
         <h1>Sobre o sistema</h1>
-        <!-- <p>O desenvolvimento desse sistema foi feito utilizando as seguintes tecnologias:</p> -->
         </div>
-        <!--<h2 style="text-align:center">Our Team</h2> -->
         <div class="row">
         <div class="column cards-position-langs">
           <div class="card">
